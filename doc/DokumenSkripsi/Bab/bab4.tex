@@ -125,6 +125,10 @@ Contohnya, permintaan \textit{Transportation List} yang meminta status dari angk
 
 Dari kembalian di atas, mesin navigasi KIRI dapat mengetahui kapan rute di Peta Angkutan Umum terakhir diperbaharui, untuk trayek-trayek yang diminta. Untuk setiap rute yang telah berubah, KIRI mengirimkan lagi perintah berikutnya, yaitu \textit{Transportation Detail}, yang memberikan rute penuh untuk trayek yang diminta. Sebagai contoh, jika rute dengan kode 1 ditemukan telah berubah, maka akan dikirimkan perintah \textit{Transportation Detail} \texttt{GET /route/transportation/1.json}. Dari situ, rute lengkap akan disimpan pada berkas \texttt{tracks.conf}.
 
+\section{Perancangan Basis Data}
+
+TODO jelaskan mengenai format isi kolom internalInfo.
+
 \section{Perancangan Antarmuka}
 
 \subsection{Antarmuka Mesin Navigasi KIRI}

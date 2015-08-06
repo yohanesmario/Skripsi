@@ -1,0 +1,21 @@
+\chapter{Kesimpulan dan Saran}
+
+\section{Kesimpulan}
+
+Dari penelitian yang telah dilakukan, didapatkanlah kesimpulan-kesimpulan sebagai berikut:
+
+\begin{enumerate}
+	\item Telah berhasil diimplementasikan pengunduhan data otomatis oleh KIRI terhadap Peta Angkutan Umum secara berkala, setiap hari pukul 0.30. Pengunduhan data dilakukan dengan menggunakan \textit{HTTP Request} dan format data \textit{JSON} dan \textit{GeoJSON}.
+	\item Telah berhasil diimplementasikan pemisahan data antara rute milik KIRI dengan data yang ditarik dari Peta Angkutan Umum. Dalam basis data KIRI, hal ini dicatat dalam kolom ``internalInfo'' dengan format ``angkotwebid:\textit{id-angkutan-umum}:\textit{waktu-terakhir-berubah}''.
+	\item Protokol yang digunakan telah berhasil dioptimasi, dengan mencatat waktu terakhir sebuah rute diunduh. Dengan begitu, hanya rute yang berubah sejak pengunduhan terakhir saja yang diunduh kembali.
+	\item Pengguna KIRI cukup puas dengan kualitas navigasi dari KIRI (mayoritas menjawab baik), dengan tingkat kepuasan rute kendaraan lebih tinggi dibanding rute berjalan. Pengguna KIRI masih belum berpartisipasi aktif dalam perbaikan rute.
+\end{enumerate}
+
+\section{Saran}
+
+Dari hasil penelitian termasuk kesimpulan yang didapat, berikut adalah beberapa saran untuk pengembangan:
+
+\begin{enumerate}
+	\item Pada penelitian ini pengguna kurang berpartisipasi dalam perbaikan rute, sehingga sulit untuk menarik kesimpulan dari fitur sinkronisasi. Untuk pengembangan, disarankan untuk mengulang penelitian di kota yang lebih cocok: rute yang belum akurat, namun penduduknya memiliki semangat untuk berkontribusi.
+	\item TODO masak cuma satu?
+\end{enumerate}
