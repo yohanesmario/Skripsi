@@ -25,14 +25,12 @@ Ditetapkan penggunaan metode \textit{polling} selama 24 jam sekali, dan dipilih 
 
 Penyimpanan data diusahakan untuk meminimalisir perubahan serta menjaga kompatibilitas dengan versi sebelumnya. Seperti yang telah dibahas pada bab 2, mesin navigasi KIRI menggunakan berkas \texttt{tracks.conf} sebagai jembatan dari basis data menuju mesin navigasi. Berkas inilah yang akan dikonstruksi menjadi graf oleh kelas \texttt{Worker}. Peneliti memutuskan untuk tidak mengubah format dari berkas ini, melainkan melakukan modifikasi pada basis data.
 
-Pada basis data, tetap diusahakan untuk meminimalisir perubahan. Dari struktur tabel \texttt{tracks} yang digunakan, diidentifikasi bahwa kolom `internalInfo` tidak digunakan dalam perhitungan (tidak berpengaruh pada konstruksi graf). Oleh sebab itu, kolom ini menjadi kandidat untuk disisipkan informasi terkait dengan penarikan data dari Peta Angkutan Umum. Adapun informasi yang harus disimpan adalah:
+Pada basis data, tetap diusahakan untuk meminimalisir perubahan. Dari struktur tabel \texttt{tracks} yang digunakan, diidentifikasi bahwa kolom \texttt{internalInfo} tidak digunakan dalam perhitungan (tidak berpengaruh pada konstruksi graf). Oleh sebab itu, kolom ini menjadi kandidat untuk disisipkan informasi terkait dengan penarikan data dari Peta Angkutan Umum. Adapun informasi yang harus disimpan adalah:
 
 \begin{itemize}
 	\item Penanda bahwa rute ini ditarik dari Peta Angkutan Umum
 	\item Kode yang mengacu pada basis data Peta Angkutan Umum, dalam hal ini \texttt{id}.
 \end{itemize}
-
-%Peneliti memutuskan untuk menyimpan kedua informasi tersebut dalam kolom \texttt{internalInfo}, dengan format "angkotwebid:\textit{id}". Dengan cara ini, trayek yang memiliki \texttt{internalInfo} diawali dengan "angkotwebid:" akan diproses lebih lanjut dengan menarik data dari Peta Angkutan Umum. Penarikan data dilakukan dengan mendapatkan \textit{id} yang berada setelah simbol ":", dan menariknya di Peta Angkutan Umum dengan perintah \textit{Transportation Detail}. Sebagai contoh, jika ditemukan data dengan \texttt{internalInfo} bernilai "angkotwebid:1", akan ditarik data rute dari alamat \url{https://angkot.web.id}. Rute yang didapat tersebut kemudian akan dimasukkan ke dalam basis data pada kolom \texttt{geodata}.
 
 \subsection{Analisis Aplikasi}
 

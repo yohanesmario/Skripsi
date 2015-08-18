@@ -127,7 +127,29 @@ Dari kembalian di atas, mesin navigasi KIRI dapat mengetahui kapan rute di Peta 
 
 \section{Perancangan Basis Data}
 
-TODO jelaskan mengenai format isi kolom internalInfo.
+Pada bab 3, telah disimpulkan bahwa dalam kolom \texttt{internalInfo} pada basis data perlu menampung informasi-informasi sebagai berikut:
+
+\begin{itemize}
+	\item Penanda bahwa rute ini ditarik dari Peta Angkutan Umum
+	\item Kode yang mengacu pada basis data Peta Angkutan Umum, dalam hal ini \texttt{id}.
+	\item Waktu terakhir rute ini berubah pada Peta Angkutan Umum
+\end{itemize}
+
+Untuk itu, ditetapkan bahwa sebuah rute angkot yang terintegrasi dengan data pada Peta Angkutan Umum akan memiliki kolom \texttt{internalInfo} yang berisi:
+
+\begin{center}
+angkotwebid:\textit{id}:\textit{updated}
+\end{center} 
+
+Dengan kata lain, teks yang berisi tiga \textit{token} terpisah tanda titik dua (``\texttt{"}'') yang terdiri dari:
+
+\begin{itemize}
+	\item Teks ``angkotwebid'' sebagai penanda bahwa rute ini ditarik dari Peta Angkutan Umum
+	\item \textit{id} berupa informasi \textit{id} transportasi yang didapat dari Peta Angkutan Umum.
+	\item \textit{updated} berupa informasi waktu terakhir rute ini diperbaharui, seperti didapat dari informasi \textit{updated} dari Peta Angkutan Umum.
+\end{itemize}
+
+Dengan spesifikasi tersebut, mesin navigasi KIRI dapat menentukan apakah perlu menarik data dari Peta Angkutan Umum.
 
 \section{Perancangan Antarmuka}
 
