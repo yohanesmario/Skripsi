@@ -15,7 +15,7 @@ Dari kedua metode tersebut, metode \textit{polling} dipilih dengan alasan-alasan
 
 \begin{itemize}
 	\item \textbf{Lebih sedikit perubahan} Peta Angkutan Umum menggunakan protokol HTTP yang bersifat \textit{conectionless}, sehingga secara alami akan menunggu perintah dari \textit{client}, alih-alih secara aktif memberi notifikasi kepada \textit{client}. Jika menggunakan metode \textit{polling}, KIRI dapat memanfaatkan protokol \textit{Transportation Detail} yang sudah dimiliki oleh Peta Angkutan Umum.
-	\item \textbf{Mengurangi kebutuhan prosesor} Rute pada KIRI dimodelkan dalam bentuk graf, dan sebelum dapat digunakan untuk pencarian graf ini harus dikonstruksi terlebih dahulu. Akibat besarnya data yang digunakan, konstruksi ini akan memakan waktu (kurang lebih 30 detik). Dengan menggunakan metode \textit{realtime}, setiap perubahan data pada kiri.web.id akan mengakibatkan graf ini harus direkonstruksi ulang. Dengan menggunakan metode \textit{polling}, penarikan data dan rekonstruksi graf dapat diatur sedemikian sehingga dilakukan pada saat pengguna sedang tidak aktif.
+	\item \textbf{Mengurangi kebutuhan prosesor} Rute pada KIRI dimodelkan dalam bentuk graf, dan sebelum dapat digunakan untuk pencarian graf ini harus dikonstruksi terlebih dahulu. Akibat besarnya data yang digunakan, konstruksi ini akan memakan waktu (kurang lebih 30 detik). Dengan menggunakan metode \textit{realtime}, setiap perubahan data pada kiri.web.id akan mengakibatkan graf ini harus direkonstruksi ulang. Dengan menggunakan metode \textit{polling}, penarikan data dan rekonstruksi graf dapat dijadwalkan sedemikian sehingga dilakukan pada saat pengguna sedang tidak aktif.
 	\item \textbf{Urgensi Perbaikan Data} Urgensi perbaikan data tidak terlalu tinggi untuk KIRI (jika dibandingkan dengan perubahan harga saham, \textit{realtime GPS monitoring}, dll) sehingga penarikan tidak perlu dilakukan terlalu sering.
 \end{itemize}
 
@@ -28,7 +28,7 @@ Penyimpanan data diusahakan untuk meminimalisir perubahan serta menjaga kompatib
 Pada basis data, tetap diusahakan untuk meminimalisir perubahan. Dari struktur tabel \texttt{tracks} yang digunakan, diidentifikasi bahwa kolom \texttt{internalInfo} tidak digunakan dalam perhitungan (tidak berpengaruh pada konstruksi graf). Oleh sebab itu, kolom ini menjadi kandidat untuk disisipkan informasi terkait dengan penarikan data dari Peta Angkutan Umum. Adapun informasi yang harus disimpan adalah:
 
 \begin{itemize}
-	\item Penanda bahwa rute ini ditarik dari Peta Angkutan Umum
+	\item Penanda bahwa rute ini ditarik dari Peta Angkutan Umum.
 	\item Kode yang mengacu pada basis data Peta Angkutan Umum, dalam hal ini \texttt{id}.
 \end{itemize}
 

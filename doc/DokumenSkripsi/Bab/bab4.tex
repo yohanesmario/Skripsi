@@ -21,7 +21,7 @@ Seperti telah dibahas pada bab analisis, ada beberapa penambahan kelas pada mesi
 		\end{itemize}
 		\textbf{Kembalian:} rute dalam \textit{array} \textit{latitude} dan \textit{longitude}
 	\item \textbf{private static double computeDistance(LngLatAlt p1, LngLatAlt p2)} \\
-		\textit{Method} bantuan untuk menghitung jarak dari dua buah titik dalam format \textit{latitude} dan \textit{longitude}. Perhitungannya menggunakan metode \textit{haversine}\footnote{http://www.movable-type.co.uk/scripts/latlong.html}.
+		\textit{Method} bantuan untuk menghitung jarak dari dua buah titik dalam format \textit{latitude} dan \textit{longitude}. Perhitungannya menggunakan metode \textit{haversine}\footnote{http://www.movable-type.co.uk/scripts/latlong.html}. \\
 		\textbf{Parameter:}
 		\begin{itemize}
 			\item \textbf{p1} titik pertama
@@ -141,10 +141,10 @@ Untuk itu, ditetapkan bahwa sebuah rute angkot yang terintegrasi dengan data pad
 angkotwebid:\textit{id}:\textit{updated}
 \end{center} 
 
-Dengan kata lain, teks yang berisi tiga \textit{token} terpisah tanda titik dua (``\texttt{"}'') yang terdiri dari:
+Dengan kata lain, teks yang berisi tiga \textit{token} terpisah tanda titik dua (``\texttt{:}'') yang terdiri dari:
 
 \begin{itemize}
-	\item Teks ``angkotwebid'' sebagai penanda bahwa rute ini ditarik dari Peta Angkutan Umum
+	\item \textit{String} ``angkotwebid'' sebagai penanda bahwa rute ini ditarik dari Peta Angkutan Umum
 	\item \textit{id} berupa informasi \textit{id} transportasi yang didapat dari Peta Angkutan Umum.
 	\item \textit{updated} berupa informasi waktu terakhir rute ini diperbaharui, seperti didapat dari informasi \textit{updated} dari Peta Angkutan Umum.
 \end{itemize}

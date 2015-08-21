@@ -10,8 +10,8 @@ Sebuah data JSON bisa berupa salah satu dari 5 elemen berikut:
 	\item \textbf{nilai literal}, yaitu salah satu dari ``\texttt{false}'', ``\texttt{null}'', atau ``\texttt{true}'' (tanpa tanda kutip).
 	\item \textbf{bilangan}, berupa bilangan bulat maupun desimal, dengan tanda titik (``\texttt{.}'' sebagai pemisah antara bilangan bulat dengan pecahan.
 	\item \textbf{\textit{string}}, deretan karakter yang diapit dengan tanda kutip ganda (``\verb/"/''). Di dalamnya bisa terdapat karakter karakter khusus seperti \textit{line feed} (``\verb/\n/''), tanda kutip ganda secara literal (``\verb/\"/''), atau garis miring terbalik secara literal (``\verb/\\/'').
-	\item \textbf{larik}, nol atau lebih data JSON, yang dipisahkan koma (``\verb/,/'') dan diapit dengan kurung siku (``\verb/[/'' dan ``\verb/]/''). Data dalam \textit{array} tidak harus berjenis sama.
-	\item \textbf{objek}, nol atau lebih pasangan nama/nilai, yaitu \textit{string} teks dan data JSON yang dipisahkan dengan tanda titik dua (``\verb/:/''). Untuk memisahkan pasangan satu dengan lainnya, digunakan tanda koma (``\verb/,/'').
+	\item \textbf{larik} (\textit{array}), nol atau lebih data JSON, yang dipisahkan koma (``\verb/,/'') dan diapit dengan kurung siku (``\verb/[/'' dan ``\verb/]/''). Data dalam larik tidak harus berjenis sama.
+	\item \textbf{objek}, nol atau lebih anggota berupa pasangan nama dan nilai, yaitu \textit{string} teks dan data JSON yang dipisahkan dengan tanda titik dua (``\verb/:/''). Untuk memisahkan pasangan satu dengan lainnya, digunakan tanda koma (``\verb/,/'').
 \end{enumerate}
 
 Data JSON dapat mengandung karakter-karakter \textit{whitespace} berupa spasi, \textit{tab}, maupun \textit{linefeed} dan akan diabaikan (kecuali di dalam \textit{string}).
@@ -190,17 +190,17 @@ Karena alasan historis\footnote{Pada awalnya mesin navigasi KIRI dibangun menggu
 Berkas \texttt{tracks.conf} ini merupakan sebuah berkas teks yang menyimpan basis data trayek yang telah dibersihkan untuk dapat dibaca dengan mudah, satu \textit{record} per baris. Setiap baris berisi 6 \textit{field} yang dipisahkan dengan \textit{tab} (\textit{Unicode} U+0009\cite{unicode8}). Berikut adalah penjelasan dari keenam \textit{field} tersebut:
 
 \begin{enumerate}
-	\item \textbf{trackTypeId.trackId} Berisi \texttt{trackTypeId} dan \texttt{trackId} dipisahkan dengan titik.
-	\item \textbf{penalty} Berisi nilai \texttt{penalty}.
+	\item \textbf{trackTypeId.trackId} Berisi kolom \textit{trackTypeId} dan \textit{trackId} dipisahkan dengan titik.
+	\item \textbf{penalty} Berisi nilai kolom \textit{penalty}.
 	\item \textbf{numberOfNodes} Berisi jumlah \textit{node} (titik) dari rute trayek ini.
 	\item \textbf{nodes} Berisi daftar koordinat \textit{node} dari rute trayek ini dipisahkan dengan \textit{tab}. Setiap koordinat node terdiri dari \textit{latitude} dan \textit{longitude} yang dipisahkan dengan spasi.
-	\item \textbf{pathLoop} Berisi nilai \texttt{pathloop} yang menunjukkan apakah rute ini merupakan rute pulang pergi atau searah.
-	\item \textbf{transferNodes} Berisi nilai \texttt{transferNodes} yang menunjukkan titik-titik di mana penumpang diperbolehkan untuk naik / turun.
+	\item \textbf{pathLoop} Berisi nilai kolom \textit{pathloop} yang menunjukkan apakah rute ini merupakan rute pulang pergi atau searah.
+	\item \textbf{transferNodes} Berisi nilai kolom \textit{transferNodes} yang menunjukkan titik-titik di mana penumpang diperbolehkan untuk naik atau turun.
 \end{enumerate}
 
 \subsection{Mesin Navigasi KIRI}
 
-Mesin navigasi KIRI merupakan sebuah program yang mendengarkan dan menjawab permintaan navigasi dalam bentuk \textit{HTTP request} di \textit{port} 8000. Program ini dibangun di atas bahasa Java, yang terdiri dari beberapa kelas yang ditunjukkan pada gambar \ref{fig:2_diagram_kelas_sistem_kini}.
+Mesin navigasi KIRI merupakan sebuah program yang mendengarkan dan menjawab permintaan navigasi dalam bentuk \textit{HTTP request} \cite{rfc7231} di \textit{port} 8000. Program ini dibangun di atas bahasa Java, yang terdiri dari beberapa kelas yang ditunjukkan pada gambar \ref{fig:2_diagram_kelas_sistem_kini}.
 
 \begin{figure}
 	\centering
