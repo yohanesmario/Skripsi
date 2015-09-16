@@ -80,7 +80,16 @@ Detail seluruh kelas yang ditambahkan dapat dilihat pada kelas diagram pada gamb
 
 \section{Perancangan Protokol}
 
-Protokol untuk melakukan sinkronisasi dibuat di atas protokol \textit{Transportation List} dan \textit{Transportation Detail} milik situs Peta Angkutan Umum. Di awal sinkronisasi, mesin navigasi KIRI mencatat trayek apa saja yang harus disinkronkan dengan Peta Angkutan Umum. Kemudian, mesin navigasi KIRI akan mengirimkan permintaan \textit{Transportartion List} dengan menyertakan parameter id/kode angkot Peta Angkutan Umum, yang dipisahkan dengan \textit{pipe} ("|"). Tambahan parameter ini merupakan hasil dari optimasi protokol yang sudah ada, sehingga jawaban yang dikirimkan hanya mencakup angkot yang diperlukan oleh KIRI saja.
+Protokol untuk melakukan sinkronisasi dibuat di atas protokol \textit{Transportation List} dan \textit{Transportation Detail} milik situs Peta Angkutan Umum, dan digambarkan pada gambar \ref{fig:4_gambaran_umum_protokol}.
+
+\begin{figure}
+	\centering
+	\includegraphics[scale=1.0]{Gambar/4_gambaran_umum_protokol}
+	\caption{Gambaran Umum Protokol} 
+	\label{fig:4_gambaran_umum_protokol}
+\end{figure}
+
+ Di awal sinkronisasi, mesin navigasi KIRI mencatat trayek apa saja yang harus disinkronkan dengan Peta Angkutan Umum. Kemudian, mesin navigasi KIRI akan mengirimkan permintaan \textit{Transportartion List} dengan menyertakan parameter id/kode angkot Peta Angkutan Umum, yang dipisahkan dengan \textit{pipe} ("|"). Tambahan parameter ini merupakan hasil dari optimasi protokol yang sudah ada, sehingga jawaban yang dikirimkan hanya mencakup angkot yang diperlukan oleh KIRI saja.
 
 Contohnya, permintaan \textit{Transportation List} yang meminta status dari angkot dengan kode 1 dan 2 saja menggunakan perintah \texttt{GET /route/transportation-list.json?id=1|2}. Hasil dari permintaan tersebut akan menghasilkan kembalian kurang lebih seperti berikut:
 
