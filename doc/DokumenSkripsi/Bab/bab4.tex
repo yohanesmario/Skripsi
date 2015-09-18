@@ -9,23 +9,23 @@ Seperti telah dibahas pada bab analisis, ada beberapa penambahan kelas pada mesi
 		Berfungsi untuk memeriksa seluruh trayek di basis data. Untuk trayek yang memenuhi syarat (terintegrasi dengan Peta Angkutan Umum dan terdapat data yang lebih baru di Peta Angkutan Umum), melakukan penarikan. \\
 		\textbf{Parameter:}
 		\begin{itemize}
-			\item \textbf{sqlPropertiesFile} menunjukkan berkas yang menyimpan konfigurasi dari basis data yang akan digunakan.
-			\item \textbf{output} tempat di mana hasil dari penarikan akan ditulis (pada umumnya akan ditulis ke berkas tracks.conf).
+			\item \textbf{sqlPropertiesFile}: menunjukkan berkas yang menyimpan konfigurasi dari basis data yang akan digunakan.
+			\item \textbf{output}: tempat di mana hasil dari penarikan akan ditulis (pada umumnya akan ditulis ke berkas tracks.conf).
 		\end{itemize}
 		\textbf{Kembalian:} tidak ada.
 	\item \textbf{private static LngLatAlt[] lineStringToLngLatArray(String wktText)} \\
 		\textit{Method} bantuan untuk mengubah teks dari format \textit{Well-known text} \cite{Herring:2011} menjadi \textit{array} \textit{latitude} dan \textit{longitude}. Hal ini diperlukan karena MySQL mengembalikan data rute dalam format \textit{Well-known text} tersebut, sedangkan pemrosesan dalam bahasa Java lebih mudah jika datanya memiliki struktur. \\
 		\textbf{Parameter:}
 		\begin{itemize}
-			\item \textbf{wktText} Teks yang berisi data rute dalam format \textit{Well-known text}
+			\item \textbf{wktText}: Teks yang berisi data rute dalam format \textit{Well-known text}
 		\end{itemize}
 		\textbf{Kembalian:} rute dalam \textit{array} \textit{latitude} dan \textit{longitude}
 	\item \textbf{private static double computeDistance(LngLatAlt p1, LngLatAlt p2)} \\
 		\textit{Method} bantuan untuk menghitung jarak dari dua buah titik dalam format \textit{latitude} dan \textit{longitude}. Perhitungannya menggunakan metode \textit{haversine}\footnote{http://www.movable-type.co.uk/scripts/latlong.html}. \\
 		\textbf{Parameter:}
 		\begin{itemize}
-			\item \textbf{p1} titik pertama
-			\item \textbf{p2} titik kedua
+			\item \textbf{p1}: titik pertama
+			\item \textbf{p2}: titik kedua
 		\end{itemize}
 		\textbf{Kembalian:} jarak kedua titik tersebut dalam kilometer
 	\item \textbf{private RouteResult formatTrack(String trackTypeId, String trackId,
@@ -34,22 +34,22 @@ Seperti telah dibahas pada bab analisis, ada beberapa penambahan kelas pada mesi
 		Mengkonversikan sebuah data trayek dalam format yang digunakan pada berkas tracks.conf. \\
 		\textbf{Parameter:}
 		\begin{itemize}
-			\item \textbf{trackTypeId} kode tipe trayek
-			\item \textbf{trackId} kode trayek angkot
-			\item \textbf{geodata} titik kedua
-			\item \textbf{isPathLoop} titik kedua
-			\item \textbf{penalty} titik kedua
-			\item \textbf{transferNodeStr} titik kedua
-			\item \textbf{lastUpdate} titik kedua
+			\item \textbf{trackTypeId}: kode tipe trayek
+			\item \textbf{trackId}: kode trayek angkot
+			\item \textbf{geodata}: titik kedua
+			\item \textbf{isPathLoop}: titik kedua
+			\item \textbf{penalty}: titik kedua
+			\item \textbf{transferNodeStr}: titik kedua
+			\item \textbf{lastUpdate}: titik kedua
 		\end{itemize}
 		\textbf{Kembalian:} informasi rute dalam format berkas tracks.conf
 	\item \textbf{private RouteResult formatTrackFromAngkotWebId(String angkotId, String trackTypeId, String trackId)} \\
 		Mengkonversikan data dari situs Peta Angkutan Umum menjadi format yang digunakan pada berkas tracks.conf.
 		\textbf{Parameter:}
 		\begin{itemize}
-			\item \textbf{angkotId} kode angkot pada Peta Angkutan Umum
-			\item \textbf{trackTypeId} kode tipe trayek
-			\item \textbf{trackId} kode trayek angkot
+			\item \textbf{angkotId}: kode angkot pada Peta Angkutan Umum
+			\item \textbf{trackTypeId}: kode tipe trayek
+			\item \textbf{trackId}: kode trayek angkot
 		\end{itemize}
 		\textbf{Kembalian:} informasi rute dalam format berkas tracks.conf
 \end{itemize}

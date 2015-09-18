@@ -220,12 +220,12 @@ Contoh kembalian dari perintah transportation (https://angkot.web.id/route/trans
 
 \subsection{Mesin Navigasi KIRI}
 
-\subsubsection{Mekanisme Penarikan}
+\subsubsection{Mekanisme Penarikan Data}
 
-Untuk mendukung integrasi data antara Peta Angkutan Umum dan KIRI, diperlukan adanya penarikan secara berkala terhadap Peta Angkutan Umum oleh KIRI. Ada dua alternatif metode yang dipertimbangkan sebagai mekanisme penarikan data ini:
+Untuk mendukung integrasi data antara Peta Angkutan Umum dan KIRI, diperlukan adanya penarikan data rute angkot secara berkala terhadap Peta Angkutan Umum oleh KIRI. Ada dua alternatif metode yang dipertimbangkan sebagai mekanisme penarikan data ini:
 
 \begin{description}
-	\item \textbf{Metode \textit{realtime}} mendeteksi setiap perubahan yang terjadi pada data Peta Angkutan Umum, dan langsung memberi notifikasi kepada KIRI untuk mengambil ulang data yang berubah dari Peta Angkutan Umum
+	\item \textbf{Metode \textit{realtime}} mendeteksi setiap perubahan yang terjadi pada data Peta Angkutan Umum, di mana Peta Angkutan Umum langsung memberi notifikasi kepada KIRI untuk mengambil ulang data yang berubah dari Peta Angkutan Umum
 	\item \textbf{Metode \textit{polling}} di mana KIRI akan mengambil data secara berkala dari Peta Angkutan Umum, sehingga akan terdapat jeda antara perubahan data dan terbaharuinya data KIRI.
 \end{description}
 
@@ -263,9 +263,9 @@ Pada penelitian ini, mesin navigasi KIRI dimodifikasi dengan menambahkan dua kel
 
 \subsection{Peta Angkutan Umum}
 
-Pada dasarnya Peta Angkutan Umum tidak diperlukan adanya perubahan, karena KIRI dapat memanfaatkan protokol \textit{transportartion detail}. Namun, untuk keperluan optimasi, ada sedikit perubahan yang dijelaskan pada subbab berikutnya.
+Pada dasarnya Peta Angkutan Umum tidak diperlukan adanya perubahan, karena KIRI dapat memanfaatkan protokol \textit{transportartion detail}. Namun, untuk keperluan optimasi protokol komunikasi, ada sedikit perubahan yang dijelaskan pada subbab berikutnya.
 
-\subsection{Optimasi}
+\subsection{Optimasi Protokol Komunikasi}
 
 Dengan mekanisme yang sudah dijelaskan di subbab sebelumnya, data pada KIRI dapat tersinkronisasi dengan Peta Angkutan Umum. Namun, mekanisme tersebut dirasa tidak optimal. Setiap pukul 0.30, KIRI akan menarik ke-33 rute angkot yang dicatat pada Peta Angkutan Umum, terlepas dari apakah ada perubahan pada rute angkot atau tidak. Walaupun hanya menarik 33 rute dan dilakukan pada jam tidak sibuk, peneliti merasa optimasi tetap dibutuhkan sehingga solusi ini skalabel.
 
