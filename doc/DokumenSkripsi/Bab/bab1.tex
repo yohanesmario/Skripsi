@@ -2,7 +2,7 @@
 
 \section{Latar Belakang}
 
-KIRI (\url{http://kiri.travel}, gambar \ref{fig:1_kiri}) adalah sebuah situs yang dikelola oleh PT. Kirana Sistem Transportasi, yang menyediakan layanan navigasi dari satu titik ke titik lain memanfaatkan transportasi publik. Layanan ini diberikan secara gratis kepada pengunjung situs / pengguna aplikasi bergerak mereka. Untuk mendukung layanan tersebut, tim KIRI melakukan kurasi rute angkot secara mandiri di Bandung dengan mencatat perjalanan setiap trayek menggunakan peralatan GPS (\textit{Global Positioning System}). Pada perkembangannya, KIRI melakukan ekspansi ke beberapa kota lainnya termasuk Jakarta. Hanya saja, karena keterbatasan sumberdaya, data di Jakarta dimasukkan hanya berbekal data yang tersedia di internet tanpa validasi di lapangan. Di sisi lain, ada beberapa pihak yang tertarik akan layanan KIRI di Bandung dan berniat untuk mendapatkan layanan serupa di kota mereka.
+KIRI (\url{http://kiri.travel}, gambar \ref{fig:1_kiri}) adalah sebuah situs yang dikelola oleh PT. Kirana Sistem Transportasi, yang menyediakan layanan navigasi dari satu titik ke titik lain dengan memanfaatkan transportasi publik. Layanan ini diberikan secara gratis kepada pengunjung situs / pengguna aplikasi bergerak mereka. Untuk mendukung layanan tersebut, tim KIRI melakukan kurasi rute angkot secara mandiri di Bandung dengan mencatat perjalanan setiap trayek menggunakan peralatan GPS (\textit{Global Positioning System}). Pada perkembangannya, KIRI melakukan ekspansi ke beberapa kota lainnya termasuk Jakarta. Hanya saja, karena keterbatasan sumberdaya, data di Jakarta dimasukkan hanya berbekal data yang tersedia di internet tanpa validasi di lapangan. Di sisi lain, ada beberapa pihak yang tertarik akan layanan KIRI di Bandung dan berniat untuk mendapatkan layanan serupa di kota mereka.
 
 \begin{figure}
 	\centering
@@ -20,7 +20,7 @@ Situs Peta Angkutan Umum (\url{https://angkot.web.id}, gambar \ref{fig:1_angkotw
 	\label{fig:1_angkotwebid}
 \end{figure}
 
-Sebelum penelitian ini dilakukan, KIRI serta Peta Angkutan Umum merupakan dua buah situs yang terpisah dan bekerja secara independen.
+Sebagai situs navigasi, KIRI membutuhkan data yang akurat. Di sisi lain, situs Peta Angkutan Umum membuka kesempatan bagi penggunanya untuk berkontribusi memperbaiki rute yang kurang akurat. Oleh karena itu, integrasi antara kedua situs ini akan memberikan nilai tambah bagi keduanya. Di satu sisi, KIRI akan dapat menghasilkan rute yang lebih akurat. Di sisi lain, situs Peta Angkutan Umum pun akan lebih hidup karena bantuan publikasi dari KIRI.
 
 \section{Rumusan Masalah}
 
@@ -28,8 +28,8 @@ Dari latar belakang yang sudah dijelaskan, peneliti bermaksud untuk mengintegras
 
 \begin{enumerate}
 	\item Bagaimana mekanisme penarikan data oleh KIRI terhadap Peta Angkutan Umum secara otomatis?
-	\item Bagaimana memisahkan data yang dimiliki oleh KIRI sendiri dengan data yang ditarik dari Peta Angkutan Umum?
-	\item Bagaimana mengoptimasi protokol yang digunakan, sehingga kebutuhan \textit{bandwidth} dapat dihemat?
+	\item Bagaimana menyimpan data yang digunakan, terutama untuk mendukung pemisahan antara data yang dimiliki oleh KIRI sendiri dengan data yang ditarik dari Peta Angkutan Umum?
+	\item Bagaimana merancang protokol yang optimal, sehingga kebutuhan \textit{bandwidth} dapat dihemat?
 	\item Bagaimana respon pengguna KIRI terhadap fitur yang diimplementasikan?
 \end{enumerate}
 
@@ -38,10 +38,10 @@ Dari latar belakang yang sudah dijelaskan, peneliti bermaksud untuk mengintegras
 Berdasarkan rumusan masalah yang sudah dijabarkan, maka didefinisikan tujuan-tujuan berikut:
 
 \begin{enumerate}
-	\item Mengimplementasikan mekanisme penarikan data otomatis oleh KIRI terhadap Peta Angkutan Umum.
-	\item Mengimplementasikan pemisahan data antara rute milik KIRI dengan data yang ditarik dari Peta Angkutan Umum.
-	\item Mengoptimasi protokol yang digunakan, sehingga kebutuhan \textit{bandwidth} dapat dihemat.
-	\item Mempelajari respon pengguna KIRI terhadap fitur yang diimplementasikan.
+	\item Merancang dan mengimplementasikan mekanisme penarikan data otomatis oleh KIRI terhadap Peta Angkutan Umum.
+	\item Merancang dan mengimplementasikan penyimpanan data, sehingga mendukung pemisahan data antara rute milik KIRI dengan data yang ditarik dari Peta Angkutan Umum.
+	\item Merancang dan Mengoptimasi protokol komunikasi yang digunakan, sehingga kebutuhan \textit{bandwidth} dapat dihemat.
+	\item Mempelajari respon pengguna publik  KIRI terhadap fitur yang diimplementasikan.
 \end{enumerate}
 
 \section{Batasan Masalah}
@@ -62,7 +62,7 @@ Dalam penelitian ini, akan dilakukan langkah-langkah berikut:
 	\item Melakukan analisis untuk menemukan hal yang dapat dilakukan untuk mengintegrasikan data kedua situs tersebut.
 	\item Melakukan perancangan untuk implementasi integrasi kedua sistem tersebut.
 	\item Melakukan implementasi dari rancangan yang sudah dilakukan.
-	\item Melakukan publikasi terhadap pengguna KIRI sehingga mereka dapat menguji hasil implementasi tersebut.
+	\item Melakukan publikasi terhadap pengguna publik KIRI sehingga pengguna dapat menguji hasil implementasi tersebut.
 	\item Menganalisa dan menarik kesimpulan atas hasil penelitian yang telah dilaksanakan.
 \end{enumerate}
 
@@ -72,9 +72,9 @@ Berikut adalah sistematika penulisan dari dokumen ini:
 
 \begin{itemize}
 	\item Bab 1 membahas latar belakang, rumusan masalah, tujuan penulisan, batasan-batasan, serta metode yang digunakan pada penelitian ini.
-	\item Bab 2 membahas teori-teori yang digunakan dalam penelitian ini.
-	\item Bab 3 membahas analisis yang dilakukan terhadap teori yang telah dijabarkan pada bab 2.
-	\item Bab 4 membahas perancangan yang dilakukan sebelum mengimplementasikan integrasi yang dimaksud.
+	\item Bab 2 membahas teori-teori yang digunakan dalam penelitian ini, yaitu JSON dan GeoJSON.
+	\item Bab 3 menganalisis sistem kini, beserta perubahan-perubahan yang harus dilakukan, mencakup mesin navigasi KIRI, protokol komunikasi, dan optimasi.
+	\item Bab 4 membahas perancangan yang dilakukan sebelum mengimplementasikan integrasi yang dimaksud, mencakup mesin navigasi KIRI, protokol, basisdata, beserta antarmukanya.
 	\item Bab 5 membahas implementasi serta pengujian dari integrasi yang telah dilakukan.
 	\item Bab 6 membahas kesimpulan dari keseluruhan penelitian ini, serta saran-saran yang dapat diberikan untuk penelitian berikutnya.
 \end{itemize}
