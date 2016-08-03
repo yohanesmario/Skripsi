@@ -1,43 +1,58 @@
 \chapter{Pendahuluan}
+\label{chap:pendahuluan}
 
 
 
 \section{Latar Belakang}
+\label{sec:latar_belakang}
 
-Internet adalah salah satu hal yang sulit dipisahkan dari keseharian manusia masa kini. Salah satu cara seseorang dapat mengakses internet adalah dengan menggunakan teknologi Wi-Fi. Wi-Fi mengharuskan pengguna terhubung pada suatu \textit{access-point}. \textit{Access-point} tersebut dapat memiliki dua status, yaitu terproteksi atau tidak terproteksi. Proteksi pada \textit{access-point} dapat dilakukan dengan beberapa cara, yaitu menggunakan password per \textit{access-point} (WPA atau WPA2), atau menggunakan username dan password untuk tiap pengguna. Alat yang sudah pernah terhubung dengan \textit{access-point} yang diproteksi dengan password per \textit{access-point} akan dengan mudah terhubung kembali dengan \textit{access-point} tersebut karena alat tersebut biasanya sudah menyimpan password untuk \textit{access-point} yang bersangkutan. Alat yang akan terhubung dengan \textit{access-point} yang diproteksi menggunakan username dan password per pengguna belum memiliki cara untuk mengingat username dan password tersebut sehingga login otomatis belum dapat dilakukan untuk \textit{access-point} jenis ini.
+Internet adalah salah satu hal yang sulit dipisahkan dari keseharian manusia masa kini. Salah satu cara seseorang dapat mengakses internet adalah dengan menggunakan teknologi Wi-Fi. Wi-Fi mengharuskan pengguna terhubung pada suatu \textit{access-point}. \textit{Access-point} tersebut dapat memiliki dua status, yaitu terproteksi atau tidak terproteksi. Proteksi pada \textit{access-point} dapat dilakukan dengan beberapa cara, yaitu menggunakan protokol IEEE 802.11, atau menggunakan \textit{captive portal}. Alat yang sudah pernah terhubung dengan \textit{access-point} yang diproteksi dengan protokol IEEE 802.11 akan dengan mudah terhubung kembali dengan \textit{access-point} tersebut karena alat tersebut biasanya sudah menyimpan password untuk \textit{access-point} yang bersangkutan. Alat yang akan terhubung dengan \textit{access-point} yang diproteksi menggunakan \textit{captive portal} belum memiliki cara untuk mengingat username dan password untuk \textit{captive portal} tersebut sehingga login otomatis belum dapat dilakukan untuk \textit{access-point} jenis ini.
 
-Oleh karena itu, dibutuhkan mekanisme yang bisa membantu proses login untuk proteksi \textit{access-point} tipe ini. Terdapat dua cara untuk menciptakan mekanisme ini, yaitu dengan mengintegrasikannya dengan sistem operasi, atau menggunakan perangkat lunak pihak ketiga. Untuk dapat melakukan pengintegrasian mekanisme tersebut dengan sistem operasi, dibutuhkan akses kepada kode sumber sistem aplikasi tersebut. Oleh karena itu, pilihan yang lebih bijak sebagai seseorang yang tidak memiliki akses tersebut adalah dengan menciptakan perangkat lunak pihak ketiga.
+Berdasarkan pengamatan peneliti, \textit{captive portal} banyak digunakan untuk proteksi \textit{access point} pada tempat-tempat umum seperti lingkungan universitas, \textit{starbucks}, \textit{Mc Donald's}, dan beberapa tempat yang dapat diakses melalui \textit{@wifi.id}, \textit{free@wifi.id} dan \textit{access point} sejenis. Oleh karena itu, dibutuhkan mekanisme yang bisa membantu proses login untuk \textit{access-point} tipe ini. Terdapat dua cara untuk menciptakan mekanisme ini, yaitu dengan mengintegrasikannya dengan sistem operasi, atau menggunakan perangkat lunak pihak ketiga. Untuk dapat melakukan pengintegrasian mekanisme tersebut dengan sistem operasi, dibutuhkan akses kepada kode sumber sistem aplikasi tersebut. Oleh karena itu, pilihan yang lebih bijak sebagai seseorang yang tidak memiliki akses tersebut adalah dengan menciptakan perangkat lunak pihak ketiga.
 
 
 
 \section{Rumusan Masalah}
+\label{sec:rumusan_masalah}
+
+Rumusan masalah yang akan dibahas pada penelitian ini adalah sebagai berikut:
 
 \begin{itemize}
-	\item{Bagaimana caranya melakukan implementasi login otomatis pada proteksi Wi-Fi berbasis web yang memiliki tingkat kenyamanan yang setara dengan login otomatis pada proteksi Wi-Fi berbasis WPA atau WPA2?}
+	\item{Bagaimana caranya melakukan implementasi login otomatis pada \textit{captive portal} yang memiliki tingkat kenyamanan yang setara dengan login otomatis pada proteksi Wi-Fi berbasis protokol IEEE 802.11?}
 	\item{Apa saja yang perlu dilakukan untuk mengamankan username dan password yang disimpan oleh user?}
-	\item{Hal-hal non-teknis apa sajakah yang perlu dilakukan untuk meningkatkan kesadaran user akan keamanan dalam menggunakan perangkat lunak ini?}
+	\item{Informasi apa saja yang dibutuhkan untuk menciptakan identitas unik untuk setiap \textit{captive portal} pada jaringan yang berbeda?}
 \end{itemize}
 
 
 
 \section{Tujuan Penelitian}
+\label{sec:tujuan_penelitian}
 
-Tujuan penelitian ini adalah untuk merancang dan membangun perangkat lunak yang dapat digunakan untuk melakukan login otomatis pada Wi-Fi yang memiliki proteksi berbasis web. Selain itu, perangkat lunak tersebut juga harus memiliki keamanan yang memadai karena akan menyimpan informasi rahasia, yaitu username dan password pengguna.
+Tujuan penelitian ini adalah sebagai berikut:
+
+\begin{itemize}
+	\item{Melakukan implementasi login otomatis pada \textit{captive portal} yang memiliki tingkat kenyamanan yang setara dengan login otomatis pada proteksi Wi-Fi berbasis protokol IEEE 802.11.}
+	\item{Memastikan username dan password pengguna disimpan secara aman?}
+	\item{Menentukan informasi yang dibutuhkan untuk menciptakan identitas unik untuk setiap \textit{captive portal} pada jaringan yang berbeda?}
+\end{itemize}
 
 
 
 \section{Batasan Masalah}
+\label{sec:batasan_masalah}
 
 Batasan masalah dari penelitian ini adalah sebagai berikut:
 
 \begin{itemize}
-	\item{Perangkat lunak dibangun untuk sistem operasi Windows 10 menggunakan bahasa pemrograman C\#.}
-	\item{Elemen keamanan informasi yang akan diimplementasikan pada perangkat lunak ini adalah enkripsi username dan password serta verifikasi sertifikat SSL (jika menggunakan HTTPS)}
+	\item{Perangkat lunak dibangun untuk sistem operasi Windows 8 sampai dengan Windows 10.}
+    \item{Perangkat lunak dibangun menggunakan bahasa pemrograman C\#.}
+	\item{Elemen keamanan informasi yang akan diimplementasikan pada perangkat lunak ini adalah enkripsi username dan password yang disimpan oleh user.}
 \end{itemize}
 
 
 
 \section{Metodologi Penelitian}
+\label{sec:metodologi_penelitian}
 
 Metodologi penelitian yang akan dilakukan adalah sebagai berikut:
 
@@ -47,6 +62,7 @@ Metodologi penelitian yang akan dilakukan adalah sebagai berikut:
         \subitem{Penggunaan kelas WebBrowser pada C\#.}
         \subitem{Penggunaan objek PasswordVault pada C\#.}
         \subitem{Sistem login Wi-Fi berbasis web pada \textit{access-point} dari berbagai merek.}
+    \item{Melakukan analisis perangkat lunak sejenis.}
     \item{Melakukan analisis kebutuhan untuk mengimplementasikan mekanisme login otomatis ini.}
     \item{Merancang perangkat lunak login otomatis ini.}
     \item{Melakukan implementasi hasil rancangan dengan bahasa pemrograman C\# pada sistem operasi Windows 10.}
@@ -56,6 +72,7 @@ Metodologi penelitian yang akan dilakukan adalah sebagai berikut:
 
 
 \section{Sistematika Pembahasan}
+\label{sec:sistematika_pembahasan}
 
 Laporan skripsi ini terdiri dari beberapa bab, yaitu:
 
