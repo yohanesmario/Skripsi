@@ -6,9 +6,9 @@
 \section{Latar Belakang}
 \label{sec:latar_belakang}
 
-Internet adalah salah satu hal yang sulit dipisahkan dari keseharian manusia masa kini. Salah satu cara seseorang dapat mengakses internet adalah dengan menggunakan teknologi Wi-Fi. Wi-Fi mengharuskan pengguna terhubung pada suatu \textit{access-point}. \textit{Access-point} tersebut dapat memiliki dua status, yaitu terproteksi atau tidak terproteksi. Proteksi pada \textit{access-point} dapat dilakukan dengan beberapa cara, yaitu menggunakan protokol IEEE 802.11, atau menggunakan \textit{captive portal}. Alat yang sudah pernah terhubung dengan \textit{access-point} yang diproteksi dengan protokol IEEE 802.11 akan dengan mudah terhubung kembali dengan \textit{access-point} tersebut karena alat tersebut biasanya sudah menyimpan password untuk \textit{access-point} yang bersangkutan. Alat yang akan terhubung dengan \textit{access-point} yang diproteksi menggunakan \textit{captive portal} belum memiliki cara untuk mengingat username dan password untuk \textit{captive portal} tersebut sehingga login otomatis belum dapat dilakukan untuk \textit{access-point} jenis ini.
+Internet adalah salah satu hal yang sulit dipisahkan dari keseharian manusia masa kini. Salah satu cara seseorang dapat mengakses internet adalah dengan menggunakan teknologi Wi-Fi. Wi-Fi mengharuskan pengguna terhubung pada suatu \textit{access-point}. \textit{Access-point} tersebut dapat memiliki dua status, yaitu terproteksi atau tidak terproteksi. Proteksi pada \textit{access-point} dapat dilakukan dengan beberapa cara, yaitu menggunakan protokol IEEE 802.11, atau menggunakan \textit{captive portal}. Alat yang sudah pernah terhubung dengan \textit{access-point} yang diproteksi dengan protokol IEEE 802.11 akan dengan mudah terhubung kembali dengan \textit{access-point} tersebut karena alat tersebut biasanya sudah menyimpan \textit{password} untuk \textit{access-point} yang bersangkutan. Alat yang akan terhubung dengan \textit{access-point} yang diproteksi menggunakan \textit{captive portal} belum memiliki cara untuk mengingat \textit{username} dan \textit{password} untuk \textit{captive portal} tersebut sehingga login otomatis belum dapat dilakukan untuk \textit{access-point} jenis ini.
 
-Berdasarkan pengamatan peneliti, \textit{captive portal} banyak digunakan untuk proteksi \textit{access point} pada tempat-tempat umum seperti lingkungan universitas, \textit{starbucks}, \textit{Mc Donald's}, dan beberapa tempat yang dapat diakses melalui \textit{@wifi.id}, \textit{free@wifi.id} dan \textit{access point} sejenis. Oleh karena itu, dibutuhkan mekanisme yang bisa membantu proses login untuk \textit{access-point} tipe ini. Terdapat dua cara untuk menciptakan mekanisme ini, yaitu dengan mengintegrasikannya dengan sistem operasi, atau menggunakan perangkat lunak pihak ketiga. Untuk dapat melakukan pengintegrasian mekanisme tersebut dengan sistem operasi, dibutuhkan akses kepada kode sumber sistem aplikasi tersebut. Oleh karena itu, pilihan yang lebih bijak sebagai seseorang yang tidak memiliki akses tersebut adalah dengan menciptakan perangkat lunak pihak ketiga.
+Berdasarkan pengamatan peneliti, \textit{captive portal} banyak digunakan untuk proteksi \textit{access point} pada tempat-tempat umum seperti lingkungan universitas, \textit{starbucks}, \textit{McDonald's}, dan beberapa tempat yang dapat diakses melalui \textit{@wifi.id}, \textit{free@wifi.id} dan \textit{access-point} sejenis. Oleh karena itu, dibutuhkan mekanisme yang bisa membantu proses login untuk \textit{access-point} tipe ini. Terdapat dua cara untuk menciptakan mekanisme ini, yaitu dengan mengintegrasikannya dengan sistem operasi, atau menggunakan perangkat lunak pihak ketiga. Untuk dapat melakukan pengintegrasian mekanisme tersebut dengan sistem operasi, dibutuhkan akses kepada kode sumber sistem aplikasi tersebut. Oleh karena itu, pilihan yang lebih bijak sebagai seseorang yang tidak memiliki akses tersebut adalah dengan menciptakan perangkat lunak pihak ketiga.
 
 
 
@@ -19,7 +19,7 @@ Rumusan masalah yang akan dibahas pada penelitian ini adalah sebagai berikut:
 
 \begin{itemize}
 	\item{Bagaimana caranya melakukan implementasi login otomatis pada \textit{captive portal} yang memiliki tingkat kenyamanan yang setara dengan login otomatis pada proteksi Wi-Fi berbasis protokol IEEE 802.11?}
-	\item{Apa saja yang perlu dilakukan untuk mengamankan username dan password yang disimpan oleh user?}
+	\item{Apa saja yang perlu dilakukan untuk mengamankan \textit{username} dan \textit{password} yang disimpan oleh user?}
 	\item{Informasi apa saja yang dibutuhkan untuk menciptakan identitas unik untuk setiap \textit{captive portal} pada jaringan yang berbeda?}
 \end{itemize}
 
@@ -32,7 +32,7 @@ Tujuan penelitian ini adalah sebagai berikut:
 
 \begin{itemize}
 	\item{Melakukan implementasi login otomatis pada \textit{captive portal} yang memiliki tingkat kenyamanan yang setara dengan login otomatis pada proteksi Wi-Fi berbasis protokol IEEE 802.11.}
-	\item{Memastikan username dan password pengguna disimpan secara aman?}
+	\item{Memastikan \textit{username} dan \textit{password} pengguna disimpan secara aman?}
 	\item{Menentukan informasi yang dibutuhkan untuk menciptakan identitas unik untuk setiap \textit{captive portal} pada jaringan yang berbeda?}
 \end{itemize}
 
@@ -46,7 +46,7 @@ Batasan masalah dari penelitian ini adalah sebagai berikut:
 \begin{itemize}
 	\item{Perangkat lunak dibangun untuk sistem operasi Windows 8 sampai dengan Windows 10.}
     \item{Perangkat lunak dibangun menggunakan bahasa pemrograman C\#.}
-	\item{Elemen keamanan informasi yang akan diimplementasikan pada perangkat lunak ini adalah enkripsi username dan password yang disimpan oleh user.}
+	\item{Elemen keamanan informasi yang akan diimplementasikan pada perangkat lunak ini adalah enkripsi \textit{username} dan \textit{password} yang disimpan oleh user.}
 \end{itemize}
 
 
