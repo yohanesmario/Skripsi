@@ -1,14 +1,85 @@
 \chapter{Dasar Teori}
 \label{chap:dasar_teori}
 
-\section{Dasar-dasar Pemrograman Menggunakan Bahasa C\#}
-\label{sec:dasar_csharp}
 
 
-Teori mengenai dasar-dasar pemrograman menggunakan bahasa C\# dibagi menjadi beberapa bagian. Bagian-bagian tersebut antara lain:
+\section{\textit{Captive Portal}}
+\label{sec:captive_portal}
+
+\textit{Captive portal} adalah \textit{router} atau \textit{gateway host} yang akan menutup koneksi eksternal sampai klien yang bersangkutan sudah terotentikasi\cite{Potter:2002}. Cara kerja \textit{captive portal} secara umum adalah sebagai berikut\cite{Potter:2002}:
+
+\begin{enumerate}
+    \item{Memberikan alamat IP melalui DHCP pada perangkat yang baru terhubung.}
+    \item{Tutup seluruh akses kecuali ke \textit{captive portal server}.}
+    \item{Arahkan seluruh \textit{request} HTTP ke \textit{captive portal}.}
+    \item{Tampilkan aturan penggunaan, informasi pembayaran, dan\/atau halaman \textit{login}.}
+    \item{Jika pengguna telah menyetujui aturan penggunaan atau telah melakukan \textit{login}, buka akses.}
+    \item{Opsional: Saat pengguna telah melewati batas waktu tertentu, tutup akses.}
+\end{enumerate}
+
+Akan tetapi, pada prakteknya, implementasi \textit{captive portal} sangat beragam dan bersifat \textit{ad-hoc}\cite{HTTPWG_CP:2016}. Beberapa perilaku \textit{captive portal} lain yang teramati adalah sebagai berikut\cite{HTTPWG_CP:2016}:
 
 \begin{itemize}
-    \item{Struktur dasar kode program.}
-    \item{Penggunaan \textit{main method} dan argumen-argumen dari \textit{console}.}
-    
+    \item{Memaksa pengguna untuk tetap membuka satu \textit{browser window}. Teknik ini membantu mencegah pencurian koneksi pengguna dengan duplikasi alamat MAC.}
+    \item{Menggunakan otorisasi yang terbatas oleh waktu. Pengguna harus berinteraksi kembali dengan portal setelah waktu tertentu.}
 \end{itemize}
+
+\subsection{Kode Status HTTP 511}
+\label{subsec:http_511}
+
+Kode status HTTP 511 menandakan bahwa klien perlu melakukan otentikasi untuk mendapatkan akses pada jaringan yang bersangkutan. Respon dengan kode status ini harus menyertakan \textit{link} ke sumber yang memungkinkan pengguna untuk memasukkan kredensial. Selain itu, respon dengan kode status ini tidak boleh diberikan oleh server tujuan. Respon ini dimaksudkan sebagai kontrol akses pada jaringan yang akan diberikan oleh komponen perantara dalam jaringan. Respon dengan kode status 511 tidak boleh disimpan oleh \textit{cache}.
+
+\subsubsection{Kode Status HTTP 511 dan \textit{Captive Portal}}
+\label{subsubsec:http_511_and_captive_portal}
+
+Kode status 511 diciptakan untuk mengurangi masalah yang ditimbulkan oleh \textit{captive portal} kepada perangkat lunak yang mengharapkan respon dari server tujuan, bukan dari komponen perantara dalam jaringan. Sebagai contoh, perangkat lunak yang bersangkutan mungkin mengirimkan \textit{request} HTTP pada port TCP 80 sebagai berikut:
+
+\begin{lstlisting}
+GET /index.htm HTTP/1.1
+Host: www.example.com
+\end{lstlisting}
+
+Saat menerima \textit{request} tersebut, server login akan mengirimkan kode status 511:
+
+\begin{lstlisting}
+HTTP/1.1 511 Network Authentication Required
+Content-Type: text/html
+
+<html>
+    <head>
+        <title>Network Authentication Required</title>
+        <meta http-equiv="refresh"
+            content="0; url=https://login.example.net/">
+    </head>
+    <body>
+        <p>You need to <a href="https://login.example.net/">
+        authenticate with the local network</a> in order to gain
+        access.</p>
+    </body>
+</html>
+\end{lstlisting}
+
+Respon ini memungkinkan klien untuk mendeteksi bahwa respon tersebut bukan berasal dari server tujuan. Selain itu, elemen meta pada HTML yang disajikan memungkinkan klien untuk melakukan login pada \textit{link} yang diberikan.
+
+
+
+\section{Pemrograman Menggunakan \textit{.NET Framework}}
+\label{sec:net_framework}
+
+
+
+\section{\textit{Universal Windows Platform} (UWP)}
+\label{sec:uwp}
+
+
+
+\section{Dokumentasi Kelas WebBrowser Pada C\#}
+\label{sec:webbrowser}
+
+
+
+\section{Dokumentasi Kelas PasswordVault Pada C\#}
+\label{sec:passwordvault}
+
+
+
