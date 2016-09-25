@@ -6,7 +6,7 @@
 \section{\textit{Captive Portal}}
 \label{sec:captive_portal}
 
-\textit{Captive portal} adalah \textit{router} atau \textit{gateway host} yang akan menutup koneksi eksternal sampai klien yang bersangkutan sudah terotentikasi\cite{Potter:2002}. Cara kerja \textit{captive portal} secara umum adalah sebagai berikut\cite{Potter:2002}:
+\textit{Captive portal} adalah \textit{router}\footnote{Berdasarkan kamus bahasa inggris oxford, \textit{router} adalah alat yang meneruskan paket data ke bagian dari jaringan yang dituju.} atau \textit{gateway}\footnote{Berdasarkan kamus bahasa inggris oxford, gateway adalah alat yang digunakan untuk menghubungkan dua jaringan yang berbeda, biasanya berupa hubungan ke internet.} yang akan menutup koneksi eksternal sampai klien yang bersangkutan sudah terotentikasi\cite{Potter:2002}. Cara kerja \textit{captive portal} secara umum adalah sebagai berikut:
 
 \begin{enumerate}
     \item{Memberikan alamat IP melalui DHCP pada perangkat yang baru terhubung.}
@@ -17,7 +17,7 @@
     \item{Opsional: Saat pengguna telah melewati batas waktu tertentu, tutup akses.}
 \end{enumerate}
 
-Akan tetapi, pada prakteknya, implementasi \textit{captive portal} sangat beragam dan bersifat \textit{ad-hoc}\cite{HTTPWG_CP:2016}. Beberapa perilaku \textit{captive portal} lain yang teramati adalah sebagai berikut\cite{HTTPWG_CP:2016}:
+Akan tetapi, pada prakteknya, implementasi \textit{captive portal} sangat beragam dan bersifat \textit{ad-hoc}\cite{HTTPWG_CP:2016}. Beberapa perilaku \textit{captive portal} lain yang teramati adalah sebagai berikut:
 
 \begin{itemize}
     \item{Memaksa pengguna untuk tetap membuka satu \textit{browser window}. Teknik ini membantu mencegah pencurian koneksi pengguna dengan duplikasi alamat MAC.}
@@ -27,19 +27,29 @@ Akan tetapi, pada prakteknya, implementasi \textit{captive portal} sangat beraga
 \subsection{Kode Status HTTP 511}
 \label{subsec:http_511}
 
-Kode status HTTP 511 menandakan bahwa klien perlu melakukan otentikasi untuk mendapatkan akses pada jaringan yang bersangkutan. Respon dengan kode status ini harus menyertakan \textit{link} ke sumber yang memungkinkan pengguna untuk memasukkan kredensial. Selain itu, respon dengan kode status ini tidak boleh diberikan oleh server tujuan. Respon ini dimaksudkan sebagai kontrol akses pada jaringan yang akan diberikan oleh komponen perantara dalam jaringan. Respon dengan kode status 511 tidak boleh disimpan oleh \textit{cache}.
+Kode status HTTP adalah bilangan bulat positif yang terdiri dari 3 digit\cite{IETF_HTTP:2016}. Kode status ini dikirimkan sebagai hasil dari usaha untuk memahami \textit{request}. Kode status HTTP bersifat \textit{extensible}. Secara garis besar, kode status HTTP dibagi menjadi 5 bagian, yaitu:
+
+\begin{itemize}
+    \item{1xx (Informatif): \textit{Request} telah diterima dan proses dapat dilanjutkan.}
+    \item{2xx (Berhasil): \textit{Request} telah diterima dan dimengerti.}
+    \item{3xx (\textit{Redirection}): Aksi selanjutnya perlu dilakukan untuk memenuhi \textit{request}.}
+    \item{4xx (Kesalahan Klien): \textit{Request} mengandung sintaks yang buruk.}
+    \item{5xx (Kesalahan \textit{Server}): \textit{Server} tidak dapat memenuhi \textit{request} yang valid.}
+\end{itemize}
+
+Kode status HTTP 511 menandakan bahwa klien perlu melakukan otentikasi untuk mendapatkan akses pada jaringan yang bersangkutan\cite{IETF_HTTP_AdditionalStatus:2016}. Respon dengan kode status ini harus menyertakan \textit{link} ke sumber yang memungkinkan pengguna untuk memasukkan kredensial. Selain itu, respon dengan kode status ini tidak boleh diberikan oleh server tujuan. Respon ini dimaksudkan sebagai kontrol akses pada jaringan yang akan diberikan oleh komponen perantara dalam jaringan. Respon dengan kode status 511 tidak boleh disimpan oleh \textit{cache}.
 
 \subsubsection{Kode Status HTTP 511 dan \textit{Captive Portal}}
 \label{subsubsec:http_511_and_captive_portal}
 
-Kode status 511 diciptakan untuk mengurangi masalah yang ditimbulkan oleh \textit{captive portal} kepada perangkat lunak yang mengharapkan respon dari server tujuan, bukan dari komponen perantara dalam jaringan. Sebagai contoh, perangkat lunak yang bersangkutan mungkin mengirimkan \textit{request} HTTP pada port TCP 80 sebagai berikut:
+Kode status 511 diciptakan untuk mengurangi masalah yang ditimbulkan oleh \textit{captive portal} kepada perangkat lunak yang mengharapkan respon dari server tujuan, bukan dari komponen perantara dalam jaringan. Sebagai contoh, perangkat lunak yang bersangkutan mengirimkan \textit{request} HTTP pada port TCP 80 sebagai berikut:
 
 \begin{lstlisting}
 GET /index.htm HTTP/1.1
 Host: www.example.com
 \end{lstlisting}
 
-Saat menerima \textit{request} tersebut, server login akan mengirimkan kode status 511:
+Saat menerima \textit{request} tersebut, server login akan mengirimkan respon dengan kode status 511:
 
 \begin{lstlisting}
 HTTP/1.1 511 Network Authentication Required
@@ -63,23 +73,66 @@ Respon ini memungkinkan klien untuk mendeteksi bahwa respon tersebut bukan beras
 
 
 
-\section{Pemrograman Menggunakan \textit{.NET Framework}}
+\section{\textit{.NET Framework}}
 \label{sec:net_framework}
 
+.NET adalah platform yang bersifat \textit{general purpose} untuk membangun aplikasi\cite{NET_PRIMER:2016}. .NET memberikan lingkungan untuk melakukan pemrograman \textit{high-level} dan tetap memberikan akses \textit{low-level} ke memori dan beberapa API. .NET memiliki beberapa implementasi berdasarkan standar \textit{open} .NET yang mendefinisikan dasar-dasar yang harus dimiliki oleh platform ini. Implementasi-implementasi ini memberikan dukungan bagi beberapa \textit{chip} (seperti x86/x64 dan ARM) dan beberapa sistem operasi (seperti Windows, Linux, iOS, Android, dan macOS).
 
+\subsection{\textit{Common Language Infrastructure} (CLI)}
+\label{subsec:cli}
 
-\section{\textit{Universal Windows Platform} (UWP)}
-\label{sec:uwp}
+.NET memberikan kebebasan kepada \textit{developer} untuk memilih bahasa yang ingin digunakan. Hal ini dapat dilakukan selama bahasa tersebut mendukung .NET. Kebebasan memilih bahasa ini dimungkinkan karena .NET menggunakan spesifikasi \textit{Common Language Inrastructure} (CLI).
 
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.2]{Gambar/CLI.png}
+    \caption[Diagram alur proses yang dilalui oleh kode program dalam CLI.]{Diagram alur proses yang dilalui oleh kode program dalam CLI.} 
+    \label{fig:cli}
+\end{figure}
 
+Komponen-komponen penting dalam CLI di antaranya adalah\cite{CLI:2016}:
 
-\section{Dokumentasi Kelas WebBrowser Pada C\#}
-\label{sec:webbrowser}
+\begin{itemize}
+    \item{\textit{Common Type System} (CTS)\\CTS memberikan \textit{type system} yang kaya dan mendukung tipe dan operasi yang ditemukan pada banyak bahasa pemrograman.}
+    \item{\textit{Metadata}\\CLI menggunakan \textit{metadata} untuk menjelaskan dan mereferensi tipe-tipe yang didefinisikan oleh CTS.}
+    \item{\textit{Common Language Spesification} (CLS)\\CLS adalah perjanjian desainer bahasa pemrograman dan desainer \textit{framework}. Perjanjian ini menentukan bagian minimal dari CTS yang harus diimplementasikan oleh bahasa pemrograman dan \textit{framework} yang bersangkutan.}
+    \item{\textit{Virtual Execution System} (VES)\\VES mengimplementasikan model CTS dan memastikan hal tersebut berjalan sebagaimana mestinya. VES berfungsi untuk menjalankan program yang ditulis untuk CLI.}
+\end{itemize}
 
+Seperti yang dijelaskan pada Gambar \ref{fig:cli}, beberapa bahasa pemrograman yang kompatibel dengan .NET adalah C\#, VB.NET, dan J\#\cite{NET_PRIMER:2016}. Setelah kode program dari bahasa-bahasa tersebut diterjemahkan oleh \textit{compiler}nya masing-masing, maka akan terbentuk \textit{Common Intermediate Language} (CIL) yang kemudian akan dibaca dan dieksekusi oleh VES\cite{CLI:2016}. Implementasi VES pada .NET bernama \textit{Common Language Runtime} (CLR).
 
+\subsection{\textit{Universal Windows Platform} (UWP)}
+\label{subsec:uwp}
 
-\section{Dokumentasi Kelas PasswordVault Pada C\#}
-\label{sec:passwordvault}
+Windows 8 memperkenalkan \textit{Windows Runtime} (WinRT) yang merupakan arsitektur aplikasi umum untuk Windows\cite{UWP:2016}. Saat Windows Phone 8.1 keluar, Windows Runtime pada Windows 8 dan Windows Phone 8.1 disejajarkan agar \textit{developer} dapat membangun satu aplikasi yang dapat dijalankan pada Windows 8 dan Windows Phone 8.1. \textit{Universal Windows Platform} (UWP) pertama kali diperkenalkan pada Windows 10 sebagai perubahan dari model \textit{Windows Runtime}. UWP tidak hanya dapat memanggil API dari WinRT, namun juga API spesifik dari device yang bersangkutan (seperti Win32 dan .NET).
 
+\subsection{Kelas WebBrowser Pada C\#}
+\label{subsec:webbrowser}
 
+Kelas WebBrowser pada C\# memungkinkan \textit{developer} untuk menggunakan dokumen-dokumen yang dikenali oleh \textit{browser} untuk memperkaya tampilan aplikasi yang menggunakan Windows Form\cite{WebBrowser:2016}. WebBrowser dapat digunakan untuk menciptakan tampilan aplikasi menggunakan teknologi web atau kemampuan melakukan \textit{web-browsing} bagi aplikasi.
+
+Beberapa \textit{property} yang dimiliki oleh WebBrowser adalah:
+
+\begin{itemize}
+    \item{Document\\Menyimpan HtmlDocument yang merepresentasikan halaman web yang sedang ditampilkan oleh WebBrowser.}
+    \item{Url\\Menyimpan URL\footnote{URL adalah singkatan dari Uniform Resource Locator.} dari dokumen yang sedang ditampilkan.}
+\end{itemize}
+
+Beberapa \textit{method} yang dimiliki oleh WebBrowser adalah:
+
+\begin{itemize}
+    \item{OnClick(EventArgs e)\\Method ini dipanggil pada saat terjadi \textit{click event}.}
+    \item{OnKeyPress(EventArgs e)\\Method ini dipanggil pada saat terjadi \textit{key press event}.}
+\end{itemize}
+
+\subsection{Kelas PasswordVault Pada Windows}
+\label{subsec:passwordvault}
+
+Kelas PasswordVault merupakan komponen dari Windows Runtime API, dan bukan .NET\cite{PasswordVault:2016}. Kelas ini merepresentasikan pengunci kredensial. Kredensial yang disimpan menggunakan kelas ini hanya dapat diakses oleh aplikasi atau \textit{service} yang bersangkutan. Beberapa \textit{method} yang dimiliki oleh kelas PasswordVault adalah:
+
+\begin{itemize}
+    \item{Add(PasswordCredential credential)\\\textit{Method} ini berfungsi untuk memasukkan kredensial.}
+    \item{Retrieve(String resource, String userName)\\\textit{Method} ini berfungsi untuk mengambil kredensial yang tersimpan di dalam objek PasswordVault.}
+    \item{Remove(PasswordCredential credential)\\\textit{Method} ini berfungsi untuk menghapus kredensial yang tersimpan di dalam objek PasswordVault.}
+\end{itemize}
 
