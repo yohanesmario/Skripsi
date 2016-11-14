@@ -1,0 +1,70 @@
+\chapter{Analisis}
+\label{chap:analisis}
+
+Bab ini menjelaskan mengenai analisis perangkat lunak sejenis, analisis cara penyimpanan informasi login, analisis cara menangkap informasi login, serta analisis perangkat lunak.
+
+
+
+\section{Analisis Perangkat Lunak Sejenis}
+\label{sec:perangkat_lunak_sejenis}
+
+Perangkat lunak sejenis pada Windows belum dapat ditemukan pada saat penelitian ini dilakukan. Oleh karena itu, perangkat lunak atau aplikasi sejenis yang dianalisis adalah aplikasi yang diciptakan untuk sistem operasi Android. Aplikasi tersebut bernama \textit{WiFi Web Login}.
+
+
+\subsubsection{Diagram Alir \textit{WiFi Web Login}}
+\label{subsubsec:diagram_alir_wifi_web_login}
+
+Langkah-langkah yang perlu ditempuh oleh aplikasi \textit{WiFi Web Login} dapat digambarkan oleh diagram alir.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.85]{Gambar/WifiWebLogin.png}
+    \caption[Diagram alir proses yang perlu dilalui oleh aplikasi \textit{WiFi Web Login}.]{Diagram alir proses yang perlu dilalui oleh aplikasi \textit{WiFi Web Login}.} 
+    \label{fig:wifiweblogin}
+\end{figure}
+
+Berdasarkan gambar \ref{fig:wifiweblogin}, langkah-langkah yang harus ditempuh untuk melakukan \textit{login} wifi berbasis web pada aplikasi ini adalah:
+
+\begin{enumerate}
+    \item{Deteksi sambungan dengan wifi yang bersangkutan.}
+    \item{Deteksi hubungan dengan internet.}
+    \item{Jika tidak terjadi hubungan dengan internet, deteksi apakah tersimpan informasi login untuk wifi yang bersangkutan.}
+    \item{Jika terdapat informasi login untuk wifi yang bersangkutan maka lakukan login otomatis.}
+    \item{Jika tidak terdapat informasi login untuk wifi yang bersangkutan maka rekam informasi login dan lakukan login.}
+\end{enumerate}
+
+Setelah pengguna melalui sudah pernah melakukan login pertama kali menggunakan aplikasi tersebut, maka aplikasi akan melakukan login otomatis setiap kali terhubung dengan wifi yang bersangkutan.
+
+
+
+\section{Analisis Metode Penyimpanan Informasi Login}
+\label{sec:metode_penyimpanan}
+
+Penyimpanan informasi login dapat dilakukan dengan beberapa metode, diantaranya adalah dengan menggunakan file teks atau menggunakan \textit{credential locker}. Penyimpanan informasi menggunakan file teks berarti informasi disimpan dalam bentuk \textit{plaintext} dalam file yang diberikan \textit{access permission} tertentu. Sementara itu, penyimpanan informasi menggunakan credential locker memanfaatkan kelas PasswordVault yang terdapat pada \textit{Universal Windows Platform} (UWP).
+
+Informasi yang perlu disimpan untuk dapat melakukan login otomatis adalah \textit{connection fingerprint} (seperti SSID WiFi, url, dan potongan unik dokumen html), username, password, dan langkah-langkah login seperti menekan tombol. Oleh karena itu, metode penyimpanan menggunakan credential locker dan file teks dianalisis untuk dapat ditentukan metode mana yang paling cocok untuk digunakan dalam penelitian ini.
+
+\subsection{Credential Locker}
+\label{subsec:credential_locker}
+
+Credential locker dapat menyimpan informasi yang berisi \textit{resource} (biasanya berupa nama aplikasi atau string unik lainnya), username, dan password. Informasi yang perlu disimpan selain username dan password adalah \textit{connection fingerprint} dan langkah-langkah login. \textit{Connection fingerprint} dapat disimpan pada resource karena sifatnya yang unik, dan langkah-langkah login dapat disisipkan ke dalam field password dalam bentuk string dengan separator tertentu. Langkah-langkah login disisipkan ke dalam field password karena resource dan username adalah identifier yang dibutuhkan untuk melakukan retrieval informasi.
+
+\textit{Credential locker} memiliki batasan 10 kredensial yang dapat disimpan per aplikasi. Jika aplikasi mencoba menyimpan lebih dari 10 kredensial maka akan terjadi exception. Oleh karena hal ini, \textit{credential locker} menjadi pilihan yang kurang baik untuk kebutuhan perangkat lunak pada penelitian ini.
+
+\subsection{File Teks}
+\label{subsec:file_teks}
+
+Penyimpanan informasi mengunakan file teks dapat dilakukan untuk informasi berbasis teks apapun dan tidak ada batasan banyaknya informasi yang dapat disimpan (kecuali batasan perangkat keras seperti kapasitas hard disk). Akan tetapi, file teks dapat dibaca oleh aplikasi manapun, sehingga penyimpanan informasi sensitif seperti username dan password tidak dapat dilakukan tanpa adanya metode untuk memastikan hanya aplikasi bersangkutan yang dapat membacanya.
+
+Salah satu metode pengamanan yang dapat dilakukan adalah dengan mendeklarasikan \textit{file access permission}. Akan tetapi, karena Windows memiliki \textit{security model} per pengguna dan bukan per aplikasi, maka aplikasi lain yang dijalankan oleh pengguna tersebut memiliki akses yang sama kepada file yang bersangkutan.
+
+Model pengamanan lainnya adalah dengan melakukan enkripsi pada file yang bersangkutan sehingga hanya pemegang kunci yang dapat membaca file tersebut. Enkripsi file pada windows dapat dilakukan menggunakan kelas CryptographicEngine. Kunci enkripsi dan dekripsi dapat disimpan menggunakan \textit{credential locker} atau dengan meminta pengguna untuk memasukkan kunci tersebut setiap kali aplikasi dijalankan.
+
+
+
+\section{Analisis Metode Rekam dan Kirim Informasi Login}
+\label{sec:metode_rekam}
+
+Kelas WebView pada \textit{Universal Windows Platform} (UWP) hanya dapat dihubungkan dengan kode C\# menggunakan javascript. \textit{Method} yang digunakan untuk melakukan eksekusi javascript pada WebView adalah InvokeScriptAsync. Metode ini memiliki parameter string berupa nama fungsi javascript yang ingin dipanggil dan array of string yang berisi argumen yang ingin dikirimkan ke dalam fungsi tersebut. Salah satu fungsi yang dapat dipanggil adalah \textit{eval}. Dengan menggunakan \textit{eval}, ekspresi javascript apapun dapat dijalankan pada WebView. Untuk mengirimkan data dari javascript ke kode C\#, dapat dijalankan fungsi window.external.notify dengan parameter berupa string. Oleh karena itu, diperlukan \textit{encoding} tertentu (seperti JSON) untuk memasukkan lebih dari satu argumen.
+
+InvokeScriptAsync dapat digunakan untuk memanggil fungsi \textit{eval} dengan parameter berupa function yang dapat digunakan untuk menekan tombol atau memasukkan nilai pada \textit{text field} tertentu. Selain itu, dapat dimasukkan event listener yang dapat memanggil window.external.notify menggunakan cara ini. Fungsi window.external.notify dapat membantu mengirimkan event-event seperti mouse click, keypress, atau perubahan nilai pada \textit{text field} yang ada pada halaman HTML pada WebView tersebut.
