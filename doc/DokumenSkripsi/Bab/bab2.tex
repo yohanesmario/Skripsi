@@ -8,7 +8,7 @@ Bab ini menjelaskan mengenai teori-teori yang digunakan dalam penelitian ini, an
 \section{\textit{Captive Portal}}
 \label{sec:captive_portal}
 
-\textit{Captive portal} adalah \textit{router}\footnote{Berdasarkan kamus bahasa inggris oxford, \textit{router} adalah alat yang meneruskan paket data ke bagian dari jaringan yang dituju.} atau \textit{gateway}\footnote{Berdasarkan kamus bahasa inggris oxford, gateway adalah alat yang digunakan untuk menghubungkan dua jaringan yang berbeda, biasanya berupa hubungan ke internet.} yang akan menutup koneksi eksternal sampai klien yang bersangkutan sudah terotentikasi\cite{Potter:2002}. Cara kerja \textit{captive portal} secara umum adalah sebagai berikut:
+\textit{Captive portal} adalah \textit{router}\footnote{Alat yang meneruskan paket data ke bagian dari jaringan yang dituju.} atau \textit{gateway}\footnote{Alat yang digunakan untuk menghubungkan dua jaringan yang berbeda, biasanya berupa hubungan ke internet.} yang akan menutup koneksi eksternal sampai klien yang bersangkutan sudah terotentikasi\cite{Potter:2002}. Cara kerja \textit{captive portal} secara umum adalah sebagai berikut:
 
 \begin{enumerate}
     \item{Memberikan alamat IP melalui DHCP pada perangkat yang baru terhubung.}
@@ -130,7 +130,7 @@ Beberapa \textit{method} yang dimiliki oleh WebView adalah:
 
 \begin{itemize}
     \item{InvokeScriptAsync(String scriptName, String[] arguments)\\Method ini digunakan untuk melakukan eksekusi script tertentu pada HTML dengan argumen yang diberikan dalam bentuk \textit{array of string}.}
-    \item{Navigate(Uri source)\\Method ini digunakan untuk membuka URI\footnote{URI adalah singkatan dari Uniform Resource Identifier.} tertentu.}
+    \item{Navigate(Uri source)\\Method ini digunakan untuk membuka URI tertentu.}
 \end{itemize}
 
 Salah satu \textit{event} yang dimiliki oleh kelas WebView adalah \textit{event} ScriptNotify. \textit{Event} ini berguna untuk menangkap hasil dari fungsi javascript window.external.notify.

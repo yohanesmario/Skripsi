@@ -17,8 +17,8 @@ Class=LaTeXView
 Document=Bab\bab2.tex
 
 [Frame0_View0,0]
-TopLine=0
-Cursor=307
+TopLine=15
+Cursor=457
 
 [Frame1]
 Flags=0
@@ -35,8 +35,8 @@ Class=BibTeXView
 Document=pustaka.bib
 
 [Frame1_View0,0]
-TopLine=20
-Cursor=2694
+TopLine=12
+Cursor=1931
 
 [Frame2]
 Flags=0
@@ -71,10 +71,10 @@ Class=LaTeXView
 Document=Bab\bab3.tex
 
 [Frame3_View0,0]
-TopLine=0
-Cursor=45
+TopLine=59
+Cursor=3662
 
 [SessionInfo]
 FrameCount=4
-ActiveFrame=0
+ActiveFrame=3
 

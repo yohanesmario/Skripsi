@@ -16,7 +16,7 @@
 \makeatletter
 \renewcommand{\@maketitle} {\begin{center} {\LARGE \textbf{ \textsc{\@title}} \par} \bigskip {\large \textbf{\textsc{\@author}} }\end{center} }
 \renewcommand{\thispagestyle}[1]{}
-\markright{\textbf{\textsc{AIF401/AIF402 \textemdash Rencana Kerja Skripsi \textemdash Sem. Ganjil 2015/2016}}}
+\markright{\textbf{\textsc{AIF401/AIF402 \textemdash Rencana Kerja Skripsi \textemdash Sem. Genap 2015/2016}}}
 
 \onehalfspacing
  
@@ -26,83 +26,101 @@
 \author{\nama \textendash \@npm} 
 
 %tulis nama dan NPM anda di sini:
-\newcommand{\nama}{Lionov}
-\newcommand{\@npm}{1997730020}
-\newcommand{\@judultopik}{Simulasi Kerumunan di Museum} % Judul/topik anda
+\newcommand{\nama}{Yohanes Mario Chandra}
+\newcommand{\@npm}{2011730031}
+\newcommand{\@judultopik}{Wi-Fi Web Auto Login} % Judul/topik anda
 \newcommand{\jumpemb}{1} % Jumlah pembimbing, 1 atau 2
-\newcommand{\tanggal}{01/01/1900}
+\newcommand{\tanggal}{08/09/2016}
+
+% Dokumen hasil template ini harus dicetak bolak-balik !!!!
+
 \maketitle
 
 \pagenumbering{arabic}
 
 \section{Deskripsi}
-Tuliskan deskripsi dari topik skripsi yang akan anda ajukan. Di sini dapat dituliskan latar belakang, seperti apa penelitian yang sudah ada sebelumnya dan apa yang akan anda kerjakan. Sertakan gambar agar penjelasan anda menjadi lebih baik.
+%Tuliskan deskripsi dari topik skripsi yang akan anda ajukan. Di sini dapat dituliskan latar belakang, seperti apa penelitian yang sudah ada sebelumnya dan apa yang akan anda kerjakan. Sertakan gambar agar penjelasan anda menjadi lebih baik.
+%
+%Pada skripsi ini, akan dibuat sebuah perangkat lunak yang dapat menampilkan visualisasi dan simulasi kerumunan orang yang berkunjung ke sebuah museum. Dengan menggunakan perangkat lunak tersebut, pengelola museum dapat mengatur tempat peletakan objek sehingga tidak terjadi kerumunan yang terlalu padat.
+%
+%Dari berbagai macam teknik yang dapat digunakan untuk melakukan simulasi kerumunan, dipilih dua buah teknik yaitu teknik {\it flow tiles} dan {\it social force model (steering behaviour)}.
+%
+%Dst, dst, dst, \ldots\ldots\ldots 
+%
+%Perangkat lunak akan dibuat dengan bantuan {\it framework} OpenSteer. Sebagai studi kasus, museum yang digunakan untuk melakukan simulasi adalah Museum Geologi Bandung.
+%
+%Dst, dst, dst, \ldots\ldots\ldots 
 
-Pada skripsi ini, akan dibuat sebuah perangkat lunak yang dapat menampilkan visualisasi dan simulasi kerumunan orang yang berkunjung ke sebuah museum. Dengan menggunakan perangkat lunak tersebut, pengelola museum dapat mengatur tempat peletakan objek sehingga tidak terjadi kerumunan yang terlalu padat.
+Internet adalah salah satu hal yang sulit dipisahkan dari keseharian manusia masa kini. Salah satu cara seseorang dapat mengakses internet adalah dengan menggunakan teknologi Wi-Fi. Wi-Fi mengharuskan pengguna terhubung pada suatu \textit{access point}. \textit{Access point} tersebut dapat memiliki dua status, yaitu terproteksi atau tidak terproteksi. Proteksi pada \textit{access point} dapat dilakukan dengan beberapa cara, yaitu menggunakan protokol IEEE 802.11, atau menggunakan \textit{captive portal}. Alat yang sudah pernah terhubung dengan \textit{access point} yang diproteksi dengan protokol IEEE 802.11 akan dengan mudah terhubung kembali dengan \textit{access point} tersebut karena alat tersebut biasanya sudah menyimpan \textit{password} untuk \textit{access point} yang bersangkutan. Alat yang akan terhubung dengan \textit{access point} yang diproteksi menggunakan \textit{captive portal} belum memiliki cara untuk mengingat \textit{username} dan \textit{password} untuk \textit{captive portal} tersebut sehingga login otomatis belum dapat dilakukan untuk \textit{access point} jenis ini.
 
-Dari berbagai macam teknik yang dapat digunakan untuk melakukan simulasi kerumunan, dipilih dua buah teknik yaitu teknik {\it flow tiles} dan {\it social force model (steering behaviour)}.
+Berdasarkan pengamatan peneliti, \textit{captive portal} banyak digunakan untuk proteksi \textit{access point} pada tempat-tempat umum seperti lingkungan universitas, \textit{starbucks}, \textit{McDonald's}, dan beberapa tempat yang dapat diakses melalui \textit{@wifi.id}, \textit{free@wifi.id} dan \textit{access point} sejenis. Oleh karena itu, dibutuhkan mekanisme yang bisa membantu proses login untuk \textit{access point} tipe ini. Terdapat dua cara untuk menciptakan mekanisme ini, yaitu dengan mengintegrasikannya dengan sistem operasi, atau menggunakan perangkat lunak pihak ketiga. Untuk dapat melakukan pengintegrasian mekanisme tersebut dengan sistem operasi, dibutuhkan akses kepada kode sumber sistem aplikasi tersebut. Oleh karena itu, pilihan yang lebih bijak sebagai seseorang yang tidak memiliki akses tersebut adalah dengan menciptakan perangkat lunak pihak ketiga.
 
-Dst, dst, dst, \ldots\ldots\ldots 
-
-Perangkat lunak akan dibuat dengan bantuan {\it framework} OpenSteer. Sebagai studi kasus, museum yang digunakan untuk melakukan simulasi adalah Museum Geologi Bandung.
-
-Dst, dst, dst, \ldots\ldots\ldots 
+Perangkat lunak dibuat pada platform Windows dengan bahasa dan \textit{library} C\#. Alasan penggunaan C\# adalah untuk mendapatkan akses ke sistem internal windows secara menyeluruh.
 
 \section{Rumusan Masalah}
-Tuliskan rumusan dari masalah yang akan anda bahas pada skripsi ini. Rumusan masalah biasanya berupa kalimat pertanyaan. Gunakan itemize seperti contoh di bagian Deskripsi Perangkat Lunak.
+Rumusan masalah yang dibahas pada penelitian ini adalah sebagai berikut:
+
+\begin{itemize}
+	\item{Bagaimana caranya melakukan implementasi login otomatis pada \textit{captive portal} yang memiliki tingkat kenyamanan yang setara dengan login otomatis pada proteksi Wi-Fi berbasis protokol IEEE 802.11?}
+	\item{Apa saja yang perlu dilakukan untuk mengamankan \textit{username} dan \textit{password} yang disimpan oleh user?}
+	\item{Informasi apa saja yang dibutuhkan untuk menciptakan identitas unik untuk setiap \textit{captive portal} pada jaringan yang berbeda?}
+\end{itemize}
 
 \section{Tujuan}
-Tuliskan tujuan dari topik skripsi yang anda ajukan. Tujuan penelitian biasanya berkaitan erat dengan pertanyaan yang diajukan di bagian rumusan masalah. Gunakan itemize seperti contoh di bagian Deskripsi Perangkat Lunak.
+\label{sec:tujuan_penelitian}
+
+Tujuan penelitian ini adalah sebagai berikut:
+
+\begin{itemize}
+	\item{Melakukan implementasi login otomatis pada \textit{captive portal} yang memiliki tingkat kenyamanan yang setara dengan login otomatis pada proteksi Wi-Fi berbasis protokol IEEE 802.11.}
+	\item{Memastikan \textit{username} dan \textit{password} pengguna disimpan secara aman?}
+	\item{Menentukan informasi yang dibutuhkan untuk menciptakan identitas unik untuk setiap \textit{captive portal} pada jaringan yang berbeda?}
+\end{itemize}
 
 \section{Deskripsi Perangkat Lunak}
-Tuliskan deksripsi dari perangkat lunak yang akan anda hasilkan. Apa saja fitur yang disediakan oleh PL tersebut dan apa saja kemampuan dari PL tersebut. Perhatikan contoh di bawah ini:
 
 Perangkat lunak akhir yang akan dibuat memiliki fitur minimal sebagai berikut:
 \begin{itemize}
-	\item Pengguna dapat melihat denah Musem Geologi Bandung dalam bidang dua dimensi. Sedangkan pengunjung direpresentasikan menggunakan lingkaran-lingkaran kecil (tidak menggunakan gambar manusia yang diambil dari atas)
-	\item Pengguna dapat memunculkan atau menghilangkan gambar {\it flow tiles} pada denah museum. 
-	\item Pengguna dapat mengatur jalannya simulasi: memulai(start) simulasi, menunda(pause) simulasi, melanjutkan(continue) simulasi, maupun menghentikan(stop) simulasi
-	\item Pengguna dapat mengatur banyaknya pengunjung di dalam museum, baik melalui perubahan frekuensi kedatangan pengunjung maupun menambahkan dan menghapus pengunjung satu-persatu secara manual.
-	\item Posisi kamera dapat diubah (pergerakan di bidang tiga dimensi) sehingga pengguna dapat melihat simulasi di museum dari berbagai arah. 
-	\item Posisi kamera dapat diubah untuk emngikuti perjalanan seorang pengunjung di dalam 
-	\item Pengguna dapat memilih apakah akan menggunakan teknik {\it flow tiles} atau tidak pada saat simulasi berlangsung
-	\item Jenis {\it flow tiles} yang digunakan dapat diubah-ubah pada saat simulasi sedang berlangsung
+	\item Perangkat lunak mampu mendeteksi jaringan Wi-Fi yang tidak langsung terhubung dengan internet.
+	\item Pengguna dapat melakukan login pada \textit{captive portal} seperti biasa dan perangkat lunak dapat merekam kredensial (username dan password) dan aksi-aksi pengguna.
+	\item Perangkat lunak dapat melakukan login otomatis pada jaringan Wi-Fi yang sudah memiliki kredensial.
+	\item Perangkat lunak dapat menyimpan kredensial pengguna dengan aman.
+	\item Pengguna dapat memilih untuk tidak menggunakan kredensial yang sudah disimpan pada saat akan melakukan login otomatis pada captive portal.
 		
 \end{itemize}
 
 \section{Detail Pengerjaan Skripsi}
-Tuliskan bagian-bagian pengerjaan skripsi secara detail. Bagian pekerjaan tersebut mencakup awal hingga akhir skripsi, termasuk di dalamnya pengerjaan dokumentasi skripsi, pengujian, survei, dll.
 
 Bagian-bagian pekerjaan skripsi ini adalah sebagai berikut :
 	\begin{enumerate}
-		\item Melakukan survei ke Museum Geologi Bandung untuk mendapatkan denah serta mengetahui perilaku pengunjung museum secara umum (arah perjalanan, kecepatan, lama melihat objek, dll)
-		\item Melakukan analisis pada hasil survei terhadap pergerakan pengunjung di museum dan membuat rancangan denah di komputer yang dilengkapi dengan penghalang dan objek di museum.
-		\item Melakukan studi literatur mengenai sifat kolektif suatu kerumunan, teknik {\it social force model} dan teknik {\it flow tiles}
-		\item Mempelajari bahasa pemrograman C++ dan cara menggunakan framework OpenSteer
-		\item Merancang pergerakan kerumunan di dalam museum menggunakan teknik {\it social force model} dan {\it flow tiles} serta menggunakan teknik lainnya seperti konsep pathway dan waypoints. Selain itu, dirancang pula adanya waktu tunggu (pada saat pengunjung melihat objek di museum) dan cara pembuatan jalur bagi setiap individu pengunjung
-		\item Melakukan analisa dan merancang struktur data yang cocok untuk menyimpan penghalang (obstacle)
-		\item Mengimplementasikan keseluruhan algoritma dan struktur data yang dirancang, dengan menggunakan framework OpenSteer 
-		\item Melakukan pengujian (dan eksperimen) yang melibatkan responde untuk menilai hasil simulasi secara kualitatif
-		\item Menulis dokumen skripsi
-	\end{enumerate}
+        \item{Melakukan studi literatur mengenai hal-hal yang berkaitan dengan perancangan dan pembuatan aplikasi, yaitu:}
+            \subitem{Cara kerja dan protokol-protokol yang terkait dengan \textit{captive portal}.}
+            \subitem{Pemrograman menggunakan \textit{.NET framework}.}
+            \subitem{\textit{Universal Windows Platform} (UWP).}
+            \subitem{Penggunaan kelas WebBrowser pada C\#.}
+            \subitem{Penggunaan objek PasswordVault pada C\#.}
+        \item{Melakukan analisis perangkat lunak sejenis.}
+        \item{Melakukan analisis kebutuhan untuk mengimplementasikan mekanisme login otomatis ini.}
+        \item{Merancang perangkat lunak login otomatis ini.}
+        \item{Melakukan implementasi hasil rancangan dengan bahasa pemrograman C\# pada sistem operasi Windows 10.}
+        \item{Melakukan pengujian terhadap perangkat lunak untuk menghasilkan perbaikan teradap perangkat lunak tersebut.}
+        \item{Membuat kesimpulan dari hasil penelitian dan saran untuk penelitian selanjutnya.}
+        \item{Menulis dokumen skripsi.}
+    \end{enumerate}
 
 \section{Rencana Kerja}
-Tuliskan rencana anda untuk menyelesaikan skripsi. Rencana kerja dibagi menjadi dua bagian yaitu yang akan dilakukan pada saat mengambil kuliah AIF401 Skripsi 1 dan pada saat mengambil kuliah AIF402 Skripsi 2. Perhatikan contoh berikut ini :
-
 
 \begin{center}
   \begin{tabular}{ | c | c | c | c | l |}
     \hline
     1*  & 2*(\%) & 3*(\%) & 4*(\%) &5*\\ \hline \hline
     1   & 5  & 5  &  &  \\ \hline
-    2   & 5 & 5  &   & \\ \hline
-    3   & 10  & 7  & 3 & {\footnotesize sebagian kecil teknik {\it flow tiles} di S2}  \\ \hline
-    4   & 15  & 10  &  5 & {\footnotesize teknik lanjut OOP di C++ di S2} \\ \hline
-    5   & 20  & 5  & 15 & {\footnotesize perancangan awal SFM, pathway dan waypoint di S1} \\ \hline
-    6   & 5 &   & 5  & \\ \hline
-    7   & 20  & 5  & 15 &  {\footnotesize implementasi denah dan rancangan awal SFM di S1}\\ \hline
-    8   & 5  &   &  5  & \\ \hline
-    9   & 15  & 3  & 12  & {\footnotesize sebagian bab 1 dan 2, serta bagian awal analisis di S1}\\ \hline
+    2   & 10 & 10  &   & \\ \hline
+    3   & 15  & 10  & 5 & {\footnotesize kaji ulang singkat kebutuhan pada S2}  \\ \hline
+    4   & 15  & 10  & 5 & {\footnotesize perubahan rancangan pada S2 jika ada kebutuhan tambahan} \\ \hline
+    5   & 25  &   & 25 & \\ \hline
+    6   & 10 &   & 10  & \\ \hline
+    7   & 20  & 5  & 15 &  {\footnotesize sebagian bab 1 dan 2, serta bagian awal analisis di S1}\\ \hline
     Total  & 100  & 40  & 60 &  \\ \hline
                           \end{tabular}
 \end{center}
@@ -136,6 +154,5 @@ Menyetujui, \\
 % \centering Bandung, \makebox[0.5cm]{\hrulefill}/\makebox[0.5cm]{\hrulefill}/2013\\
 \vspace{2cm} Nama: \makebox[3cm]{\hrulefill}\\ Pembimbing Tunggal
 }
-
 \end{document}
 

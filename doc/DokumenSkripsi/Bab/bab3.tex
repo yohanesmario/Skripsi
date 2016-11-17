@@ -40,25 +40,15 @@ Setelah pengguna melalui sudah pernah melakukan login pertama kali menggunakan a
 \section{Analisis Metode Penyimpanan Informasi Login}
 \label{sec:metode_penyimpanan}
 
-Penyimpanan informasi login dapat dilakukan dengan beberapa metode, diantaranya adalah dengan menggunakan file teks atau menggunakan \textit{credential locker}. Penyimpanan informasi menggunakan file teks berarti informasi disimpan dalam bentuk \textit{plaintext} dalam file yang diberikan \textit{access permission} tertentu. Sementara itu, penyimpanan informasi menggunakan credential locker memanfaatkan kelas PasswordVault yang terdapat pada \textit{Universal Windows Platform} (UWP).
+Penyimpanan informasi login dapat dilakukan dengan beberapa metode, diantaranya adalah dengan menggunakan file teks atau menggunakan PasswordVault. Penyimpanan informasi menggunakan file teks berarti informasi disimpan dalam bentuk \textit{plaintext} dalam file yang diberikan \textit{access permission} tertentu. Sementara itu, penyimpanan informasi menggunakan PasswordVault memanfaatkan kelas API yang terdapat pada \textit{Universal Windows Platform} (UWP).
 
-Informasi yang perlu disimpan untuk dapat melakukan login otomatis adalah \textit{connection fingerprint} (seperti SSID WiFi, url, dan potongan unik dokumen html), username, password, dan langkah-langkah login seperti menekan tombol. Oleh karena itu, metode penyimpanan menggunakan credential locker dan file teks dianalisis untuk dapat ditentukan metode mana yang paling cocok untuk digunakan dalam penelitian ini.
+Informasi yang perlu disimpan untuk dapat melakukan login otomatis adalah \textit{connection fingerprint} (seperti SSID WiFi, url, dan potongan unik dokumen html), username, password, dan langkah-langkah login seperti menekan tombol. Oleh karena itu, metode penyimpanan menggunakan credential locker dan file teks perlu dianalisis untuk dapat ditentukan metode mana yang paling cocok untuk digunakan dalam penelitian ini.
 
-\subsection{Credential Locker}
-\label{subsec:credential_locker}
+PasswordVault dapat menyimpan informasi yang berisi \textit{resource} (biasanya berupa nama aplikasi atau string unik lainnya), username, dan password. Informasi yang perlu disimpan selain username dan password adalah \textit{connection fingerprint} dan langkah-langkah login. \textit{Connection fingerprint} dapat disimpan pada resource karena sifatnya yang unik. Sementara itu, langkah-langkah login dapat disimpan pada username atau password karena langkah-langkah login dapat disimpan dalam bentuk String. Akan tetapi, langkah-langkah login sebaiknya disimpan pada password, dipisahkan dengan karakter pemisah tertentu, agar username dapat digunakan sebagai \textit{identifier} unik. PasswordVault memiliki batasan 10 kredensial yang dapat disimpan per aplikasi. Jika aplikasi mencoba menyimpan lebih dari 10 kredensial maka akan terjadi exception. Oleh karena hal ini, PasswordVault menjadi pilihan yang kurang baik untuk kebutuhan perangkat lunak pada penelitian ini.
 
-Credential locker dapat menyimpan informasi yang berisi \textit{resource} (biasanya berupa nama aplikasi atau string unik lainnya), username, dan password. Informasi yang perlu disimpan selain username dan password adalah \textit{connection fingerprint} dan langkah-langkah login. \textit{Connection fingerprint} dapat disimpan pada resource karena sifatnya yang unik, dan langkah-langkah login dapat disisipkan ke dalam field password dalam bentuk string dengan separator tertentu. Langkah-langkah login disisipkan ke dalam field password karena resource dan username adalah identifier yang dibutuhkan untuk melakukan retrieval informasi.
+Metode penyimpanan lainnya adalah dengan menggunakan file teks. Penyimpanan informasi mengunakan file teks dapat dilakukan untuk informasi berbasis teks apapun dan tidak ada batasan banyaknya informasi yang dapat disimpan (kecuali batasan perangkat keras seperti kapasitas hard disk). Akan tetapi, file teks dapat dibaca oleh aplikasi manapun, sehingga penyimpanan informasi sensitif tidak dapat dilakukan tanpa adanya metode pengamanan tertentu. Salah satu metode pengamanan yang dapat dilakukan adalah dengan mendeklarasikan \textit{file access permission}. Akan tetapi, karena Windows memiliki \textit{security model} per pengguna dan bukan per aplikasi, maka aplikasi lain yang dijalankan oleh pengguna tersebut memiliki akses yang sama kepada file yang bersangkutan. Metode pengamanan lainnya adalah dengan melakukan enkripsi pada file yang bersangkutan sehingga hanya pemegang kunci yang dapat membaca file tersebut. Enkripsi file pada windows dapat dilakukan menggunakan kelas CryptographicEngine. Kunci enkripsi dan dekripsi dapat disimpan menggunakan PasswordVault atau dengan meminta pengguna untuk memasukkan kunci tersebut setiap kali aplikasi dijalankan.
 
-\textit{Credential locker} memiliki batasan 10 kredensial yang dapat disimpan per aplikasi. Jika aplikasi mencoba menyimpan lebih dari 10 kredensial maka akan terjadi exception. Oleh karena hal ini, \textit{credential locker} menjadi pilihan yang kurang baik untuk kebutuhan perangkat lunak pada penelitian ini.
-
-\subsection{File Teks}
-\label{subsec:file_teks}
-
-Penyimpanan informasi mengunakan file teks dapat dilakukan untuk informasi berbasis teks apapun dan tidak ada batasan banyaknya informasi yang dapat disimpan (kecuali batasan perangkat keras seperti kapasitas hard disk). Akan tetapi, file teks dapat dibaca oleh aplikasi manapun, sehingga penyimpanan informasi sensitif seperti username dan password tidak dapat dilakukan tanpa adanya metode untuk memastikan hanya aplikasi bersangkutan yang dapat membacanya.
-
-Salah satu metode pengamanan yang dapat dilakukan adalah dengan mendeklarasikan \textit{file access permission}. Akan tetapi, karena Windows memiliki \textit{security model} per pengguna dan bukan per aplikasi, maka aplikasi lain yang dijalankan oleh pengguna tersebut memiliki akses yang sama kepada file yang bersangkutan.
-
-Model pengamanan lainnya adalah dengan melakukan enkripsi pada file yang bersangkutan sehingga hanya pemegang kunci yang dapat membaca file tersebut. Enkripsi file pada windows dapat dilakukan menggunakan kelas CryptographicEngine. Kunci enkripsi dan dekripsi dapat disimpan menggunakan \textit{credential locker} atau dengan meminta pengguna untuk memasukkan kunci tersebut setiap kali aplikasi dijalankan.
+Metode penyimpanan yang digunakan pada penelitian ini adalah metode penyimpanan menggunakan file teks. Akan tetapi, seperti yang sudah dijabarkan sebelumnya, diperlukan metode pengamanan untuk file teks tersebut. Metode pengamanan yang digunakan adalah enkripsi file teks yang bersangkutan. Kunci enkripsi dan dekripsi dibangun secara random saat aplikasi pertama kali dijalankan dan disimpan menggunakan PasswordVault.
 
 
 
@@ -68,3 +58,26 @@ Model pengamanan lainnya adalah dengan melakukan enkripsi pada file yang bersang
 Kelas WebView pada \textit{Universal Windows Platform} (UWP) hanya dapat dihubungkan dengan kode C\# menggunakan javascript. \textit{Method} yang digunakan untuk melakukan eksekusi javascript pada WebView adalah InvokeScriptAsync. Metode ini memiliki parameter string berupa nama fungsi javascript yang ingin dipanggil dan array of string yang berisi argumen yang ingin dikirimkan ke dalam fungsi tersebut. Salah satu fungsi yang dapat dipanggil adalah \textit{eval}. Dengan menggunakan \textit{eval}, ekspresi javascript apapun dapat dijalankan pada WebView. Untuk mengirimkan data dari javascript ke kode C\#, dapat dijalankan fungsi window.external.notify dengan parameter berupa string. Oleh karena itu, diperlukan \textit{encoding} tertentu (seperti JSON) untuk memasukkan lebih dari satu argumen.
 
 InvokeScriptAsync dapat digunakan untuk memanggil fungsi \textit{eval} dengan parameter berupa function yang dapat digunakan untuk menekan tombol atau memasukkan nilai pada \textit{text field} tertentu. Selain itu, dapat dimasukkan event listener yang dapat memanggil window.external.notify menggunakan cara ini. Fungsi window.external.notify dapat membantu mengirimkan event-event seperti mouse click, keypress, atau perubahan nilai pada \textit{text field} yang ada pada halaman HTML pada WebView tersebut.
+
+
+
+\section{Analisis Metode Deteksi \textit{Captive Portal}}
+\label{sec:deteksi_captive_portal}
+
+Berdasarkan teori \textit{captive portal} pada bab 2, dijelaskan bahwa kode status HTTP 511 digunakan untuk memberitahu klien bahwa respon yang didapat bukan berasal dari server tujuan dan diperlukan otentikasi jaringan. Akan tetapi, pada prakteknya, tidak semua \textit{captive portal} melakukan implementasi kode status HTTP 511.
+
+\pagebreak
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.45]{Gambar/Inspect.png}
+    \caption[\textit{Screenshot} HTTP \textit{header} yang dikirimkan oleh \textit{captive portal} milik Unpar.]{\textit{Screenshot} HTTP \textit{header} yang dikirimkan oleh \textit{captive portal} milik Unpar.} 
+    \label{fig:inspect}
+\end{figure}
+
+Gambar \ref{fig:inspect} menunjukkan \textit{captive portal} unpar yang menggunakan kode status HTTP 302 untuk memberitahu klien bahwa diperlukan otentikasi jaringan. Berdasarkan teori mengenai kode status HTTP yang dijabarkan pada bab 2, kode status HTTP 3xx adalah kode status yang menyatakan \textit{redirection}. Oleh karena adanya perbedaan implementasi seperti ini, deteksi \textit{captive portal} menggunakan kode status HTTP tidak dapat dilakukan.
+
+Persamaan implementasi yang dimiliki oleh setiap \textit{captive portal} adalah dibutuhkannya \textit{redirection} yang dapat dikenali oleh \textit{web browser} agar klien selalu diarahkan ke halaman \textit{captive portal} tersebut sebelum melakukan otentikasi. Oleh karena itu, untuk setiap HTTP \textit{request} yang dilakukan oleh klien sebelum melakukan otentikasi, HTTP \textit{response} yang diberikan bukanlah berasal dari server tujuan. Sifat ini dapat dimaanfaatkan untuk keperluan deteksi \textit{captive portal} dengan mengirimkan \textit{request} ke server yang sudah ditentukan sebelumnya, dan mendeteksi apakah \textit{response} yang diberikan sesuai dengan harapan. Jika \textit{response} yang diberikan tidak sesuai dengan harapan, maka dapat diasumsikan bahwa klien dibatasi oleh suatu \textit{captive portal}.
+
+Kelas WebView pada \textit{Universal Windows Platform} (UWP) memiliki kemampuan deteksi \textit{redirection} dan \textit{response} yang tidak sesuai harapan seperti \textit{web browser} pada umumnya. Oleh karena itu, kelas WebView digunakan untuk melakukan deteksi \textit{captive portal} pada penelitian ini tanpa perlu memeriksa kode status HTTP setiap \textit{response}. Penggunaan kelas WebView juga akan mempermudah proses otomatisasi login karena WebView dapat melakukan hal-hal yang dapat dilakukan oleh \textit{web browser} pada umumnya seperti menjalankan javascript dan menampilkan halaman HTML.
+
