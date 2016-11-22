@@ -1,15 +1,34 @@
 \chapter{Analisis}
 \label{chap:analisis}
 
-Bab ini menjelaskan mengenai analisis perangkat lunak sejenis, analisis cara penyimpanan informasi login, analisis cara menangkap informasi login, serta analisis perangkat lunak.
+Bab ini menjelaskan mengenai analisis perangkat lunak sejenis, analisis metode penyimpanan informasi login, analisis metode rekam dan kirim informasi login, analisis metode deteksi \textit{captive portal} , serta analisis perangkat lunak.
 
 
 
 \section{Analisis Perangkat Lunak Sejenis}
 \label{sec:perangkat_lunak_sejenis}
 
-Perangkat lunak sejenis pada Windows belum dapat ditemukan pada saat penelitian ini dilakukan. Oleh karena itu, perangkat lunak atau aplikasi sejenis yang dianalisis adalah aplikasi yang diciptakan untuk sistem operasi Android. Aplikasi tersebut bernama \textit{WiFi Web Login}.
+Perangkat lunak sejenis pada Windows belum dapat ditemukan pada saat penelitian ini dilakukan. Oleh karena itu, perangkat lunak atau aplikasi sejenis yang dianalisis adalah aplikasi yang diciptakan untuk sistem operasi Android. Aplikasi tersebut bernama \textit{WiFi Web Login}\footnote{https://play.google.com/store/apps/details?id=co.uk.syslynx.wifiwebloginapp}.
 
+\subsubsection{Tampilan \textit{WiFi Web Login}}
+\label{subsubsec:tampilan_wifi_web_login}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.085]{Gambar/screenshot_wifiweblogin.png}
+    \caption[Tampilan aplikasi \textit{WiFi Web Login}.]{Tampilan aplikasi \textit{WiFi Web Login}.} 
+    \label{fig:screenshot_wifiweblogin}
+\end{figure}
+
+Pada gambar \ref{fig:screenshot_wifiweblogin} diperlihatkan langkah-langkah login \textit{captive portal} Unpar sebagai berikut:
+
+\begin{enumerate}
+    \item{Menunggu koneksi WiFi.}
+    \item{Mendeteksi koneksi WiFi UNPAR9.}
+    \item{Menampilkan halaman \textit{captive portal} setelah pengguna menekan tombol \textit{Automate Login}.}
+    \item{Pengguna memasukkan username dan password lalu menekan tombol login.}
+    \item{Sambungan ke internet terdeteksi dan dilakukan pemeriksaan sambungan berkala.}
+\end{enumerate}
 
 \subsubsection{Diagram Alir \textit{WiFi Web Login}}
 \label{subsubsec:diagram_alir_wifi_web_login}
@@ -64,10 +83,6 @@ InvokeScriptAsync dapat digunakan untuk memanggil fungsi \textit{eval} dengan pa
 \section{Analisis Metode Deteksi \textit{Captive Portal}}
 \label{sec:deteksi_captive_portal}
 
-Berdasarkan teori \textit{captive portal} pada bab 2, dijelaskan bahwa kode status HTTP 511 digunakan untuk memberitahu klien bahwa respon yang didapat bukan berasal dari server tujuan dan diperlukan otentikasi jaringan. Akan tetapi, pada prakteknya, tidak semua \textit{captive portal} melakukan implementasi kode status HTTP 511.
-
-\pagebreak
-
 \begin{figure}[h]
     \centering
     \includegraphics[scale=0.45]{Gambar/Inspect.png}
@@ -75,9 +90,85 @@ Berdasarkan teori \textit{captive portal} pada bab 2, dijelaskan bahwa kode stat
     \label{fig:inspect}
 \end{figure}
 
-Gambar \ref{fig:inspect} menunjukkan \textit{captive portal} unpar yang menggunakan kode status HTTP 302 untuk memberitahu klien bahwa diperlukan otentikasi jaringan. Berdasarkan teori mengenai kode status HTTP yang dijabarkan pada bab 2, kode status HTTP 3xx adalah kode status yang menyatakan \textit{redirection}. Oleh karena adanya perbedaan implementasi seperti ini, deteksi \textit{captive portal} menggunakan kode status HTTP tidak dapat dilakukan.
+Berdasarkan teori \textit{captive portal} pada bab 2, dijelaskan bahwa kode status HTTP 511 digunakan untuk memberitahu klien bahwa respon yang didapat bukan berasal dari server tujuan dan diperlukan otentikasi jaringan. Akan tetapi, pada prakteknya, tidak semua \textit{captive portal} melakukan implementasi kode status HTTP 511.
+
+Gambar \ref{fig:inspect} menunjukkan \textit{captive portal} Unpar yang menggunakan kode status HTTP 302 untuk memberitahu klien bahwa diperlukan otentikasi jaringan. Berdasarkan teori mengenai kode status HTTP yang dijabarkan pada bab 2, kode status HTTP 3xx adalah kode status yang menyatakan \textit{redirection}. Oleh karena adanya perbedaan implementasi seperti ini, deteksi \textit{captive portal} menggunakan kode status HTTP tidak dapat dilakukan.
 
 Persamaan implementasi yang dimiliki oleh setiap \textit{captive portal} adalah dibutuhkannya \textit{redirection} yang dapat dikenali oleh \textit{web browser} agar klien selalu diarahkan ke halaman \textit{captive portal} tersebut sebelum melakukan otentikasi. Oleh karena itu, untuk setiap HTTP \textit{request} yang dilakukan oleh klien sebelum melakukan otentikasi, HTTP \textit{response} yang diberikan bukanlah berasal dari server tujuan. Sifat ini dapat dimaanfaatkan untuk keperluan deteksi \textit{captive portal} dengan mengirimkan \textit{request} ke server yang sudah ditentukan sebelumnya, dan mendeteksi apakah \textit{response} yang diberikan sesuai dengan harapan. Jika \textit{response} yang diberikan tidak sesuai dengan harapan, maka dapat diasumsikan bahwa klien dibatasi oleh suatu \textit{captive portal}.
 
 Kelas WebView pada \textit{Universal Windows Platform} (UWP) memiliki kemampuan deteksi \textit{redirection} dan \textit{response} yang tidak sesuai harapan seperti \textit{web browser} pada umumnya. Oleh karena itu, kelas WebView digunakan untuk melakukan deteksi \textit{captive portal} pada penelitian ini tanpa perlu memeriksa kode status HTTP setiap \textit{response}. Penggunaan kelas WebView juga akan mempermudah proses otomatisasi login karena WebView dapat melakukan hal-hal yang dapat dilakukan oleh \textit{web browser} pada umumnya seperti menjalankan javascript dan menampilkan halaman HTML.
 
+
+
+\section{Analisis Perangkat Lunak}
+\label{sec:analisis_perangkat_lunak}
+
+Bagian ini menjelaskan mengenai diagram \textit{use case} dan diagram kelas perangkat lunak yang dibangun.
+
+\subsection{Diagram Kelas}
+\label{sec:diagram_kelas}
+
+Diagram kelas untuk perangkat lunak yang dibangun dapat dilihat pada gambar \ref{fig:diagramkelas}. Seperti pada gambar \ref{fig:diagramkelas}, kelas-kelas yang dibutuhkan pada perangkat lunak ini adalah:
+
+\begin{itemize}
+    \item{CaptivePortalDetector\\Kelas ini digunakan untuk mendeteksi keberadaan \textit{captive portal}. Jika captive portal terdeteksi, maka informasi login yang tersimpan dalam Storage digunakan. Jika tidak terdapat informasi login dalam Storage, maka direkam informasi login baru.}
+    \item{Storage\\Kelas ini digunakan untuk menyimpan seluruh informasi login dalam bentuk file teks yang sudah terenkripsi.}
+    \item{LoginInformation\\Kelas ini digunakan untuk menyimpan informasi login dalam bentuk key atau fingerprint, serta ActionSequence}
+    \item{ActionSequence\\Kelas ini digunakan untuk menyimpan langkah-langkah login dalam bentuk urutan aksi dan nilai-nilai yang berkaitan dengan aksi tersebut.}
+\end{itemize}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.85]{Gambar/classdiagram.png}
+    \caption[Diagram kelas untuk perangkat lunak yang dibangun.]{Diagram kelas untuk perangkat lunak yang dibangun.}
+    \label{fig:diagramkelas}
+\end{figure}
+
+\subsection{Diagram \textit{Use Case}}
+
+Diagram \textit{use case} untuk perangkat lunak yang dibangun dapat dilihat pada gambar \ref{fig:usecase}.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.77]{Gambar/usecase.png}
+    \caption[Diagram \textit{use case} untuk perangkat lunak yang dibangun.]{Diagram \textit{use case} untuk perangkat lunak yang dibangun.}
+    \label{fig:usecase}
+\end{figure}
+
+\subsubsection{Skenario merekam informasi login}
+Nama: Merekam informasi login\\
+Aktor: Pengguna\\
+Kondisi awal: Perangkat lunak mendeteksi adanya \textit{captive portal}.\\
+Deskripsi: Pengguna menyimpan informasi login.\\
+Kondisi Akhir: Informasi login tersimpan di dalam perangkat lunak.\\\\
+Skenario:
+\begin{enumerate}
+    \item{Pengguna memasukkan informasi login ke dalam form HTML.}
+    \item{Sistem menyimpan informasi login yang dimasukkan oleh pengguna.}
+\end{enumerate}
+
+\subsubsection{Skenario menghapus informasi login}
+Nama: Menghapus informasi login\\
+Aktor: Pengguna\\
+Kondisi awal: Perangkat lunak sudah dijalankan.\\
+Deskripsi: Pengguna menghapus informasi login.\\
+Kondisi Akhir: Informasi login dihapus dari perangkat lunak.\\\\
+Skenario:
+\begin{enumerate}
+    \item{Pengguna memilih untuk menghapus informasi login.}
+    \item{Sistem menghapus informasi login.}
+\end{enumerate}
+
+\subsubsection{Skenario mengubah informasi login}
+Nama: Mengubah informasi login\\
+Aktor: Pengguna\\
+Kondisi awal: Perangkat lunak sudah dijalankan.\\
+Deskripsi: Pengguna mengubah informasi login.\\
+Kondisi Akhir: Informasi login diubah dari perangkat lunak.\\\\
+Skenario:
+\begin{enumerate}
+    \item{Pengguna memilih untuk mengubah informasi login.}
+    \item{Sistem menampilkan form ubah informasi login.}
+    \item{Pengguna memasukkan informasi login baru.}
+    \item{Sistem menghapus informasi login lama dan menyimpan informasi login baru.}
+\end{enumerate}

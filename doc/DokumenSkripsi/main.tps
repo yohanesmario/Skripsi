@@ -12,12 +12,12 @@ MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=26
 NormalPos.right=1138
-NormalPos.bottom=477
+NormalPos.bottom=517
 Class=LaTeXView
 Document=Bab\bab2.tex
 
 [Frame0_View0,0]
-TopLine=15
+TopLine=18
 Cursor=457
 
 [Frame1]
@@ -30,7 +30,7 @@ MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=26
 NormalPos.right=1138
-NormalPos.bottom=477
+NormalPos.bottom=517
 Class=BibTeXView
 Document=pustaka.bib
 
@@ -48,7 +48,7 @@ MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=26
 NormalPos.right=1138
-NormalPos.bottom=477
+NormalPos.bottom=517
 Class=LaTeXView
 Document=main.tex
 
@@ -66,13 +66,13 @@ MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=26
 NormalPos.right=1138
-NormalPos.bottom=477
+NormalPos.bottom=517
 Class=LaTeXView
 Document=Bab\bab3.tex
 
 [Frame3_View0,0]
-TopLine=59
-Cursor=3662
+TopLine=123
+Cursor=9637
 
 [SessionInfo]
 FrameCount=4
