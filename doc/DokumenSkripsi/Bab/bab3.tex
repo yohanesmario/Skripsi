@@ -74,7 +74,7 @@ Metode penyimpanan yang digunakan pada penelitian ini adalah metode penyimpanan 
 \section{Analisis Metode Rekam dan Kirim Informasi Login}
 \label{sec:metode_rekam}
 
-Kelas WebView pada \textit{Universal Windows Platform} (UWP) hanya dapat dihubungkan dengan kode C\# menggunakan javascript. \textit{Method} yang digunakan untuk melakukan eksekusi javascript pada WebView adalah InvokeScriptAsync. Metode ini memiliki parameter string berupa nama fungsi javascript yang ingin dipanggil dan array of string yang berisi argumen yang ingin dikirimkan ke dalam fungsi tersebut. Salah satu fungsi yang dapat dipanggil adalah \textit{eval}. Dengan menggunakan \textit{eval}, ekspresi javascript apapun dapat dijalankan pada WebView. Untuk mengirimkan data dari javascript ke kode C\#, dapat dijalankan fungsi window.external.notify dengan parameter berupa string. Oleh karena itu, diperlukan \textit{encoding} tertentu (seperti JSON) untuk memasukkan lebih dari satu argumen.
+Kelas WebView pada \textit{Universal Windows Platform} (UWP) hanya dapat dihubungkan dengan kode C\# menggunakan javascript. \textit{Method} yang digunakan untuk melakukan eksekusi javascript pada WebView adalah InvokeScriptAsync. Metode ini memiliki parameter string berupa nama fungsi javascript yang ingin dipanggil dan array of string yang berisi argumen yang ingin dikirimkan ke dalam fungsi tersebut. Salah satu fungsi yang dapat dipanggil adalah \textit{eval}. Dengan menggunakan \textit{eval}, ekspresi javascript apapun dapat dijalankan pada WebView. Untuk mengirimkan data dari javascript ke kode C\#, dapat dijalankan fungsi window.external.notify dengan parameter berupa string. Oleh karena itu, diperlukan \textit{encoding} tertentu (seperti JSON\footnote{Singkatan dari JavaScript Object Notation.}) untuk memasukkan lebih dari satu argumen.
 
 InvokeScriptAsync dapat digunakan untuk memanggil fungsi \textit{eval} dengan parameter berupa function yang dapat digunakan untuk menekan tombol atau memasukkan nilai pada \textit{text field} tertentu. Selain itu, dapat dimasukkan event listener yang dapat memanggil window.external.notify menggunakan cara ini. Fungsi window.external.notify dapat membantu mengirimkan event-event seperti mouse click, keypress, atau perubahan nilai pada \textit{text field} yang ada pada halaman HTML pada WebView tersebut.
 
@@ -171,4 +171,19 @@ Skenario:
     \item{Sistem menampilkan form ubah informasi login.}
     \item{Pengguna memasukkan informasi login baru.}
     \item{Sistem menghapus informasi login lama dan menyimpan informasi login baru.}
+\end{enumerate}
+
+\subsubsection{Skenario memicu login otomatis}
+Nama: Memicu login otomatis\\
+Aktor: WiFi\\
+Kondisi awal: Perangkat lunak sudah dijalankan.\\
+Deskripsi: Sistem memicu login otomatis berdasarkan perubahan status WiFi.\\
+Kondisi Akhir: Klien terotentikasi pada \textit{captive portal}.\\\\
+Skenario:
+\begin{enumerate}
+    \item{Sistem mendeteksi adanya koneksi WiFi yang terjadi.}
+    \item{Sistem mendeteksi adanya \textit{captive portal}.}
+    \item{Sistem mendeteksi adanya informasi login untuk \textit{captive portal} tersebut.}
+    \item{Sistem mengirimkan informasi login kepada \textit{captive portal}.}
+    \item{Sistem mendeteksi koneksi dengan internet dan klien sudah terotentikasi pada \textit{captive portal} tersebut.}
 \end{enumerate}
