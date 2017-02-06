@@ -1,0 +1,40 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Windows.UI.Xaml.Controls;
+
+namespace WiFiWebAutoLogin {
+    class CaptivePortalDetector {
+        private static CaptivePortalDetector instance = null;
+        private WebView webView;
+        // private Storage storage;
+
+        private CaptivePortalDetector() {
+            this.webView = null;
+            // this.storage = null;
+        }
+
+        public bool isSetup() {
+            return this.webView != null;
+        }
+
+        public void setup(WebView webView) {
+            this.webView = webView;
+
+            // Set storage
+        }
+
+        public WebView getWebView() {
+            return this.webView;
+        }
+
+        public static CaptivePortalDetector getInstance() {
+            if (instance==null) {
+                instance = new CaptivePortalDetector();
+            }
+            return instance;
+        }
+    }
+}
