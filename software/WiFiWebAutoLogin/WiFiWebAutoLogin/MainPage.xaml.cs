@@ -32,7 +32,6 @@ namespace WiFiWebAutoLogin
             else {
                 MainWebView = cpd.getWebView();
             }
-            cpd.getWebView().Navigate(new Uri(Conf.uri));
         }
     }
 }

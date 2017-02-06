@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace WiFiWebAutoLogin {
     class Conf {
-        public static readonly
-            string uri = "http://107.172.253.111/"
-        ;
+        public static readonly string uri = "http://107.172.253.111/";
+        public static readonly string resource = "WiFiWebAutoLogin";
+        public static readonly string username = "userWiFiWebAutoLogin";
     }
 }

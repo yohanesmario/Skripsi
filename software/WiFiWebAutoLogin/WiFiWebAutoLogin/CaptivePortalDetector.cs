@@ -9,11 +9,11 @@ namespace WiFiWebAutoLogin {
     class CaptivePortalDetector {
         private static CaptivePortalDetector instance = null;
         private WebView webView;
-        // private Storage storage;
+        private Storage storage;
 
         private CaptivePortalDetector() {
             this.webView = null;
-            // this.storage = null;
+            this.storage = new Storage("./credentials.dat");
         }
 
         public bool isSetup() {
@@ -23,7 +23,7 @@ namespace WiFiWebAutoLogin {
         public void setup(WebView webView) {
             this.webView = webView;
 
-            // Set storage
+            this.webView.NavigateToString(this.storage.getPassword());
         }
 
         public WebView getWebView() {
