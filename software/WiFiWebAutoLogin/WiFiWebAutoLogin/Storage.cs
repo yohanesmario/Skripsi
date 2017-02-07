@@ -48,7 +48,7 @@ namespace WiFiWebAutoLogin {
             DataContractJsonSerializer serializer = new DataContractJsonSerializer( typeof(LoginInformation) );
             string json = await FileIO.ReadTextAsync(file);
             if (json.Trim().Equals("")) {
-                loginInfo = new LoginInformation("ABC");
+                loginInfo = new LoginInformation();
                 MemoryStream stream = new MemoryStream();
                 serializer.WriteObject(stream, loginInfo);
                 stream.Position = 0;

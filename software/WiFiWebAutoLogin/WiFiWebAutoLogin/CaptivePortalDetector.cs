@@ -20,10 +20,10 @@ namespace WiFiWebAutoLogin {
             return this.webView != null;
         }
 
-        public void setup(WebView webView) {
+        public async Task setup(WebView webView) {
             this.webView = webView;
 
-            this.webView.NavigateToString(this.storage.getPassword());
+            this.webView.Navigate(new Uri(Conf.uri));
         }
 
         public WebView getWebView() {
@@ -36,6 +36,12 @@ namespace WiFiWebAutoLogin {
                 await instance.storage.setup();
             }
             return instance;
+        }
+
+        public async void onLoad() {
+            string[] args = new string[1];
+            args[0] = "alert('TEST!');";
+            await this.webView.InvokeScriptAsync("eval", args);
         }
     }
 }

@@ -92,10 +92,12 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Action.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="CaptivePortalDetector.cs" />
+    <Compile Include="ActionSequence.cs" />
     <Compile Include="LoginInformation.cs" />
     <Compile Include="Storage.cs" />
     <Compile Include="Conf.cs" />
@@ -111,6 +113,7 @@
     <None Include="WiFiWebAutoLogin_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="JavaScript\DeployListeners.js" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />

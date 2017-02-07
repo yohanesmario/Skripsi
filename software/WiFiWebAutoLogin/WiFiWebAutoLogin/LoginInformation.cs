@@ -11,10 +11,13 @@ namespace WiFiWebAutoLogin {
     [DataContract]
     class LoginInformation {
         [DataMember]
-        private string text;
+        private Dictionary<string, ActionSequence> actionSequences;
 
-        public LoginInformation(string text) {
-            this.text = text;
+        public LoginInformation() {
+            this.actionSequences = new Dictionary<string, ActionSequence>();
+            ActionSequence actionSequence = new ActionSequence();
+            actionSequence.add(new Action(Action.ACTION_TYPE_INPUT, "#username", "TEST"));
+            this.actionSequences.Add("TEST", actionSequence);
         }
     }
 }
