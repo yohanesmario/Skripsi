@@ -96,6 +96,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="CaptivePortalDetector.cs" />
+    <Compile Include="LoginInformation.cs" />
     <Compile Include="Storage.cs" />
     <Compile Include="Conf.cs" />
     <Compile Include="MainPage.xaml.cs">
