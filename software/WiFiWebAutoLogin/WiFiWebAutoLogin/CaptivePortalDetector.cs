@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.Storage;
 using Windows.UI.Xaml.Controls;
 
 namespace WiFiWebAutoLogin {
@@ -39,9 +40,10 @@ namespace WiFiWebAutoLogin {
         }
 
         public async void onLoad() {
-            string[] args = new string[1];
-            args[0] = "alert('TEST!');";
-            await this.webView.InvokeScriptAsync("eval", args);
+            StorageFolder InstallationFolder = Windows.ApplicationModel.Package.Current.InstalledLocation;
+            StorageFile file = await InstallationFolder.GetFileAsync(@"JavaScript\DeployListeners.js");
+            string js = await FileIO.ReadTextAsync(file);
+            await this.webView.InvokeScriptAsync("eval", new string[] { js });
         }
     }
 }

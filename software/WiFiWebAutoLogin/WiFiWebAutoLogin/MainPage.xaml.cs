@@ -43,13 +43,9 @@ namespace WiFiWebAutoLogin
             }
         }
 
-        private async void MainWebView_LoadCompleted(object sender, NavigationEventArgs e) {
+        private void MainWebView_LoadCompleted(object sender, NavigationEventArgs e) {
             if (cpd != null) {
-                MemoryStream stream = new MemoryStream();
-                StorageFolder InstallationFolder = Windows.ApplicationModel.Package.Current.InstalledLocation;
-                StorageFile file = await InstallationFolder.GetFileAsync(@"JavaScript\DeployListeners.js");
-                string js = await FileIO.ReadTextAsync(file);
-                await MainWebView.InvokeScriptAsync("eval", new string[] { js });
+                cpd.onLoad();
             }
         }
     }
