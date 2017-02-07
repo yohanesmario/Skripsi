@@ -33,8 +33,8 @@ namespace WiFiWebAutoLogin {
         public static async Task<CaptivePortalDetector> getInstance() {
             if (instance==null) {
                 instance = new CaptivePortalDetector();
+                await instance.storage.setup();
             }
-            await instance.storage.setup();
             return instance;
         }
     }

@@ -36,7 +36,7 @@ namespace WiFiWebAutoLogin {
                 file = await folder.GetFileAsync(this.fileName);
             } catch (Exception e) {
                 file = await folder.CreateFileAsync(this.fileName);
-                FileIO.WriteTextAsync(file, this.password);
+                await FileIO.WriteTextAsync(file, this.password);
             }
         }
     }
