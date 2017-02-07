@@ -5,27 +5,39 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.Security.Credentials;
 using Windows.Security.Cryptography;
+using Windows.Storage;
 
 namespace WiFiWebAutoLogin {
     class Storage {
         private string fileName;
-        private PasswordVault vault;
+        private string password;
 
         public Storage(string fileName) {
             this.fileName = new String(fileName.ToCharArray());
-            this.vault = new PasswordVault();
+            PasswordVault vault = new PasswordVault();
 
-            string pass;
             try {
-                pass = this.vault.Retrieve(Conf.resource, Conf.username).Password;
+                this.password = vault.Retrieve(Conf.resource, Conf.username).Password;
             }
             catch (Exception e) {
-                this.vault.Add(new PasswordCredential(Conf.resource, Conf.username, CryptographicBuffer.EncodeToBase64String(CryptographicBuffer.GenerateRandom(64))));
+                vault.Add(new PasswordCredential(Conf.resource, Conf.username, CryptographicBuffer.EncodeToBase64String(CryptographicBuffer.GenerateRandom(64))));
+                this.password = vault.Retrieve(Conf.resource, Conf.username).Password;
             }
         }
 
         public string getPassword() {
-            return this.vault.Retrieve(Conf.resource, Conf.username).Password;
+            return new string(this.password.ToCharArray());
+        }
+
+        public async Task setup() {
+            StorageFolder folder = ApplicationData.Current.LocalFolder;
+            StorageFile file;
+            try {
+                file = await folder.GetFileAsync(this.fileName);
+            } catch (Exception e) {
+                file = await folder.CreateFileAsync(this.fileName);
+                FileIO.WriteTextAsync(file, this.password);
+            }
         }
     }
 }

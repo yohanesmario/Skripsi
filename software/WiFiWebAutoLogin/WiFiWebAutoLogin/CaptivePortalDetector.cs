@@ -13,7 +13,7 @@ namespace WiFiWebAutoLogin {
 
         private CaptivePortalDetector() {
             this.webView = null;
-            this.storage = new Storage("./credentials.dat");
+            this.storage = new Storage("credentials.dat");
         }
 
         public bool isSetup() {
@@ -30,10 +30,11 @@ namespace WiFiWebAutoLogin {
             return this.webView;
         }
 
-        public static CaptivePortalDetector getInstance() {
+        public static async Task<CaptivePortalDetector> getInstance() {
             if (instance==null) {
                 instance = new CaptivePortalDetector();
             }
+            await instance.storage.setup();
             return instance;
         }
     }

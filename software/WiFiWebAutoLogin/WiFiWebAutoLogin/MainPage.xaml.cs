@@ -25,7 +25,11 @@ namespace WiFiWebAutoLogin
         public MainPage()
         {
             this.InitializeComponent();
-            CaptivePortalDetector cpd = CaptivePortalDetector.getInstance();
+            this.setup();
+        }
+
+        public async void setup() {
+            CaptivePortalDetector cpd = await CaptivePortalDetector.getInstance();
             if (!cpd.isSetup()) {
                 cpd.setup(MainWebView);
             }
