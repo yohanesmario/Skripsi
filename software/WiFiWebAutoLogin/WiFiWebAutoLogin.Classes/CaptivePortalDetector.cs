@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.Foundation.Metadata;
 using Windows.Storage;
 using Windows.UI.Xaml.Controls;
 
 namespace WiFiWebAutoLogin {
-    class CaptivePortalDetector {
+    public class CaptivePortalDetector {
         private static CaptivePortalDetector instance = null;
         private WebView webView;
         private Storage storage;
@@ -44,6 +45,10 @@ namespace WiFiWebAutoLogin {
             StorageFile file = await InstallationFolder.GetFileAsync(@"JavaScript\DeployListeners.js");
             string js = await FileIO.ReadTextAsync(file);
             await this.webView.InvokeScriptAsync("eval", new string[] { js });
+        }
+
+        public async void notify(string args) {
+            await this.webView.InvokeScriptAsync("eval", new string[] { "document.body.innerHTML = '" + args + "';" });
         }
     }
 }

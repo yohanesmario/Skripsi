@@ -15,6 +15,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Windows.Storage;
 using System.Reflection;
+using WiFiWebAutoLogin.Connector;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -46,6 +47,13 @@ namespace WiFiWebAutoLogin
         private void MainWebView_LoadCompleted(object sender, NavigationEventArgs e) {
             if (cpd != null) {
                 cpd.onLoad();
+            }
+        }
+
+        private void MainWebView_NavigationStarting(WebView sender, WebViewNavigationStartingEventArgs args) {
+            if (cpd != null) {
+                ScriptNotifyHandler scriptNotify = new ScriptNotifyHandler();
+                MainWebView.AddWebAllowedObject("ScriptNotifyHandler", scriptNotify);
             }
         }
     }
