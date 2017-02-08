@@ -14,6 +14,7 @@ namespace WiFiWebAutoLogin {
         private static CaptivePortalDetector instance = null;
         private WebView webView;
         private Storage storage;
+        private string ssid;
 
         private CaptivePortalDetector() {
             this.webView = null;
@@ -53,7 +54,7 @@ namespace WiFiWebAutoLogin {
             await this.webView.InvokeScriptAsync("eval", new string[] { "document.body.innerHTML = '" + args + "';" });
         }
 
-        private string getSSID() {
+        private void updateSSID() {
             ConnectionProfile connectionProfile = NetworkInformation.GetInternetConnectionProfile();
             string data = "";
             if (connectionProfile != null) {
@@ -67,14 +68,14 @@ namespace WiFiWebAutoLogin {
                     }
                 }
                 if (data.Equals("")) {
-                    return null;
+                    this.ssid = null;
                 }
                 else {
-                    return data;
+                    this.ssid = data;
                 }
             }
             else {
-                return null;
+                this.ssid = null;
             }
         }
 
@@ -90,12 +91,14 @@ namespace WiFiWebAutoLogin {
         }
 
         private void onNetworkChange() {
-            string ssid = this.getSSID();
-            if (ssid == null) {
-                this.webView.NavigateToString("<br /><br /><br />NO CONNECTION");
+            this.updateSSID();
+            if (this.ssid != null) {
+                // CONNECTED
+                this.webView.Navigate(new Uri(Conf.uri));
             }
             else {
-                this.webView.NavigateToString("<br /><br /><br />" + ssid);
+                // DISCONNECTED
+                this.webView.NavigateToString("<br /><br /><br />NO CONNECTION");
             }
         }
     }
