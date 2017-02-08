@@ -3,6 +3,7 @@
 *.blg
 *.dvi
 *.log
+*.tps
 /*.lof
 /*.lot
 /*.out
