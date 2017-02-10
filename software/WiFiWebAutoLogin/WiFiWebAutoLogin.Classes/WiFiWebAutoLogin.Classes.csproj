@@ -116,6 +116,9 @@
     <Compile Include="Storage.cs" />
     <EmbeddedResource Include="Properties\WiFiWebAutoLogin.Classes.rd.xml" />
   </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

@@ -9,13 +9,13 @@ namespace WiFiWebAutoLogin {
     [DataContract]
     class ActionSequence {
         [DataMember]
-        private LinkedList<Action> actions;
+        private LinkedList<string> actions;
 
         public ActionSequence() {
-            this.actions = new LinkedList<Action>();
+            this.actions = new LinkedList<string>();
         }
 
-        public void add(Action action) {
+        public void add(string action) {
             this.actions.AddLast(action);
         }
 

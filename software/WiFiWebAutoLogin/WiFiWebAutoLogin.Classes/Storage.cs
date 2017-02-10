@@ -29,10 +29,6 @@ namespace WiFiWebAutoLogin {
             }
         }
 
-        public string getPassword() {
-            return new string(this.password.ToCharArray());
-        }
-
         public async Task setup() {
             StorageFolder folder = ApplicationData.Current.LocalFolder;
             StorageFile file;
@@ -40,23 +36,38 @@ namespace WiFiWebAutoLogin {
                 file = await folder.GetFileAsync(this.fileName);
             } catch (Exception e) {
                 file = await folder.CreateFileAsync(this.fileName);
-                await FileIO.WriteTextAsync(file, this.password);
             }
 
-            await FileIO.WriteTextAsync(file, "");
-
-            DataContractJsonSerializer serializer = new DataContractJsonSerializer( typeof(LoginInformation) );
             string json = await FileIO.ReadTextAsync(file);
             if (json.Trim().Equals("")) {
                 loginInfo = new LoginInformation();
-                MemoryStream stream = new MemoryStream();
-                serializer.WriteObject(stream, loginInfo);
-                stream.Position = 0;
-                await FileIO.WriteTextAsync(file, await (new StreamReader(stream)).ReadToEndAsync());
+                this.saveData();
             }
             else {
+                DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(LoginInformation));
                 loginInfo = (LoginInformation)serializer.ReadObject(new MemoryStream(Encoding.Unicode.GetBytes(json)));
             }
+        }
+
+        public LoginInformation getLoginInfo() {
+            return this.loginInfo;
+        }
+
+        public async void saveData() {
+            StorageFolder folder = ApplicationData.Current.LocalFolder;
+            StorageFile file;
+            try {
+                file = await folder.GetFileAsync(this.fileName);
+            }
+            catch (Exception e) {
+                file = await folder.CreateFileAsync(this.fileName);
+            }
+
+            DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(LoginInformation));
+            MemoryStream stream = new MemoryStream();
+            serializer.WriteObject(stream, loginInfo);
+            stream.Position = 0;
+            await FileIO.WriteTextAsync(file, await (new StreamReader(stream)).ReadToEndAsync());
         }
     }
 }

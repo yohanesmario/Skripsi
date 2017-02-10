@@ -16,8 +16,20 @@ namespace WiFiWebAutoLogin {
         public LoginInformation() {
             this.actionSequences = new Dictionary<string, ActionSequence>();
             ActionSequence actionSequence = new ActionSequence();
-            actionSequence.add(new Action(Action.ACTION_TYPE_INPUT, "#username", "TEST"));
-            this.actionSequences.Add("TEST", actionSequence);
+            //actionSequence.add(new Action(Action.ACTION_TYPE_INPUT, "#username", "TEST"));
+            //this.actionSequences.Add("TEST", actionSequence);
+        }
+
+        public ActionSequence getActionSequence(string fingerprint) {
+            try {
+                return this.actionSequences[fingerprint];
+            } catch (Exception e) {
+                return null;
+            }
+        }
+
+        public void addActionSequence(string fingerprint, ActionSequence actionSequence) {
+            this.actionSequences.Add(fingerprint, actionSequence);
         }
     }
 }
