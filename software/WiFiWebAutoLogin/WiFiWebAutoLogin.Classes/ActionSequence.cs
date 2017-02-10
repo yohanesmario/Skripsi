@@ -19,6 +19,10 @@ namespace WiFiWebAutoLogin {
             this.actions.AddLast(action);
         }
 
+        public IEnumerable<string> getEnumerable() {
+            return this.actions.AsEnumerable();
+        }
+
         public void reset() {
             this.actions.Clear();
         }

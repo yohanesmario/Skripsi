@@ -10,9 +10,9 @@ namespace WiFiWebAutoLogin.Connector
     [AllowForWeb]
     public sealed class ScriptNotifyHandler
     {
-        public async void notify(string args) {
+        public async void passAction(string args) {
             CaptivePortalDetector cpd = await CaptivePortalDetector.getInstance();
-            cpd.notify(args);
+            cpd.passAction(args);
         }
     }
 }

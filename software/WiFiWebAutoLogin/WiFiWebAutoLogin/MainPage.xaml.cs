@@ -37,7 +37,7 @@ namespace WiFiWebAutoLogin
         public async void setup() {
             cpd = await CaptivePortalDetector.getInstance();
             if (!cpd.isSetup()) {
-                await cpd.setup(MainWebView);
+                cpd.setup(MainWebView);
             }
             else {
                 MainWebView = cpd.getWebView();
@@ -55,6 +55,11 @@ namespace WiFiWebAutoLogin
                 ScriptNotifyHandler scriptNotify = new ScriptNotifyHandler();
                 MainWebView.AddWebAllowedObject("ScriptNotifyHandler", scriptNotify);
             }
+        }
+
+        private void MainWebView_NewWindowRequested(WebView sender, WebViewNewWindowRequestedEventArgs args) {
+            args.Handled = true;
+            cpd.queueUri(args.Uri);
         }
     }
 }
