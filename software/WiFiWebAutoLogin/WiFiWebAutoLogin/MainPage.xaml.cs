@@ -16,6 +16,7 @@ using Windows.UI.Xaml.Navigation;
 using Windows.Storage;
 using System.Reflection;
 using WiFiWebAutoLogin.Connector;
+using Windows.UI.ViewManagement;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -31,17 +32,21 @@ namespace WiFiWebAutoLogin
         public MainPage()
         {
             this.InitializeComponent();
+            ApplicationView.GetForCurrentView().SetPreferredMinSize(new Size { Width = 600, Height = 150 });
+            ApplicationView.PreferredLaunchViewSize = new Size(600, 150);
+            ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
             this.setup();
         }
 
-        public async void setup() {
+        private async void setup() {
             cpd = await CaptivePortalDetector.getInstance();
             if (!cpd.isSetup()) {
-                cpd.setup(MainWebView);
+                cpd.setup(MainWebView, textBlock);
             }
             else {
                 MainWebView = cpd.getWebView();
             }
+            textBlock.Text = "Detecting captive portal...";
         }
 
         private void MainWebView_LoadCompleted(object sender, NavigationEventArgs e) {

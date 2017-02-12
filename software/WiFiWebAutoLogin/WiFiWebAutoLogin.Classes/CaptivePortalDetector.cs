@@ -9,21 +9,28 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using Windows.Foundation;
 using Windows.Foundation.Metadata;
 using Windows.Networking.Connectivity;
 using Windows.Storage;
+using Windows.System.Threading;
+using Windows.UI.ViewManagement;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
 namespace WiFiWebAutoLogin {
     public class CaptivePortalDetector {
         private static CaptivePortalDetector instance = null;
-        private WebView webView;
         private Storage storage;
         private string ssid;
         private Queue<Uri> uriQueue;
+        
+        private WebView webView;
+        private TextBlock textBlock;
 
         private string currentFingerprint;
         private ActionSequence currentActionSequence;
+        private ThreadPoolTimer timer;
 
         private CaptivePortalDetector() {
             this.webView = null;
@@ -35,8 +42,9 @@ namespace WiFiWebAutoLogin {
             return this.webView != null;
         }
 
-        public void setup(WebView webView) {
+        public void setup(WebView webView, TextBlock textBlock) {
             this.webView = webView;
+            this.textBlock = textBlock;
 
             this.startNetworkProbing();
         }
@@ -60,10 +68,17 @@ namespace WiFiWebAutoLogin {
                 string body = await this.getBody();
 
                 this.currentActionSequence = this.storage.getLoginInfo().getActionSequence(this.currentFingerprint);
+                bool hasActionSequence = true;
                 if (this.currentActionSequence == null) {
+                    hasActionSequence = false;
                     this.currentActionSequence = new ActionSequence();
                     this.storage.getLoginInfo().addActionSequence(this.currentFingerprint, this.currentActionSequence);
                     this.storage.saveData();
+                }
+
+                if (hasActionSequence) {
+                    ApplicationView.GetForCurrentView().TryResizeView(new Size { Width = 600, Height = 150 });
+                    this.textBlock.Text = "Executing recorded actions...\r\n\r\n" + "("+this.currentFingerprint.Split(new string[] { "::" }, StringSplitOptions.RemoveEmptyEntries)[1]+")";
                 }
 
                 IEnumerable<string> actions = this.currentActionSequence.getEnumerable();
@@ -78,14 +93,36 @@ namespace WiFiWebAutoLogin {
                     this.deployListeners();
                     //await this.webView.InvokeScriptAsync("eval", new string[] { "document.body.innerHTML = " + (await this.EscapeJSONString(WebUtility.HtmlEncode(this.currentFingerprint))) });
                     if (this.uriQueue.Count > 0) {
-                        Timer timer = new Timer(this.timerCallback, this.currentFingerprint, TimeSpan.FromSeconds(3).Milliseconds, Timeout.Infinite);
+                        this.startTimer(this.currentFingerprint);
+                    }
+
+                    if (!hasActionSequence) {
+                        ApplicationView.GetForCurrentView().TryResizeView(new Size { Width = 800, Height = 500 });
+                        this.textBlock.Text = "";
+                        this.webView.Margin = new Thickness(0, 0, 0, 0);
+                    }
+                    else {
+                        this.startRetryTimer(this.currentFingerprint);
                     }
                 }
                 else {
                     // Connected
-
+                    ApplicationView.GetForCurrentView().TryResizeView(new Size { Width = 600, Height = 150 });
+                    this.textBlock.Text = "Connected.";
                 }
             }
+        }
+
+        private void startRetryTimer(object oldFingerprint) {
+            ThreadPoolTimer.CreateTimer(async (source) => {
+                await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () => {
+                    if (this.currentFingerprint.Equals(oldFingerprint)) {
+                        ApplicationView.GetForCurrentView().TryResizeView(new Size { Width = 800, Height = 500 });
+                        this.textBlock.Text = "";
+                        this.webView.Margin = new Thickness(0, 0, 0, 0);
+                    }
+                });
+            }, TimeSpan.FromSeconds(5));
         }
 
         private async void timerCallback(object oldFingerprint) {
@@ -174,6 +211,7 @@ namespace WiFiWebAutoLogin {
             }
 
             if (uri!=null) {
+                
                 this.webView.Navigate(uri);
             }
         }
@@ -201,8 +239,14 @@ namespace WiFiWebAutoLogin {
         public void queueUri(Uri uri) {
             this.uriQueue.Enqueue(uri);
             if (this.uriQueue.Count == 1) {
-                Timer timer = new Timer(this.timerCallback, this.currentFingerprint, TimeSpan.FromSeconds(5).Milliseconds, Timeout.Infinite);
+                this.startTimer(this.currentFingerprint);
             }
+        }
+
+        private void startTimer(string cf) {
+            this.timer = ThreadPoolTimer.CreateTimer((source) => {
+                this.timerCallback(cf);
+            }, TimeSpan.FromSeconds(1));
         }
     }
 }
