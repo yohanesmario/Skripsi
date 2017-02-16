@@ -246,7 +246,7 @@ namespace WiFiWebAutoLogin {
         private void startTimer(string cf) {
             this.timer = ThreadPoolTimer.CreateTimer((source) => {
                 this.timerCallback(cf);
-            }, TimeSpan.FromSeconds(1));
+            }, TimeSpan.FromSeconds(5));
         }
     }
 }

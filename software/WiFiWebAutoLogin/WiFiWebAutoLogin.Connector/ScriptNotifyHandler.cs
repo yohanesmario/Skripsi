@@ -14,5 +14,10 @@ namespace WiFiWebAutoLogin.Connector
             CaptivePortalDetector cpd = await CaptivePortalDetector.getInstance();
             cpd.passAction(args);
         }
+
+        public async void windowOpen(string args) {
+            CaptivePortalDetector cpd = await CaptivePortalDetector.getInstance();
+            cpd.queueUri(new Uri(args));
+        }
     }
 }
