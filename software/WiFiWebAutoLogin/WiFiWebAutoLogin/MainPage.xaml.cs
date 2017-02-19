@@ -66,5 +66,11 @@ namespace WiFiWebAutoLogin
             args.Handled = true;
             cpd.queueUri(args.Uri);
         }
+
+        private async void MainWebView_NavigationCompleted(WebView sender, WebViewNavigationCompletedEventArgs args) {
+            if (cpd != null) {
+                await MainWebView.InvokeScriptAsync("eval", new string[] { "window.open = function(url){ScriptNotifyHandler.windowOpen(url)};" });
+            }
+        }
     }
 }
