@@ -73,5 +73,9 @@ namespace WiFiWebAutoLogin
                 await MainWebView.InvokeScriptAsync("eval", new string[] { "window.open = function(url){ScriptNotifyHandler.windowOpen(url)};" });
             }
         }
+
+        private void button_Click(object sender, RoutedEventArgs e) {
+
+        }
     }
 }
