@@ -35,6 +35,8 @@ namespace WiFiWebAutoLogin
             ApplicationView.GetForCurrentView().SetPreferredMinSize(new Size { Width = 600, Height = 150 });
             ApplicationView.PreferredLaunchViewSize = new Size(600, 150);
             ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
+            MainWebView.Margin = new Thickness(0, int.MaxValue, 0, int.MinValue);
+            textBlock.Text = "Initializing...";
             this.setup();
         }
 
@@ -46,7 +48,6 @@ namespace WiFiWebAutoLogin
             else {
                 MainWebView = cpd.getWebView();
             }
-            textBlock.Text = "Detecting captive portal...";
         }
 
         private void MainWebView_LoadCompleted(object sender, NavigationEventArgs e) {

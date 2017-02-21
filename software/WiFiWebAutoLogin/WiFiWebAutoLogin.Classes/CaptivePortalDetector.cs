@@ -76,20 +76,21 @@ namespace WiFiWebAutoLogin {
                     this.storage.saveData();
                 }
 
-                if (hasActionSequence) {
-                    ApplicationView.GetForCurrentView().TryResizeView(new Size { Width = 600, Height = 150 });
-                    this.textBlock.Text = "Executing recorded actions...\r\n\r\n" + "("+this.currentFingerprint.Split(new string[] { "::" }, StringSplitOptions.RemoveEmptyEntries)[1]+")";
-                }
-
-                IEnumerable<string> actions = this.currentActionSequence.getEnumerable();
-                string compiledActions = "";
-                foreach (string action in actions) {
-                    compiledActions += action;
-                }
-                await this.webView.InvokeScriptAsync("eval", new string[] { compiledActions });
-
                 if (!body.Trim().Equals("connected")) {
                     // Not Connected
+
+                    if (hasActionSequence) {
+                        this.displayMessage("Executing recorded actions...\r\n\r\n" + "(" + this.currentFingerprint.Split(new string[] { "::" }, StringSplitOptions.RemoveEmptyEntries)[1] + ")");
+                    }
+
+                    IEnumerable<string> actions = this.currentActionSequence.getEnumerable();
+                    string compiledActions = "";
+                    foreach (string action in actions) {
+                        compiledActions += action;
+                    }
+                    await this.webView.InvokeScriptAsync("eval", new string[] { compiledActions });
+
+                    // Deploy Listeners
                     this.deployListeners();
                     //await this.webView.InvokeScriptAsync("eval", new string[] { "document.body.innerHTML = " + (await this.EscapeJSONString(WebUtility.HtmlEncode(this.currentFingerprint))) });
                     if (this.uriQueue.Count > 0) {
@@ -97,9 +98,7 @@ namespace WiFiWebAutoLogin {
                     }
 
                     if (!hasActionSequence) {
-                        ApplicationView.GetForCurrentView().TryResizeView(new Size { Width = 800, Height = 500 });
-                        this.textBlock.Text = "";
-                        this.webView.Margin = new Thickness(0, 0, 0, 0);
+                        this.displayWebView();
                     }
                     else {
                         this.startRetryTimer(this.currentFingerprint);
@@ -107,8 +106,7 @@ namespace WiFiWebAutoLogin {
                 }
                 else {
                     // Connected
-                    ApplicationView.GetForCurrentView().TryResizeView(new Size { Width = 600, Height = 150 });
-                    this.textBlock.Text = "Connected.";
+                    this.displayMessage("Connected.");
                 }
             }
         }
@@ -117,9 +115,7 @@ namespace WiFiWebAutoLogin {
             ThreadPoolTimer.CreateTimer(async (source) => {
                 await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () => {
                     if (this.currentFingerprint.Equals(oldFingerprint)) {
-                        ApplicationView.GetForCurrentView().TryResizeView(new Size { Width = 800, Height = 500 });
-                        this.textBlock.Text = "";
-                        this.webView.Margin = new Thickness(0, 0, 0, 0);
+                        this.displayWebView();
                     }
                 });
             }, TimeSpan.FromSeconds(5));
@@ -191,6 +187,7 @@ namespace WiFiWebAutoLogin {
             }
         }
 
+        ///*
         private void startNetworkProbing() {
             NetworkChange.NetworkAddressChanged += new NetworkAddressChangedEventHandler(NetworkEventHandler);
             this.onNetworkChange();
@@ -201,6 +198,7 @@ namespace WiFiWebAutoLogin {
                 this.onNetworkChange();
             });
         }
+        //*/
 
         private void dequeueUri() {
             Uri uri;
@@ -216,6 +214,7 @@ namespace WiFiWebAutoLogin {
             }
         }
 
+        ///*
         private void onNetworkChange() {
             this.updateSSID();
             if (this.ssid != null) {
@@ -224,9 +223,10 @@ namespace WiFiWebAutoLogin {
             }
             else {
                 // DISCONNECTED
-                this.webView.NavigateToString("NO CONNECTION");
+                this.displayMessage("Check your network connection.");
             }
         }
+        //*/
 
         private async Task<string> EscapeJSONString(string unescaped) {
             DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(LoginInformation));
@@ -247,6 +247,18 @@ namespace WiFiWebAutoLogin {
             this.timer = ThreadPoolTimer.CreateTimer((source) => {
                 this.timerCallback(cf);
             }, TimeSpan.FromSeconds(5));
+        }
+
+        private void displayMessage(string message) {
+            ApplicationView.GetForCurrentView().TryResizeView(new Size { Width = 600, Height = 150 });
+            this.textBlock.Text = message;
+            this.webView.Margin = new Thickness(0, int.MaxValue, 0, int.MinValue);
+        }
+
+        private void displayWebView() {
+            ApplicationView.GetForCurrentView().TryResizeView(new Size { Width = 800, Height = 500 });
+            this.textBlock.Text = "";
+            this.webView.Margin = new Thickness(0, 0, 0, 0);
         }
     }
 }
