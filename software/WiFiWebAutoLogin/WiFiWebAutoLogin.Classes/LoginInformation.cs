@@ -31,5 +31,32 @@ namespace WiFiWebAutoLogin.Classes {
         public void addActionSequence(string fingerprint, ActionSequence actionSequence) {
             this.actionSequences.Add(fingerprint, actionSequence);
         }
+
+        public List<string> getList() {
+            Dictionary<string, ActionSequence>.KeyCollection.Enumerator loginInfoEnumerator = actionSequences.Keys.GetEnumerator();
+            List<string> list = new List<string>();
+            while (loginInfoEnumerator.MoveNext()) {
+                string ssid = loginInfoEnumerator.Current.Split(new string[] { Conf.separator }, StringSplitOptions.RemoveEmptyEntries)[0];
+                if (!list.Contains(ssid)) {
+                    list.Add(ssid);
+                }
+            }
+            return list;
+        }
+
+        public void removeBySSID(string ssid) {
+            Dictionary<string, ActionSequence>.KeyCollection.Enumerator loginInfoEnumerator = actionSequences.Keys.GetEnumerator();
+            List<string> removalList = new List<string>();
+            while (loginInfoEnumerator.MoveNext()) {
+                string enumSSID = loginInfoEnumerator.Current.Split(new string[] { Conf.separator }, StringSplitOptions.RemoveEmptyEntries)[0];
+                if (enumSSID.Equals(ssid)) {
+                    removalList.Add(loginInfoEnumerator.Current);
+                }
+            }
+            List<string>.Enumerator removalListEnumerator = removalList.GetEnumerator();
+            while (removalListEnumerator.MoveNext()) {
+                actionSequences.Remove(removalListEnumerator.Current);
+            }
+        }
     }
 }

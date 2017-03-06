@@ -18,6 +18,7 @@ using System.Reflection;
 using WiFiWebAutoLogin.RuntimeComponents;
 using Windows.UI.ViewManagement;
 using WiFiWebAutoLogin.Classes;
+using System.Diagnostics;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -43,12 +44,8 @@ namespace WiFiWebAutoLogin
 
         private async void setup() {
             cpd = await CaptivePortalDetector.getInstance();
-            if (!cpd.isSetup()) {
-                cpd.setup(MainWebView, textBlock);
-            }
-            else {
-                MainWebView = cpd.getWebView();
-            }
+            cpd.setup(MainWebView, textBlock, comboBox);
+            Debug.WriteLine("TEST SETUP");
         }
 
         private void MainWebView_LoadCompleted(object sender, NavigationEventArgs e) {
@@ -76,7 +73,7 @@ namespace WiFiWebAutoLogin
         }
 
         private void button_Click(object sender, RoutedEventArgs e) {
-
+            cpd.removeLoginInformation((string)comboBox.SelectedItem);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -27,6 +28,7 @@ namespace WiFiWebAutoLogin.Classes {
         
         private WebView webView;
         private TextBlock textBlock;
+        private ComboBox comboBox;
 
         private string currentFingerprint;
         private ActionSequence currentActionSequence;
@@ -42,14 +44,19 @@ namespace WiFiWebAutoLogin.Classes {
             return this.webView != null;
         }
 
-        public void setup(WebView webView, TextBlock textBlock) {
+        public void setup(WebView webView, TextBlock textBlock, ComboBox comboBox) {
             this.webView = webView;
             this.textBlock = textBlock;
+            this.comboBox = comboBox;
 
-            //this.startNetworkProbing();
+            this.refreshList();
 
             this.updateSSID();
             this.updateWebView();
+        }
+
+        public void refreshList() {
+            comboBox.ItemsSource = this.storage.getLoginInfo().getList();
         }
 
         public WebView getWebView() {
@@ -88,13 +95,14 @@ namespace WiFiWebAutoLogin.Classes {
                     this.currentActionSequence = new ActionSequence();
                     this.storage.getLoginInfo().addActionSequence(this.currentFingerprint, this.currentActionSequence);
                     this.storage.saveData();
+                    this.refreshList();
                 }
 
                 if (!body.Trim().Equals("connected")) {
                     // Not Connected
 
                     if (hasActionSequence) {
-                        this.displayMessage("Executing recorded actions...\r\n\r\n" + "(" + this.currentFingerprint.Split(new string[] { "::" }, StringSplitOptions.RemoveEmptyEntries)[1] + ")");
+                        this.displayMessage("Executing recorded actions...\r\n\r\n" + "(" + this.currentFingerprint.Split(new string[] { Conf.separator }, StringSplitOptions.RemoveEmptyEntries)[1] + ")");
                     }
 
                     IEnumerable<string> actions = this.currentActionSequence.getEnumerable();
@@ -161,7 +169,7 @@ namespace WiFiWebAutoLogin.Classes {
                 title = await this.webView.InvokeScriptAsync("eval", new string[] { "document.getElementsByTagName(\"title\")[0].innerHTML.trim();" });
             } catch (Exception e) {
             }
-            return this.ssid + "::" + uri + "::" + title;
+            return this.ssid + Conf.separator + uri + Conf.separator + title;
         }
 
         private async Task<string> getBody() {
@@ -250,6 +258,14 @@ namespace WiFiWebAutoLogin.Classes {
             ApplicationView.GetForCurrentView().TryResizeView(new Size { Width = 800, Height = 500 });
             this.textBlock.Text = "";
             this.webView.Margin = new Thickness(0, 0, 0, 0);
+        }
+
+        public void removeLoginInformation(string ssid) {
+            if (ssid != null) {
+                this.storage.getLoginInfo().removeBySSID(ssid);
+                this.storage.saveData();
+                this.refreshList();
+            }
         }
     }
 }

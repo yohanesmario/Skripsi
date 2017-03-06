@@ -11,5 +11,6 @@ namespace WiFiWebAutoLogin.Classes {
         //public static readonly string uri = "https://yohanesmario.com/";
         public static readonly string resource = "WiFiWebAutoLogin";
         public static readonly string username = "userWiFiWebAutoLogin";
+        public static readonly string separator = "<::>";
     }
 }
