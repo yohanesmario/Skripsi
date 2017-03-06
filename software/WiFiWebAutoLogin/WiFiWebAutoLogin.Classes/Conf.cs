@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WiFiWebAutoLogin {
+namespace WiFiWebAutoLogin.Classes {
     class Conf {
         public static readonly string uri = "http://107.172.253.111/network_status.html";
         //public static readonly string uri = "https://yohanesmario.com/public/popup_tester.html?id=0";

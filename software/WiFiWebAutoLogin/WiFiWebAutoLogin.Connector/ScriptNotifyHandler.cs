@@ -4,8 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Foundation.Metadata;
+using WiFiWebAutoLogin.Classes;
 
-namespace WiFiWebAutoLogin.Connector
+namespace WiFiWebAutoLogin.RuntimeComponents
 {
     [AllowForWeb]
     public sealed class ScriptNotifyHandler

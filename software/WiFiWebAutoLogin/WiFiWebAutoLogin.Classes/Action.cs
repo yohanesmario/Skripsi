@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.Serialization;
 
-namespace WiFiWebAutoLogin {
+namespace WiFiWebAutoLogin.Classes {
     [DataContract]
     class Action {
         public static readonly int ACTION_TYPE_CLICK = 0;

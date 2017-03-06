@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<toast launch="app-defined-string">
+  <visual>
+    <binding template="ToastGeneric">
+      <text>Network Detected</text>
+      <text>You are connected to a network. Would you like to run WiFiWebAutoLogin?</text>
+    </binding>
+  </visual>
+  <actions>
+    <action content="Yes" arguments="Yes" />
+    <action content="No" arguments="No" />
+  </actions>
+  <audio src="ms-winsoundevent:Notification.Reminder"/>
+</toast>

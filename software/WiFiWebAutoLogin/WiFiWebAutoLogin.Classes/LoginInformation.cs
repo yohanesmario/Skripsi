@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Contacts;
 
-namespace WiFiWebAutoLogin {
+namespace WiFiWebAutoLogin.Classes {
     [DataContract]
     class LoginInformation {
         [DataMember]

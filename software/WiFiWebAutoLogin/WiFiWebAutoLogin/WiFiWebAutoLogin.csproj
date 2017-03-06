@@ -95,7 +95,6 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="BackgroundTask.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -133,9 +132,9 @@
       <Project>{2fdf06c7-98e8-4947-a010-63dc6086c82b}</Project>
       <Name>WiFiWebAutoLogin.Classes</Name>
     </ProjectReference>
-    <ProjectReference Include="..\WiFiWebAutoLogin.Connector\WiFiWebAutoLogin.Connector.csproj">
+    <ProjectReference Include="..\WiFiWebAutoLogin.Connector\WiFiWebAutoLogin.RuntimeComponents.csproj">
       <Project>{f88193b0-4b71-4500-b691-bd1cf16290af}</Project>
-      <Name>WiFiWebAutoLogin.Connector</Name>
+      <Name>WiFiWebAutoLogin.RuntimeComponents</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

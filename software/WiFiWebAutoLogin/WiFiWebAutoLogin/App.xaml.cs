@@ -5,6 +5,8 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
+using Windows.ApplicationModel.Background;
+using Windows.ApplicationModel.Core;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -39,9 +41,28 @@ namespace WiFiWebAutoLogin
         /// <param name="e">Details about the launch request and process.</param>
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
+            // Initialize background task
+            bool taskRegistered = false;
+            string taskName = "CustomBackgroundTask";
+
+            foreach (var task in BackgroundTaskRegistration.AllTasks) {
+                if (task.Value.Name == taskName) {
+                    task.Value.Unregister(true);
+                }
+            }
+
+            if (!taskRegistered) {
+                // Register task
+                var builder = new BackgroundTaskBuilder();
+
+                builder.Name = taskName;
+                builder.TaskEntryPoint = "WiFiWebAutoLogin.RuntimeComponents.CustomBackgroundTask";
+                builder.SetTrigger(new SystemTrigger(SystemTriggerType.NetworkStateChange, false));
+                builder.AddCondition(new SystemCondition(SystemConditionType.UserPresent));
+                BackgroundTaskRegistration task = builder.Register();
+            }
 #if DEBUG
-            if (System.Diagnostics.Debugger.IsAttached)
-            {
+            if (System.Diagnostics.Debugger.IsAttached) {
                 //this.DebugSettings.EnableFrameRateCounter = true;
                 this.DebugSettings.EnableFrameRateCounter = false;
             }
@@ -50,15 +71,13 @@ namespace WiFiWebAutoLogin
 
             // Do not repeat app initialization when the Window already has content,
             // just ensure that the window is active
-            if (rootFrame == null)
-            {
+            if (rootFrame == null) {
                 // Create a Frame to act as the navigation context and navigate to the first page
                 rootFrame = new Frame();
 
                 rootFrame.NavigationFailed += OnNavigationFailed;
 
-                if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
-                {
+                if (e.PreviousExecutionState == ApplicationExecutionState.Terminated) {
                     //TODO: Load state from previously suspended application
                 }
 
@@ -66,10 +85,8 @@ namespace WiFiWebAutoLogin
                 Window.Current.Content = rootFrame;
             }
 
-            if (e.PrelaunchActivated == false)
-            {
-                if (rootFrame.Content == null)
-                {
+            if (e.PrelaunchActivated == false) {
+                if (rootFrame.Content == null) {
                     // When the navigation stack isn't restored navigate to the first page,
                     // configuring the new page by passing required information as a navigation
                     // parameter

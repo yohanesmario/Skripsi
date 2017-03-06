@@ -10,7 +10,7 @@ using Windows.Security.Credentials;
 using Windows.Security.Cryptography;
 using Windows.Storage;
 
-namespace WiFiWebAutoLogin {
+namespace WiFiWebAutoLogin.Classes {
     class Storage {
         private string fileName;
         private string password;

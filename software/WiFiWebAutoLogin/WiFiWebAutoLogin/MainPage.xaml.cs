@@ -15,8 +15,9 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Windows.Storage;
 using System.Reflection;
-using WiFiWebAutoLogin.Connector;
+using WiFiWebAutoLogin.RuntimeComponents;
 using Windows.UI.ViewManagement;
+using WiFiWebAutoLogin.Classes;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 

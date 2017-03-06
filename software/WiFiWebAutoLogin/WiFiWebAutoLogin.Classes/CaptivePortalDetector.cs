@@ -18,7 +18,7 @@ using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace WiFiWebAutoLogin {
+namespace WiFiWebAutoLogin.Classes {
     public class CaptivePortalDetector {
         private static CaptivePortalDetector instance = null;
         private Storage storage;
@@ -46,11 +46,25 @@ namespace WiFiWebAutoLogin {
             this.webView = webView;
             this.textBlock = textBlock;
 
-            this.startNetworkProbing();
+            //this.startNetworkProbing();
+
+            this.updateSSID();
+            this.updateWebView();
         }
 
         public WebView getWebView() {
             return this.webView;
+        }
+
+        public void updateWebView() {
+            if (this.ssid != null) {
+                // CONNECTED
+                this.webView.Navigate(new Uri(Conf.uri));
+            }
+            else {
+                // DISCONNECTED
+                this.displayMessage("Check your network connection.");
+            }
         }
 
         public static async Task<CaptivePortalDetector> getInstance() {
@@ -162,7 +176,7 @@ namespace WiFiWebAutoLogin {
             //await this.webView.InvokeScriptAsync("eval", new string[] { "document.body.innerHTML = '" + args + "';" });
         }
 
-        private void updateSSID() {
+        public void updateSSID() {
             ConnectionProfile connectionProfile = NetworkInformation.GetInternetConnectionProfile();
             string data = "";
             if (connectionProfile != null) {
@@ -187,18 +201,9 @@ namespace WiFiWebAutoLogin {
             }
         }
 
-        ///*
-        private void startNetworkProbing() {
-            NetworkChange.NetworkAddressChanged += new NetworkAddressChangedEventHandler(NetworkEventHandler);
-            this.onNetworkChange();
+        public string getSSID() {
+            return this.ssid;
         }
-
-        private async void NetworkEventHandler(object sender, EventArgs e) {
-            await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () => {
-                this.onNetworkChange();
-            });
-        }
-        //*/
 
         private void dequeueUri() {
             Uri uri;
@@ -213,20 +218,6 @@ namespace WiFiWebAutoLogin {
                 this.webView.Navigate(uri);
             }
         }
-
-        ///*
-        private void onNetworkChange() {
-            this.updateSSID();
-            if (this.ssid != null) {
-                // CONNECTED
-                this.webView.Navigate(new Uri(Conf.uri));
-            }
-            else {
-                // DISCONNECTED
-                this.displayMessage("Check your network connection.");
-            }
-        }
-        //*/
 
         private async Task<string> EscapeJSONString(string unescaped) {
             DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(LoginInformation));

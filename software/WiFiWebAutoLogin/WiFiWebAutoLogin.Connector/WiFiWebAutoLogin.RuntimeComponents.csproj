@@ -7,8 +7,8 @@
     <ProjectGuid>{F88193B0-4B71-4500-B691-BD1CF16290AF}</ProjectGuid>
     <OutputType>winmdobj</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>WiFiWebAutoLogin.Connector</RootNamespace>
-    <AssemblyName>WiFiWebAutoLogin.Connector</AssemblyName>
+    <RootNamespace>WiFiWebAutoLogin.RuntimeComponents</RootNamespace>
+    <AssemblyName>WiFiWebAutoLogin.RuntimeComponents</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion>10.0.14393.0</TargetPlatformVersion>
@@ -108,6 +108,7 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CustomBackgroundTask.cs" />
     <Compile Include="ScriptNotifyHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -116,6 +117,9 @@
       <Project>{2fdf06c7-98e8-4947-a010-63dc6086c82b}</Project>
       <Name>WiFiWebAutoLogin.Classes</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Notification.xml" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
