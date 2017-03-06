@@ -19,7 +19,22 @@ namespace WiFiWebAutoLogin.RuntimeComponents {
             _deferral = taskInstance.GetDeferral();
 
             if (this.isNetworkConnected()) {
-                string xmlText = "<?xml version=\"1.0\" encoding=\"utf-8\" ?>\r\n<toast launch=\"app-defined-string\">\r\n  <visual>\r\n    <binding template=\"ToastGeneric\">\r\n      <text>Network Detected</text>\r\n      <text>Would you like to run WiFiWebAutoLogin?</text>\r\n    </binding>\r\n  </visual>\r\n  <actions>\r\n    <action content=\"Yes\" arguments=\"Yes\" />\r\n    <action content=\"No\" arguments=\"No\" />\r\n  </actions>\r\n  <audio src=\"ms-winsoundevent:Notification.Reminder\"/>\r\n</toast>";
+
+                string xmlText = "<?xml version=\"1.0\" encoding=\"utf-8\" ?>" +
+                    "<toast launch=\"app-defined-string\">" +
+                        "<visual>" +
+                            "<binding template=\"ToastGeneric\">" +
+                                "<text>Network Detected</text>" +
+                                "<text>Would you like to run WiFiWebAutoLogin?</text>" +
+                            "</binding>" +
+                        "</visual>" +
+                        "<actions>" +
+                            "<action content=\"Yes\" arguments=\"Yes\" />" +
+                            "<action content=\"No\" arguments=\"No\" activationType=\"background\" />" +
+                        "</actions>" +
+                        "<audio src=\"ms-winsoundevent:Notification.Reminder\"/>" +
+                    "</toast>";
+
                 XmlDocument xmlContent = new XmlDocument();
                 xmlContent.LoadXml(xmlText);
 
