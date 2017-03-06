@@ -186,8 +186,11 @@ namespace WiFiWebAutoLogin.Classes {
 
         public void updateSSID() {
             ConnectionProfile connectionProfile = NetworkInformation.GetInternetConnectionProfile();
+
             string data = "";
             if (connectionProfile != null) {
+                Debug.WriteLine("[NETWORK]: "+connectionProfile.GetNetworkConnectivityLevel().ToString());
+
                 IEnumerable<string> enumerable = connectionProfile.GetNetworkNames().AsEnumerable();
                 foreach (string v in enumerable) {
                     if (data.Equals("")) {
@@ -258,6 +261,10 @@ namespace WiFiWebAutoLogin.Classes {
             ApplicationView.GetForCurrentView().TryResizeView(new Size { Width = 800, Height = 500 });
             this.textBlock.Text = "";
             this.webView.Margin = new Thickness(0, 0, 0, 0);
+        }
+
+        public void timeout() {
+            this.displayMessage("Operation timeout.\r\nCheck your network connection.");
         }
 
         public void removeLoginInformation(string ssid) {

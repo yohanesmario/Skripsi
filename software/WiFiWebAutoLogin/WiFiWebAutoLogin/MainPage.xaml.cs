@@ -19,6 +19,7 @@ using WiFiWebAutoLogin.RuntimeComponents;
 using Windows.UI.ViewManagement;
 using WiFiWebAutoLogin.Classes;
 using System.Diagnostics;
+using Windows.System.Threading;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -30,6 +31,8 @@ namespace WiFiWebAutoLogin
     public sealed partial class MainPage : Page
     {
         private CaptivePortalDetector cpd = null;
+        private ThreadPoolTimer timeoutTimer = null;
+        private bool loaded = true;
 
         public MainPage()
         {
@@ -50,14 +53,31 @@ namespace WiFiWebAutoLogin
 
         private void MainWebView_LoadCompleted(object sender, NavigationEventArgs e) {
             if (cpd != null) {
+                this.loaded = true;
                 cpd.onLoad();
             }
         }
 
         private void MainWebView_NavigationStarting(WebView sender, WebViewNavigationStartingEventArgs args) {
             if (cpd != null) {
+                if (this.timeoutTimer!=null) {
+                    this.timeoutTimer.Cancel();
+                    this.timeoutTimer = null;
+                }
+
                 ScriptNotifyHandler scriptNotify = new ScriptNotifyHandler();
                 MainWebView.AddWebAllowedObject("ScriptNotifyHandler", scriptNotify);
+
+                // Handle Timeout
+                this.loaded = false;
+                this.timeoutTimer = ThreadPoolTimer.CreateTimer(async (source) => {
+                    await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () => {
+                        this.timeoutTimer = null;
+                        if (!this.loaded) {
+                            this.cpd.timeout();
+                        }
+                    });
+                }, TimeSpan.FromSeconds(20));
             }
         }
 

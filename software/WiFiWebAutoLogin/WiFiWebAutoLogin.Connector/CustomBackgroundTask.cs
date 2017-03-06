@@ -13,12 +13,10 @@ using System.IO;
 
 namespace WiFiWebAutoLogin.RuntimeComponents {
     public sealed class CustomBackgroundTask : IBackgroundTask {
-        private BackgroundTaskDeferral _deferral;
+        private static string lastSSID = "";
 
-        public async void Run(IBackgroundTaskInstance taskInstance) {
-            _deferral = taskInstance.GetDeferral();
-
-            if (this.isNetworkConnected()) {
+        public void Run(IBackgroundTaskInstance taskInstance) {
+            if (this.connectionChanged() && lastSSID!=null && !this.hasInternetAccess()) {
 
                 string xmlText = "<?xml version=\"1.0\" encoding=\"utf-8\" ?>" +
                     "<toast launch=\"app-defined-string\">" +
@@ -39,44 +37,27 @@ namespace WiFiWebAutoLogin.RuntimeComponents {
                 xmlContent.LoadXml(xmlText);
 
                 ToastNotification notification = new ToastNotification(xmlContent);
+                notification.Tag = "WWAL_TOAST";
+                notification.Dismissed += (ToastNotification n, ToastDismissedEventArgs args) => {
+                    ToastNotificationManager.History.Remove("WWAL_TOAST");
+                };
                 ToastNotificationManager.CreateToastNotifier().Show(notification);
             }
-
-            CaptivePortalDetector cpd = await CaptivePortalDetector.getInstance();
-            if (cpd.isSetup()) {
-                await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () => {
-                    //this.onNetworkChange();
-                });
-
-                Debug.WriteLine("TEST");
-            }
-            else {
-                Debug.WriteLine("Not initialized");
-
-                _deferral.Complete();
-            }
         }
 
-        private async void onNetworkChange() {
-            /*
-            captive.updateSSID();
-            if (ssid != null) {
-                // CONNECTED
-                this.webView.Navigate(new Uri(Conf.uri));
+        private bool hasInternetAccess() {
+            ConnectionProfile connectionProfile = NetworkInformation.GetInternetConnectionProfile();
+            
+            if (connectionProfile != null) {
+                if (connectionProfile.GetNetworkConnectivityLevel().ToString().Trim().Equals("InternetAccess")) {
+                    return true;
+                }
             }
-            else {
-                // DISCONNECTED
-                this.displayMessage("Check your network connection.");
-            }
-            */
-            CaptivePortalDetector cpd = await CaptivePortalDetector.getInstance();
-            cpd.updateSSID();
-            cpd.updateWebView();
 
-            _deferral.Complete();
+            return false;
         }
 
-        public bool isNetworkConnected() {
+        private bool connectionChanged() {
             string ssid;
             ConnectionProfile connectionProfile = NetworkInformation.GetInternetConnectionProfile();
             string data = "";
@@ -101,7 +82,26 @@ namespace WiFiWebAutoLogin.RuntimeComponents {
                 ssid = null;
             }
 
-            return ssid != null;
+            if (lastSSID != null) {
+                if (lastSSID.Equals(ssid)) {
+                    lastSSID = ssid;
+                    return false;
+                }
+                else {
+                    lastSSID = ssid;
+                    return true;
+                }
+            }
+            else {
+                if (ssid==null) {
+                    lastSSID = ssid;
+                    return false;
+                }
+                else {
+                    lastSSID = ssid;
+                    return true;
+                }
+            }
         }
     }
 }

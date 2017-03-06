@@ -9,6 +9,7 @@ using Windows.ApplicationModel.Background;
 using Windows.ApplicationModel.Core;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Notifications;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -59,7 +60,6 @@ namespace WiFiWebAutoLogin
                 builder.TaskEntryPoint = "WiFiWebAutoLogin.RuntimeComponents.CustomBackgroundTask";
                 builder.SetTrigger(new SystemTrigger(SystemTriggerType.NetworkStateChange, false));
                 builder.AddCondition(new SystemCondition(SystemConditionType.UserPresent));
-                builder.AddCondition(new SystemCondition(SystemConditionType.InternetNotAvailable));
                 BackgroundTaskRegistration task = builder.Register();
             }
 #if DEBUG
@@ -115,6 +115,8 @@ namespace WiFiWebAutoLogin
                 else {
                     CoreApplication.Exit();
                 }
+
+                ToastNotificationManager.History.Remove("WWAL_TOAST");
             }
         }
 
