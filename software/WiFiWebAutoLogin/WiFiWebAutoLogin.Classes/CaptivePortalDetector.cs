@@ -116,7 +116,7 @@ namespace WiFiWebAutoLogin.Classes {
                     this.deployListeners();
                     //await this.webView.InvokeScriptAsync("eval", new string[] { "document.body.innerHTML = " + (await this.EscapeJSONString(WebUtility.HtmlEncode(this.currentFingerprint))) });
                     if (this.uriQueue.Count > 0) {
-                        this.startTimer(this.currentFingerprint);
+                        this.startTimer();
                     }
 
                     if (!hasActionSequence) {
@@ -129,11 +129,19 @@ namespace WiFiWebAutoLogin.Classes {
                 else {
                     // Connected
                     this.displayMessage("Connected.");
+                    this.uriQueue.Clear();
                 }
             }
         }
 
-        private void startRetryTimer(object oldFingerprint) {
+        public void navigationStarting() {
+            if (this.timer!=null) {
+                this.timer.Cancel();
+                this.timer = null;
+            }
+        }
+
+        private void startRetryTimer(string oldFingerprint) {
             ThreadPoolTimer.CreateTimer(async (source) => {
                 await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () => {
                     if (this.currentFingerprint.Equals(oldFingerprint)) {
@@ -143,14 +151,12 @@ namespace WiFiWebAutoLogin.Classes {
             }, TimeSpan.FromSeconds(5));
         }
 
-        private async void timerCallback(object oldFingerprint) {
-            await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, async () => {
-                if (((string)oldFingerprint).Equals(await this.getFingerprint())) {
-                    this.dequeueUri();
+        private async void timerCallback() {
+            await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () => {
+                if (this.timer!=null) {
+                    this.timer = null;
                 }
-                else {
-                    this.webView.Navigate(new Uri("http://107.172.253.111/network_status.html"));
-                }
+                this.dequeueUri();
             });
         }
 
@@ -241,14 +247,14 @@ namespace WiFiWebAutoLogin.Classes {
         public void queueUri(Uri uri) {
             this.uriQueue.Enqueue(uri);
             if (this.uriQueue.Count == 1) {
-                this.startTimer(this.currentFingerprint);
+                this.startTimer();
             }
         }
 
-        private void startTimer(string cf) {
+        private void startTimer() {
             this.timer = ThreadPoolTimer.CreateTimer((source) => {
-                this.timerCallback(cf);
-            }, TimeSpan.FromSeconds(5));
+                this.timerCallback();
+            }, TimeSpan.FromSeconds(1));
         }
 
         private void displayMessage(string message) {

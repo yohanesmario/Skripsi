@@ -107,7 +107,6 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Action.cs" />
     <Compile Include="ActionSequence.cs" />
     <Compile Include="CaptivePortalDetector.cs" />
     <Compile Include="Conf.cs" />

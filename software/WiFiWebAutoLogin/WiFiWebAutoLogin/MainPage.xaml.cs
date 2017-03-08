@@ -60,6 +60,8 @@ namespace WiFiWebAutoLogin
 
         private void MainWebView_NavigationStarting(WebView sender, WebViewNavigationStartingEventArgs args) {
             if (cpd != null) {
+                this.cpd.navigationStarting();
+
                 if (this.timeoutTimer!=null) {
                     this.timeoutTimer.Cancel();
                     this.timeoutTimer = null;
@@ -88,7 +90,10 @@ namespace WiFiWebAutoLogin
 
         private async void MainWebView_NavigationCompleted(WebView sender, WebViewNavigationCompletedEventArgs args) {
             if (cpd != null) {
-                await MainWebView.InvokeScriptAsync("eval", new string[] { "window.open = function(url){ScriptNotifyHandler.windowOpen(url)};" });
+                await MainWebView.InvokeScriptAsync("eval", new string[] {
+                    "window.open = function(url){ScriptNotifyHandler.windowOpen(url)};" +
+                    "var open = window.open;"
+                });
             }
         }
 
