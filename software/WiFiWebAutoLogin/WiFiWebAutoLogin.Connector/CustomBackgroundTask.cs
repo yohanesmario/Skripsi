@@ -16,7 +16,7 @@ namespace WiFiWebAutoLogin.RuntimeComponents {
         private static string lastSSID = "";
 
         public void Run(IBackgroundTaskInstance taskInstance) {
-            if (this.connectionChanged() && lastSSID!=null && !this.hasInternetAccess()) {
+            if (this.connectionChanged() && lastSSID!=null && this.hasNoInternetAccess()) {
 
                 string xmlText = "<?xml version=\"1.0\" encoding=\"utf-8\" ?>" +
                     "<toast launch=\"app-defined-string\">" +
@@ -45,16 +45,16 @@ namespace WiFiWebAutoLogin.RuntimeComponents {
             }
         }
 
-        private bool hasInternetAccess() {
+        private bool hasNoInternetAccess() {
             ConnectionProfile connectionProfile = NetworkInformation.GetInternetConnectionProfile();
             
             if (connectionProfile != null) {
                 if (connectionProfile.GetNetworkConnectivityLevel().ToString().Trim().Equals("InternetAccess")) {
-                    return true;
+                    return false;
                 }
             }
 
-            return false;
+            return true;
         }
 
         private bool connectionChanged() {

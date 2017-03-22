@@ -1,0 +1,89 @@
+\chapter{Implementasi dan Pengujian}
+\label{chap:implementasi_pengujian}
+
+
+
+\section{Masalah Implementasi dan Solusinya}
+\label{sec:masalah_implementasi}
+
+Terdapat beberapa masalah implementasi yang membuat rancangan perangkat lunak tidak dapat sepenuhnya didasarkan pada hasil analisis, di antaranya:
+
+\begin{itemize}
+    \item{Fungsi window.external.notify tidak berperilaku sebagaimana yang diperkirakan. Metode yang digunakan untuk mendapatkan hasil yang sama dengan fungsi yang diberikan oleh window.external.notify adalah dengan menggunakan kelas bertipe RuntimeComponent yang diizinkan untuk dapat diakses oleh javascript pada WebView. Kelas ini adalah ScriptNotifyHandler pada gambar \ref{fig:DetailedClassDiagram}.}
+    \item{Fungsi window.open dan fungsi open tidak dapat dijalankan secara otomatis sehingga popup tidak muncul. Metode yang digunakan untuk mendapatkan hasil yang sama dari yang direncanakan sebelumnya adalah dengan melakukan \textit{override} fungsi window.open dan fungsi open dan mengubungkannya dengan kelas ScriptNotifyHandler.}
+\end{itemize}
+
+Perancangan yang tertulis pada bab 4 sudah merupakan hasil revisi dari analisis masalah implementasi ini.
+
+
+
+\section{Rencana Pengujian}
+\label{sec:rencana_pengujian}
+
+Pengujian dalam penelitian ini dibagi menjadi dua, yaitu pengujian fungsional dan pengujian eksperimental. Pengujian fungsional dilakukan menggunakan teknik \textit{black box}. Pengujian fungsional dilakukan untuk memastikan fungsi-fungsi utama dalam perangkat lunak sudah berjalan dengan baik. Fungsi-fungsi yang akan diuji mencakupi:
+
+\begin{itemize}
+    \item{Deteksi perubahan jaringan.}
+    \item{Deteksi \textit{captive portal}.}
+    \item{Login otomatis.}
+\end{itemize}
+
+Setiap fungsi yang diuji diberikan kasus pengujian positif dan negatif. Sementara itu, pengujian eksperimental dilakukan untuk memeriksa apakah perangkat lunak dapat berjalan pada beragam \textit{captive portal}.
+
+
+
+\section{Hasil Pengujian Fungsional}
+\label{sec:hasil_fungsional}
+
+Pengujian fungsional untuk fungsi deteksi perubahan jaringan memberikan hasil sebagai berikut:
+
+\begin{itemize}
+    \item{
+        \textbf{Pengujian deteksi perubahan jaringan}
+        
+        \begin{itemize}
+            \item{
+                \textbf{Pengujian positif}\\
+                \textbf{Kasus}: Menghubungkan komputer dengan WiFi yang terhubung dengan \textit{captive portal}.\\
+                \textbf{Hasil}: Muncul notifikasi "Network Detected" dengan pesan "Would you like to run WiFiWebAutoLogin?".
+            }
+            \item{
+                \textbf{Pengujian negatif}\\
+                \textbf{Kasus}: Menghubungkan komputer dengan WiFi yang tidak terhubung dengan \textit{captive portal}.\\
+                \textbf{Hasil}: Tidak muncul notifikasi apapun.
+            }
+        \end{itemize}
+    }
+    \item{
+        \textbf{Pengujian deteksi \textit{captive portal}}
+        
+        \begin{itemize}
+            \item{
+                \textbf{Pengujian positif}\\
+                \textbf{Kasus}: Menghubungkan komputer dengan WiFi yang terhubung dengan \textit{captive portal} dan menekan tombol "Yes" pada notifikasi.\\
+                \textbf{Hasil}: Muncul halaman login \textit{captive portal}.
+            }
+            \item{
+                \textbf{Pengujian negatif}\\
+                \textbf{Kasus}: Menghubungkan komputer dengan WiFi yang tidak terhubung dengan \textit{captive portal} maupun internet dan menekan tombol "Yes" pada notifikasi\\
+                \textbf{Hasil}: Muncul pesan "Operation timeout. Check your network connection.".
+            }
+        \end{itemize}
+    }
+    \item{
+        \textbf{Pengujian login otomatis}
+        
+        \begin{itemize}
+            \item{
+                \textbf{Pengujian positif}\\
+                \textbf{Kasus}: Menghubungkan komputer dengan WiFi yang terhubung dengan \textit{captive portal} yang sudah pernah dijalankan login secara manual.\\
+                \textbf{Hasil}: Muncul pesan "Connected.".
+            }
+            \item{
+                \textbf{Pengujian negatif}\\
+                \textbf{Kasus}: Menghubungkan komputer dengan WiFi yang terhubung dengan \textit{captive portal} yang belum pernah dijalankan login secara manual.\\
+                \textbf{Hasil}: Muncul halaman login \textit{captive portal}.
+            }
+        \end{itemize}
+    }
+\end{itemize}

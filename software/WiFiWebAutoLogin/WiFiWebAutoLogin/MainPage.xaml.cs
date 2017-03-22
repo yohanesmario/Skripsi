@@ -92,7 +92,8 @@ namespace WiFiWebAutoLogin
             if (cpd != null) {
                 await MainWebView.InvokeScriptAsync("eval", new string[] {
                     "window.open = function(url){ScriptNotifyHandler.windowOpen(url)};" +
-                    "var open = window.open;"
+                    "var open = window.open;" +
+                    "document.open = window.open;"
                 });
             }
         }
