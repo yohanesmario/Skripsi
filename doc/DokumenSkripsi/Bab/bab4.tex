@@ -126,6 +126,8 @@ Gambar \ref{fig:DetailedClassDiagram} menjelaskan mengenai kelas-kelas dalam per
 \section{Perancangan Interaksi Perangkat Lunak}
 \label{sec:perancangan_interaksi}
 
+Beberapa interaksi yang dimodelkan menggunakan diagram interaksi adalah interaksi deteksi jaringan, interaksi penciptaan password, dan interaksi penyimpanan informasi login.
+
 \subsection{Perancangan Interaksi Deteksi Jaringan}
 \label{subsec:perancangan_interaksi_deteksi_jaringan}
 
@@ -136,7 +138,15 @@ Gambar \ref{fig:DetailedClassDiagram} menjelaskan mengenai kelas-kelas dalam per
     \label{fig:NetworkDetectionSequenceDiagram}
 \end{figure}
 
-Gambar \ref{fig:NetworkDetectionSequenceDiagram} menjelaskan mengenai interaksi antar objek dalam perangkat lunak untuk melakukan deteksi perubahan jaringan.
+Gambar \ref{fig:NetworkDetectionSequenceDiagram} menjelaskan mengenai interaksi antar objek dalam perangkat lunak untuk melakukan deteksi perubahan jaringan. Interaksi yang terjadi adalah sebagai berikut:
+
+\begin{enumerate}
+    \item{Saat komputer mengalami perubahan jaringan (tidak terhubung menjadi terhubung dan sebaliknya, atau terjadi perubahan \textit{cost} jaringan), \textit{trigger} NetworkStateChange akan diaktifkan oleh Windows, dan objek CustomBackgroundTask yang sudah didaftarkan akan menerima \textit{trigger} tersebut.}
+    \item{CustomBackgroundTask akan memeriksa apakah hasil connectionChanged() adalah \textit{true},}
+    \item{dan hasNoInternetAccess() adalah \textit{true}.}
+    \item{CustomBackgroundTask memerintahkan ToastNotifier untuk memunculkan notifikasi menggunakan method Show().}
+    \item{Saat user menekan tombol "Yes" pada notifikasi, App.xaml diaktivasi.}
+\end{enumerate}
 
 \subsection{Perancangan Interaksi Penciptaan Password}
 \label{subsec:perancangan_interaksi_penciptaan_password}
@@ -148,7 +158,16 @@ Gambar \ref{fig:NetworkDetectionSequenceDiagram} menjelaskan mengenai interaksi 
     \label{fig:PasswordGenerationSequenceDiagram}
 \end{figure}
 
-Gambar \ref{fig:PasswordGenerationSequenceDiagram} menjelaskan mengenai interaksi antar objek dalam perangkat lunak untuk menciptakan password random saat perangkat lunak pertama kali dijalankan.
+Gambar \ref{fig:PasswordGenerationSequenceDiagram} menjelaskan mengenai interaksi antar objek dalam perangkat lunak untuk menciptakan password random saat perangkat lunak pertama kali dijalankan. Interaksi yang terjadi adalah sebagai berikut:
+
+\begin{enumerate}
+    \item{MainPage.xaml melakukan setup().}
+    \item{MainPage.xaml memanggil metode getInstance() pada CaptivePortalDetector untuk mendapatkan \textit{instance} CaptivePortalDetector.}
+    \item{CaptivePortalDetector menciptakan objek Storage baru pada \textit{constructor}-nya.}
+    \item{Objek Storage berusaha untuk mendapatkan password dengan memangil metode Retrieve() pada objek PasswordVault, namun mendapatkan exception karena belum ada password yang disimpan.}
+    \item{Objek Storage memasukkan password baru yang diciptakan secara random menggunakan metode Add() pada PasswordVault.}
+    \item{Objek Storage memanggil metode Retrieve() kembali pada objek PasswordVault, dan mendapatkan password yang baru saja diciptakan. Setelah itu, CaptivePortalDetector mendapatkan objek Storage, dan MainPage.xaml mendapatkan \textit{instance} CaptivePortalDetector.}
+\end{enumerate}
 
 \subsection{Perancangan Interaksi Penyimpanan Informasi Login}
 \label{subsec:perancangan_interaksi_penciptaan_password}
@@ -160,4 +179,69 @@ Gambar \ref{fig:PasswordGenerationSequenceDiagram} menjelaskan mengenai interaks
     \label{fig:LoginInformationSavingSequenceDiagram}
 \end{figure}
 
-Gambar \ref{fig:LoginInformationSavingSequenceDiagram} menjelaskan mengenai interaksi antar objek dalam perangkat lunak untuk menyimpan informasi login.
+Gambar \ref{fig:LoginInformationSavingSequenceDiagram} menjelaskan mengenai interaksi antar objek dalam perangkat lunak untuk menyimpan informasi login. Interaksi yang terjadi adalah sebagai berikut:
+
+\begin{enumerate}
+    \item{MainPage.xaml melakukan setup().}
+    \item{MainPage.xaml memanggil metode getInstance() pada kelas CaptivePortalDetector untuk mendapatkan \textit{instance} CaptivePortalDetector. MainPage.xaml mendapatkan \textit{instance} CaptivePortalDetector.}
+    \item{MainPage.xaml memanggil metode setup() pada objek CaptivePortalDetector.}
+    \item{CaptivePortalDetector melakukan updateWebView() untuk mengarahkan WebView ke URI yang digunakan untuk melakukan deteksi koneksi internet.}
+    \item{WebView memanggil metode onLoad() pada objek CaptivePortalDetector saat halaman selesai dimuat.}
+    \item{Jika halaman tidak berisi teks "connected" (tanpa tanda petik), CaptivePortalDetector melakukan deployListeners() untuk menangkap semua \textit{event} yang mungkin dilakukan oleh pengguna pada halaman tersebut.}
+    \item{Metode passAction() dipanggil pada objek CaptivePortalDetector saat pengguna melakukan klik atau input teks untuk mengirimkan aksi yang baru saja dilakukan oleh pengguna.}
+    \item{CaptivePortalDetector memanggil metode add() pada objek ActionSequence untuk menyimpan aksi tersebut.}
+\end{enumerate}
+
+
+
+\section{Perancangan Antarmuka}
+\label{sec:perancangan_antarmuka}
+
+Pengguna memerlukan antarmuka untuk berinteraksi dengan perangkat lunak. Antarmuka yang diperlukan adalah:
+
+\begin{itemize}
+    \item{Antarmuka notifikasi yang muncul setiap kali terhubung dengan WiFi yang menggunakan \textit{captive portal}.}
+    \item{Antarmuka untuk menampilkan halaman web.}
+    \item{Antarmuka untuk menampilkan pesan-pesan seperti pesan "Connected." atau "Check your network connection.".}
+\end{itemize}
+
+\subsection{Antarmuka Notifikasi}
+\label{subsec:antarmuka_notifikasi}
+
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[scale=0.6]{Gambar/UI_Notification.png}
+    \caption[Rancangan Antarmuka Notifikasi.]{Rancangan Antarmuka Notifikasi.}
+    \label{fig:RancanganAntarmukaNotifikasi}
+\end{figure}
+
+Gambar \ref{fig:RancanganAntarmukaNotifikasi} menampilkan desain antarmuka notifikasi. Desain antarmuka notifikasi menggunakan desain notifikasi standar windows dengan dua tombol, "Yes" dan "No". Jika tombol "Yes" ditekan, maka notifikasi akan hilang dan aplikasi akan dijalankan. Jika tombol "No" ditekan, maka notifikasi akan hilang.
+
+\subsection{Antarmuka Aplikasi}
+\label{subsec:antarmuka_aplikasi}
+
+Antarmuka untuk menampilkan halaman web dan menampilkan pesan dapat disatukan menjadi antarmuka aplikasi yang halaman kontennya dapat diubah menjadi WebView saat berada dalam mode web browser, dan menjadi Label saat berada dalam mode message box.
+
+\subsubsection{Antarmuka Message Box}
+\label{subsec:antarmuka_message_box}
+
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[scale=0.6]{Gambar/UI_MessageBox.png}
+    \caption[Rancangan Antarmuka Message Box.]{Rancangan Antarmuka Message Box.}
+    \label{fig:RancanganAntarmukaMessageBox}
+\end{figure}
+
+Gambar \ref{fig:RancanganAntarmukaMessageBox} menampilkan desain antarmuka message box. Selain label untuk menaruh pesan, antarmuka ini juga memiliki \textit{selector} untuk dapat menghapus WiFi yang sudah terekam. Dengan menghapus WiFi yang terdapat pada \textit{selector} ini, pengguna dapat merekam ulang informasi login pada WiFi tersebut.
+
+\subsubsection{Antarmuka Web Browser}
+\label{subsec:antarmuka_web_browser}
+
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[scale=0.6]{Gambar/UI_WebBrowser.png}
+    \caption[Rancangan Antarmuka Web Browser.]{Rancangan Antarmuka Web Browser.}
+    \label{fig:RancanganAntarmukaWebBrowser}
+\end{figure}
+
+Gambar \ref{fig:RancanganAntarmukaWebBrowser} menampilkan desain antarmuka web browser. Antarmuka ini digunakan untuk menampilkan halaman web yang berkaitan dengan login \textit{captive portal}. Pada antarmuka inilah aksi pengguna akan direkam secara otomatis. Selain itu, pada antarmuka ini terdapat komponen yang sama dengan antarmuka message box, yaitu komponen \textit{selector} untuk menghapus WiFi yang sudah terekam.
