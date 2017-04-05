@@ -22,5 +22,9 @@ namespace WiFiWebAutoLogin.RuntimeComponents
             cpd.queueUri(new Uri(args));
             Debug.WriteLine(args);
         }
+
+        public void testDebug(string args) {
+            Debug.WriteLine(args);
+        }
     }
 }

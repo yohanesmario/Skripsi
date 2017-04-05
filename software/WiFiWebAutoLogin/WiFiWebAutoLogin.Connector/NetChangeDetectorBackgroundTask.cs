@@ -12,7 +12,7 @@ using Windows.Data.Xml.Dom;
 using System.IO;
 
 namespace WiFiWebAutoLogin.RuntimeComponents {
-    public sealed class CustomBackgroundTask : IBackgroundTask {
+    public sealed class NetChangeDetectorBackgroundTask : IBackgroundTask {
         private static string lastSSID = "";
 
         public void Run(IBackgroundTaskInstance taskInstance) {

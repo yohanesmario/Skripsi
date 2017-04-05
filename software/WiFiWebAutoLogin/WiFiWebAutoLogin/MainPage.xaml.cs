@@ -59,6 +59,7 @@ namespace WiFiWebAutoLogin
         }
 
         private void MainWebView_NavigationStarting(WebView sender, WebViewNavigationStartingEventArgs args) {
+            Debug.WriteLine(args.Uri);
             if (cpd != null) {
                 this.cpd.navigationStarting();
 
@@ -90,16 +91,39 @@ namespace WiFiWebAutoLogin
 
         private async void MainWebView_NavigationCompleted(WebView sender, WebViewNavigationCompletedEventArgs args) {
             if (cpd != null) {
-                await MainWebView.InvokeScriptAsync("eval", new string[] {
+                await sender.InvokeScriptAsync("eval", new string[] {
                     "window.open = function(url){ScriptNotifyHandler.windowOpen(url)};" +
                     "var open = window.open;" +
-                    "document.open = window.open;"
+                    "document.open = window.open;" +
+                    "var _wwalForms = document.getElementsByTagName('form');" +
+                    "for (var i = 0; i<_wwalForms.length; i++) {"+
+                    "   var _w = _wwalForms[i];" +
+                    "   if (_w.name!=null && _w.name!='') {document[_w.name].submit = function(){"+
+                    "       ScriptNotifyHandler.testDebug('DEBUG SUBMIT FORM');" +
+                    "   };}" +
+                    "}"
                 });
             }
         }
 
         private void button_Click(object sender, RoutedEventArgs e) {
             cpd.removeLoginInformation((string)comboBox.SelectedItem);
+        }
+
+        private void MainWebView_DOMContentLoaded(WebView sender, WebViewDOMContentLoadedEventArgs args) {
+            // DISABLED
+        }
+
+        private void MainWebView_ContentLoading(WebView sender, WebViewContentLoadingEventArgs args) {
+            // DISABLED
+        }
+
+        private void MainWebView_LongRunningScriptDetected(WebView sender, WebViewLongRunningScriptDetectedEventArgs args) {
+            // DISABLED
+        }
+
+        private void MainWebView_PermissionRequested(WebView sender, WebViewPermissionRequestedEventArgs args) {
+            // Debug.WriteLine("DEBUG PERMISSION");
         }
     }
 }

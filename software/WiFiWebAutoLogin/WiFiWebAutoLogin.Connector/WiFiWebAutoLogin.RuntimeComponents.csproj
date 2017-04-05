@@ -108,7 +108,7 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CustomBackgroundTask.cs" />
+    <Compile Include="NetChangeDetectorBackgroundTask.cs" />
     <Compile Include="ScriptNotifyHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

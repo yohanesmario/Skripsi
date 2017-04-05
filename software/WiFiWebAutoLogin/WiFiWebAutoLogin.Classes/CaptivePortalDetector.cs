@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Net.NetworkInformation;
 using System.Runtime.Serialization.Json;
 using System.Text;
@@ -125,6 +126,10 @@ namespace WiFiWebAutoLogin.Classes {
                     else {
                         this.startRetryTimer(this.currentFingerprint);
                     }
+
+                    HttpClient client = new HttpClient();
+                    string result = await client.GetStringAsync(new Uri(await this.getUri()));
+                    Debug.WriteLine(result);
                 }
                 else {
                     // Connected
@@ -178,7 +183,21 @@ namespace WiFiWebAutoLogin.Classes {
             return this.ssid + Conf.separator + uri + Conf.separator + title;
         }
 
+        private async Task<string> getUri() {
+            string uri = "";
+            try {
+                uri = await this.webView.InvokeScriptAsync("eval", new string[] { "window.location.href;" });
+            }
+            catch (Exception e) {
+            }
+            return uri;
+        }
+
         private async Task<string> getBody() {
+            return await this.webView.InvokeScriptAsync("eval", new string[] { "document.body.innerHTML;" });
+        }
+
+        private async Task<string> getScripts() {
             return await this.webView.InvokeScriptAsync("eval", new string[] { "document.body.innerHTML;" });
         }
 

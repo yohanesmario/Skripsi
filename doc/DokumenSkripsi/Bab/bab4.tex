@@ -1,7 +1,7 @@
 \chapter{Perancangan}
 \label{chap:perancangan}
 
-Bab ini menjelaskan mengenai perancangan yang disusun dari analisis yang dilakukan pada bab 3. Perancangan yang dilakukan mencakupi diagram kelas rinci, diagram \textit{sequence}, serta penjelasan mengenai hasil analisis yang tidak mungkin diimplementasikan dan cara lain yang dilakukan untuk mendapatkan hasil yang serupa.
+Bab ini menjelaskan mengenai perancangan yang disusun dari analisis yang dilakukan pada bab 3. Perancangan yang dilakukan mencakupi perancangan kelas, diagram \textit{sequence}, serta penjelasan mengenai hasil analisis yang tidak mungkin diimplementasikan dan cara lain yang dilakukan untuk mendapatkan hasil yang serupa.
 
 
 
@@ -18,11 +18,11 @@ Gambar \ref{fig:DetailedClassDiagram} menjelaskan mengenai kelas-kelas dalam per
     \end{itemize}
     Metode-metode yang dimiliki oleh kelas ini adalah:
     \begin{itemize}
-        \item{setup\\Metode ini digunakan untuk melakukan \textit{setup} awal saat aplikasi dieksekusi.}
-        \item{MainWebView\_LoadCompleted\\Metode ini dipanggil saat WebView selesai melakukan loading halaman.}
-        \item{MainWebView\_NavigationStarting\\Metode ini dipanggil saat WebView baru akan memulai navigasi ke halaman baru.}
-        \item{MainWebView\_NewWindowRequested\\Metode ini dipanggil saat WebView melakukan \textit{request} untuk membuka window baru.}
-        \item{MainWebView\_NavigationCompleted\\Metode ini dipanggil saat WebView selesai melakukan navigasi ke halaman baru, namun belum selesai melakukan loading halaman tersebut.}
+        \item{setup\\Metode ini digunakan untuk melakukan \textit{setup} awal saat aplikasi dieksekusi. Fungsinya adalah untuk menyimpan \textit{instance} CaptivePortalDetector dan memanggil metode setup() pada \textit{instance} tersebut.}
+        \item{MainWebView\_LoadCompleted\\Metode ini dipanggil saat WebView selesai melakukan loading halaman. Fungsinya adalah untuk memanggil metode onLoad() pada CaptivePortalDetector.}
+        \item{MainWebView\_NavigationStarting\\Metode ini dipanggil saat WebView baru akan memulai navigasi ke halaman baru. Fungsinya adalah untuk memulai \textit{timer} untuk \textit{timeout} dan memasukkan objek ScriptNotifyHandler.}
+        \item{MainWebView\_NewWindowRequested\\Metode ini dipanggil saat WebView melakukan \textit{request} untuk membuka window baru. Fungsinya adalah untuk memanggil metode queueUri() pada CaptivePortalDetector.}
+        \item{MainWebView\_NavigationCompleted\\Metode ini dipanggil saat WebView selesai melakukan navigasi ke halaman baru, namun belum selesai melakukan loading halaman tersebut. Fungsinya adalah untuk melakukan \textit{override} fungsi-fungsi JavaScript seperti window.open() dan open() agar bisa diakses dari JavaScript tanpa aksi langsung dari pengguna.}
     \end{itemize}
 }
 
@@ -33,14 +33,14 @@ Gambar \ref{fig:DetailedClassDiagram} menjelaskan mengenai kelas-kelas dalam per
     \label{fig:DetailedClassDiagram}
 \end{figure}
 
-\par{\textbf{CustomBackgroundTask} : Kelas ini merupakan kelas yang digunakan untuk melakukan deteksi perubahan jaringan yang nantinya digunakan untuk menampilkan notifikasi apabila terdeteksi adanya jaringan yang terhubung tanpa adanya internet. Atribut yang dimiliki oleh kelas ini adalah:
+\par{\textbf{NetChangeDetectorBackgroundTask} : Kelas ini merupakan kelas yang digunakan untuk melakukan deteksi perubahan jaringan yang nantinya digunakan untuk menampilkan notifikasi apabila terdeteksi adanya jaringan yang terhubung tanpa adanya internet. Atribut yang dimiliki oleh kelas ini adalah:
     \begin{itemize}
         \item{lastSSID\\Atribut ini menyimpan SSID terakhir yang nantinya akan dibandingkan dengan SSID terbaru untuk mendeteksi adanya perubahan SSID.}
     \end{itemize}
     Metode-metode yang dimiliki oleh kelas ini adalah:
     \begin{itemize}
-        \item{Run\\Metode ini dipanggil saat Windows mengalami perubahan jaringan.}
-        \item{hasInternetAccess\\Metode ini digunakan untuk medeteksi adanya akses internet menggunakan API yang diberkan oleh UWP.}
+        \item{Run\\Metode ini dipanggil saat Windows mengalami perubahan jaringan. Fungsinya adalah untuk menampilkan notifikasi apabila kondisi \texttt{connectionChanged() \&\& lastSSID!=null \&\& hasNoInternetAccess()} terpenuhi.}
+        \item{hasNoInternetAccess\\Metode ini digunakan untuk medeteksi tidak adanya akses internet menggunakan API yang diberkan oleh UWP.}
         \item{conectionChanged\\Metode ini digunakan untuk medeteksi perubahan SSID.}
     \end{itemize}
 }
@@ -71,9 +71,8 @@ Gambar \ref{fig:DetailedClassDiagram} menjelaskan mengenai kelas-kelas dalam per
         \item{setup\\Metode ini digunakan untuk melakukan \textit{setup} awal yang menyimpan WebView, TextBlock, dan ComboBox ke dalam \textit{instance} CaptivePortalDetector.}
         \item{refreshList\\Metode ini digunakan untuk melakukan \textit{refresh} tampilan ComboBox.}
         \item{updateWebView\\Metode ini digunakan untuk menentukan melakukan deteksi \textit{captive portal} jika terhubung dengan koneksi WiFi, atau menampilkan pesan kepada pengguna juka tidak terhubung dengan koneksi WiFi.}
-        \item{onLoad\\Metode ini dipanggil saat WebView sudah selesai melakukan \textit{loading} halaman.}
-        \item{onLoad\\Metode ini dipanggil saat WebView sudah selesai melakukan \textit{loading} halaman.}
-        \item{navigationStarting\\Metode ini dipanggil saat WebView mulai melakukan navigasi ke halaman baru.}
+        \item{onLoad\\Metode ini dipanggil saat WebView sudah selesai melakukan \textit{loading} halaman. Fungsinya adalah untuk melakukan deployListener(), menjalankan aksi-aksi yang sudah terekam pada informasi login, dan mendeteksi sudah atau belum terjadinya koneksi dengan internet.}
+        \item{navigationStarting\\Metode ini dipanggil saat WebView mulai melakukan navigasi ke halaman baru. Fungsinya adalah untuk membatalkan timer untuk membuka halaman-halaman popup dari halaman sebelumnya.}
         \item{passAction\\Metode ini digunakan untuk menyimpan \textit{action} yang dikirimkan oleh ScriptNotifyHandler ke dalam currentActionSequence.}
         \item{updateSSID\\Metode ini digunakan untuk mendapatkan SSID terbaru.}
         \item{queueUri\\Metode ini digunakan untuk memasukkan Uri baru ke dalam uriQueue.}
@@ -123,6 +122,37 @@ Gambar \ref{fig:DetailedClassDiagram} menjelaskan mengenai kelas-kelas dalam per
 
 
 
+\section{Perancangan Algoritma dan Struktur Data}
+\label{sec:perancangan_algoritma_dan_struktur_data}
+
+Sub-bab ini menjelaskan mengenai perancangan algoritma untuk melakukan deteksi \textit{captive portal}, struktur data dan format \textit{fingerprint}, serta struktur data untuk menyimpan informasi login.
+
+\subsection{Algoritma Deteksi \textit{Captive Portal}}
+\label{subsec:algoritma_deteksi_captive_portal}
+
+Deteksi \textit{captive portal} dilakukan dengan melakukan deteksi jaringan yang tidak terhubung dengan internet. Jika ditemukan jaringan yang tidak terhubung dengan internet, maka akan muncul notifikasi yang memungkinkan pengguna untuk menjalankan perangkat lunak. Saat perangkat lunak dijalankan, perangkat lunak akan mencoba untuk mengakses halaman pancingan. Jika didapat respon HTTP yang berupa \textit{redirect}, maka pada jaringan tersebut terdapat \textit{captive portal}.
+
+Algoritma deteksi jaringan yang memunculkan notifikasi tersebut terdapat dalam kelas NetChangeDetectorBackgroundTask. Kelas yang merupakan ekstensi dari kelas IBackgroundTask ini akan didaftarkan pada sistem saat perangkat lunak pertama kali dijalankan. Kelas ini akan dipanggil jika muncul \textit{trigger} NetworkStateChange dengan konsidi UserPresent.
+
+\subsection{Struktur Data dan Format \textit{Fingerprint}}
+\label{subsec:struktur_data_dan_format_fingerprint}
+
+\textit{Fingerprint} suatu halaman terdiri dari SSID, uri, serta isi \textit{tag} head pada halaman tersebut. Data ini disimpan dalam satu buah string dan dipisahkan oleh separator "<::>" (tanpa tanda petik). Salah satu contoh \textit{fingerprint} adalah \texttt{WIFIKU<::>https://example.com/login<::><title>Halaman Login</title>} yang memiliki arti bahwa \textit{fingerprint} tersebut berasal dari WiFi dengan:
+
+\begin{itemize}
+    \item{SSID \texttt{WIFIKU},}
+    \item{uri \texttt{https://hotspot.mikrotik.co.id/login},}
+    \item{serta isi \textit{tag} head \texttt{<title>Halaman Login</title>}.}
+\end{itemize}
+
+\subsection{Struktur Data LoginInformation}
+\label{subsec:struktur_data_logininformation}
+
+Kelas LoginInformation memiliki daftar objek bertipe ActionSequence yang disimpan pada properti actionSequences bertipe Dictionary. Kelas Dictionary dapat menyimpan data yang berupa pasangan \textit{key-value}. \textit{Key} yang digunakan bertipe string dan merupakan \textit{fingerprint} suatu halaman. Value yang disimpan adalah objek bertipe ActionSequence yang merupakan list aksi-aksi yang perlu dilakukan untuk halaman tersebut.
+
+Kelas ActionSequence memiliki properti actions yang bertipe LinkedList<string>. Setiap elemen LinkedList tersebut menyimpan string yang merupakan kode JavaScript yang akan dieksekusi pada halaman yang bersangkutan. \textit{Username} dan \textit{password} juga tersimpan di dalam kode JavaScript tersebut. Salah satu contoh string yang disimpan dalam properti actions adalah \texttt{document.getElementsByTagName("input")[0].value = "username";} yang berarti ubah isi elemen input pertama dengan "username".
+
+
 \section{Perancangan Interaksi Perangkat Lunak}
 \label{sec:perancangan_interaksi}
 
@@ -141,11 +171,12 @@ Beberapa interaksi yang dimodelkan menggunakan diagram interaksi adalah interaks
 Gambar \ref{fig:NetworkDetectionSequenceDiagram} menjelaskan mengenai interaksi antar objek dalam perangkat lunak untuk melakukan deteksi perubahan jaringan. Interaksi yang terjadi adalah sebagai berikut:
 
 \begin{enumerate}
-    \item{Saat komputer mengalami perubahan jaringan (tidak terhubung menjadi terhubung dan sebaliknya, atau terjadi perubahan \textit{cost} jaringan), \textit{trigger} NetworkStateChange akan diaktifkan oleh Windows, dan objek CustomBackgroundTask yang sudah didaftarkan akan menerima \textit{trigger} tersebut.}
-    \item{CustomBackgroundTask akan memeriksa apakah hasil connectionChanged() adalah \textit{true},}
-    \item{dan hasNoInternetAccess() adalah \textit{true}.}
-    \item{CustomBackgroundTask memerintahkan ToastNotifier untuk memunculkan notifikasi menggunakan method Show().}
-    \item{Saat user menekan tombol "Yes" pada notifikasi, App.xaml diaktivasi.}
+    \item{Saat komputer mengalami perubahan jaringan (tidak terhubung menjadi terhubung dan sebaliknya, atau terjadi perubahan \textit{cost} jaringan), \textit{trigger} NetworkStateChange akan diaktifkan oleh Windows, dan objek NetChangeDetectorBackgroundTask yang sudah didaftarkan akan menerima \textit{trigger} tersebut.}
+    \item{Jika kondisi \texttt{connectionChanged() \&\& lastSSID!=null \&\& hasNoInternetAccess()} terpenuhi, maka:}
+    \begin{enumerate}
+        \item{NetChangeDetectorBackgroundTask memerintahkan ToastNotifier untuk memunculkan notifikasi menggunakan method Show().}
+        \item{Saat user menekan tombol "Yes" pada notifikasi, App.xaml diaktivasi.}
+    \end{enumerate}
 \end{enumerate}
 
 \subsection{Perancangan Interaksi Penciptaan Password}
@@ -210,12 +241,12 @@ Pengguna memerlukan antarmuka untuk berinteraksi dengan perangkat lunak. Antarmu
 
 \begin{figure}[!htb]
     \centering
-    \includegraphics[scale=0.6]{Gambar/UI_Notification.png}
+    \includegraphics[scale=0.5]{Gambar/UI_Notification.png}
     \caption[Rancangan Antarmuka Notifikasi.]{Rancangan Antarmuka Notifikasi.}
     \label{fig:RancanganAntarmukaNotifikasi}
 \end{figure}
 
-Gambar \ref{fig:RancanganAntarmukaNotifikasi} menampilkan desain antarmuka notifikasi. Desain antarmuka notifikasi menggunakan desain notifikasi standar windows dengan dua tombol, "Yes" dan "No". Jika tombol "Yes" ditekan, maka notifikasi akan hilang dan aplikasi akan dijalankan. Jika tombol "No" ditekan, maka notifikasi akan hilang.
+Gambar \ref{fig:RancanganAntarmukaNotifikasi} menampilkan desain antarmuka notifikasi. Desain antarmuka notifikasi menggunakan desain notifikasi standar windows dengan dua tombol, "Yes" dan "No". Jika tombol "Yes" ditekan, maka notifikasi akan hilang dan aplikasi akan dijalankan. Jika tombol "No" ditekan, maka notifikasi akan hilang. Antarmuka notifikasi adalah antarmuka yang pertama kali akan muncul dalam siklus aplikasi karena kelas NetChangeDetectorBackgroundTask didaftarkan pada sistem untuk mendeteksi perubahan jaringan.
 
 \subsection{Antarmuka Aplikasi}
 \label{subsec:antarmuka_aplikasi}
@@ -227,7 +258,7 @@ Antarmuka untuk menampilkan halaman web dan menampilkan pesan dapat disatukan me
 
 \begin{figure}[!htb]
     \centering
-    \includegraphics[scale=0.6]{Gambar/UI_MessageBox.png}
+    \includegraphics[scale=0.5]{Gambar/UI_MessageBox.png}
     \caption[Rancangan Antarmuka Message Box.]{Rancangan Antarmuka Message Box.}
     \label{fig:RancanganAntarmukaMessageBox}
 \end{figure}
@@ -239,9 +270,9 @@ Gambar \ref{fig:RancanganAntarmukaMessageBox} menampilkan desain antarmuka messa
 
 \begin{figure}[!htb]
     \centering
-    \includegraphics[scale=0.6]{Gambar/UI_WebBrowser.png}
+    \includegraphics[scale=0.5]{Gambar/UI_WebBrowser.png}
     \caption[Rancangan Antarmuka Web Browser.]{Rancangan Antarmuka Web Browser.}
     \label{fig:RancanganAntarmukaWebBrowser}
 \end{figure}
 
-Gambar \ref{fig:RancanganAntarmukaWebBrowser} menampilkan desain antarmuka web browser. Antarmuka ini digunakan untuk menampilkan halaman web yang berkaitan dengan login \textit{captive portal}. Pada antarmuka inilah aksi pengguna akan direkam secara otomatis. Selain itu, pada antarmuka ini terdapat komponen yang sama dengan antarmuka message box, yaitu komponen \textit{selector} untuk menghapus WiFi yang sudah terekam.
+Gambar \ref{fig:RancanganAntarmukaWebBrowser} menampilkan desain antarmuka web browser. Antarmuka ini digunakan untuk menampilkan halaman web yang berkaitan dengan login \textit{captive portal}. Pada antarmuka inilah aksi pengguna akan direkam secara otomatis. Selain itu, pada antarmuka ini terdapat komponen yang sama dengan antarmuka message box, yaitu komponen \textit{selector} untuk menghapus SSID WiFi yang sudah terekam.

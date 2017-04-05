@@ -10,7 +10,7 @@
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid Margin="0,0,0,52">
             <TextBlock x:Name="textBlock" TextWrapping="Wrap" TextAlignment="Center" Text="" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="16"/>
-            <WebView Name="MainWebView" NewWindowRequested="MainWebView_NewWindowRequested" LoadCompleted="MainWebView_LoadCompleted" NavigationStarting="MainWebView_NavigationStarting" NavigationCompleted="MainWebView_NavigationCompleted" Margin="0,768,0,-768" />
+            <WebView Name="MainWebView" NewWindowRequested="MainWebView_NewWindowRequested" DOMContentLoaded="MainWebView_DOMContentLoaded" ContentLoading="MainWebView_ContentLoading" LongRunningScriptDetected="MainWebView_LongRunningScriptDetected" PermissionRequested="MainWebView_PermissionRequested" LoadCompleted="MainWebView_LoadCompleted" NavigationStarting="MainWebView_NavigationStarting" NavigationCompleted="MainWebView_NavigationCompleted" Margin="0,768,0,-768" />
         </Grid>
         <Grid Height="52" VerticalAlignment="Bottom" RequestedTheme="Dark" Background="Black">
             <Button x:Name="button" Content="Delete" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Click="button_Click" RequestedTheme="Dark"/>
