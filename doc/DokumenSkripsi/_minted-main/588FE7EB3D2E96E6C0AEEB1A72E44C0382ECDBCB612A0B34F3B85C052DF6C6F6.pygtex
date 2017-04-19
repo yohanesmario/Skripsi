@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8}]
+\PYG{n+nf}{GET} \PYG{n+nn}{/index.htm} \PYG{k+kr}{HTTP}\PYG{o}{/}\PYG{l+m}{1.1}
+\PYG{n+na}{Host}\PYG{o}{:} \PYG{l}{www.example.com}
+\end{Verbatim}

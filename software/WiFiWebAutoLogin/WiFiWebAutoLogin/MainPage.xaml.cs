@@ -94,14 +94,7 @@ namespace WiFiWebAutoLogin
                 await sender.InvokeScriptAsync("eval", new string[] {
                     "window.open = function(url){ScriptNotifyHandler.windowOpen(url)};" +
                     "var open = window.open;" +
-                    "document.open = window.open;" +
-                    "var _wwalForms = document.getElementsByTagName('form');" +
-                    "for (var i = 0; i<_wwalForms.length; i++) {"+
-                    "   var _w = _wwalForms[i];" +
-                    "   if (_w.name!=null && _w.name!='') {document[_w.name].submit = function(){"+
-                    "       ScriptNotifyHandler.testDebug('DEBUG SUBMIT FORM');" +
-                    "   };}" +
-                    "}"
+                    "document.open = window.open;"
                 });
             }
         }

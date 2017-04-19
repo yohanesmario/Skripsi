@@ -1,0 +1,17 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8}]
+\PYG{k+kr}{HTTP}\PYG{o}{/}\PYG{l+m}{1.1} \PYG{l+m}{511} \PYG{n+ne}{Network Authentication Required}
+\PYG{n+na}{Content\PYGZhy{}Type}\PYG{o}{:} \PYG{l}{text/html}
+
+\PYG{p}{\PYGZlt{}}\PYG{n+nt}{html}\PYG{p}{\PYGZgt{}}
+    \PYG{p}{\PYGZlt{}}\PYG{n+nt}{head}\PYG{p}{\PYGZgt{}}
+        \PYG{p}{\PYGZlt{}}\PYG{n+nt}{title}\PYG{p}{\PYGZgt{}}Network Authentication Required\PYG{p}{\PYGZlt{}/}\PYG{n+nt}{title}\PYG{p}{\PYGZgt{}}
+        \PYG{p}{\PYGZlt{}}\PYG{n+nt}{meta} \PYG{n+na}{http\PYGZhy{}equiv}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}refresh\PYGZdq{}}
+            \PYG{n+na}{content}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}0; url=https://login.example.net/\PYGZdq{}}\PYG{p}{\PYGZgt{}}
+    \PYG{p}{\PYGZlt{}/}\PYG{n+nt}{head}\PYG{p}{\PYGZgt{}}
+    \PYG{p}{\PYGZlt{}}\PYG{n+nt}{body}\PYG{p}{\PYGZgt{}}
+        \PYG{p}{\PYGZlt{}}\PYG{n+nt}{p}\PYG{p}{\PYGZgt{}}You need to \PYG{p}{\PYGZlt{}}\PYG{n+nt}{a} \PYG{n+na}{href}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}https://login.example.net/\PYGZdq{}}\PYG{p}{\PYGZgt{}}
+        authenticate with the local network\PYG{p}{\PYGZlt{}/}\PYG{n+nt}{a}\PYG{p}{\PYGZgt{}} in order to gain
+        access.\PYG{p}{\PYGZlt{}/}\PYG{n+nt}{p}\PYG{p}{\PYGZgt{}}
+    \PYG{p}{\PYGZlt{}/}\PYG{n+nt}{body}\PYG{p}{\PYGZgt{}}
+\PYG{p}{\PYGZlt{}/}\PYG{n+nt}{html}\PYG{p}{\PYGZgt{}}
+\end{Verbatim}

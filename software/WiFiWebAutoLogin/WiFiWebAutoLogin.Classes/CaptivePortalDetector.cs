@@ -126,10 +126,6 @@ namespace WiFiWebAutoLogin.Classes {
                     else {
                         this.startRetryTimer(this.currentFingerprint);
                     }
-
-                    HttpClient client = new HttpClient();
-                    string result = await client.GetStringAsync(new Uri(await this.getUri()));
-                    Debug.WriteLine(result);
                 }
                 else {
                     // Connected

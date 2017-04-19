@@ -46,14 +46,19 @@ Kode status HTTP 511 menandakan bahwa klien perlu melakukan otentikasi untuk men
 
 Kode status 511 diciptakan untuk mengurangi masalah yang ditimbulkan oleh \textit{captive portal} kepada perangkat lunak yang mengharapkan respon dari server tujuan, bukan dari komponen perantara dalam jaringan. Sebagai contoh, perangkat lunak yang bersangkutan mengirimkan \textit{request} HTTP pada port TCP 80 sebagai berikut:
 
-\begin{lstlisting}
+\begin{minted}[mathescape,
+               linenos,
+               numbersep=5pt,
+               frame=lines]{http}
 GET /index.htm HTTP/1.1
 Host: www.example.com
-\end{lstlisting}
+\end{minted}
 
 Saat menerima \textit{request} tersebut, server login akan mengirimkan respon dengan kode status 511:
 
-\begin{lstlisting}
+\begin{minted}[mathescape,
+               linenos,
+               frame=lines]{http}
 HTTP/1.1 511 Network Authentication Required
 Content-Type: text/html
 
@@ -69,7 +74,7 @@ Content-Type: text/html
         access.</p>
     </body>
 </html>
-\end{lstlisting}
+\end{minted}
 
 Respon ini memungkinkan klien untuk mendeteksi bahwa respon tersebut bukan berasal dari server tujuan. Selain itu, elemen meta pada HTML yang disajikan memungkinkan klien untuk melakukan login pada \textit{link} yang diberikan.
 
