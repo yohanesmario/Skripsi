@@ -1,0 +1,18 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8}]
+\PYG{k}{using} \PYG{n+nn}{System}\PYG{p}{;}
+\PYG{k}{using} \PYG{n+nn}{System.Collections.Generic}\PYG{p}{;}
+\PYG{k}{using} \PYG{n+nn}{System.Linq}\PYG{p}{;}
+\PYG{k}{using} \PYG{n+nn}{System.Text}\PYG{p}{;}
+\PYG{k}{using} \PYG{n+nn}{System.Threading.Tasks}\PYG{p}{;}
+
+\PYG{k}{namespace} \PYG{n+nn}{WiFiWebAutoLogin.Classes} \PYG{p}{\PYGZob{}}
+    \PYG{k}{class} \PYG{n+nc}{Conf} \PYG{p}{\PYGZob{}}
+        \PYG{c+c1}{//public static readonly string uri = \PYGZdq{}http://107.172.253.111/network\PYGZus{}status.html\PYGZdq{};}
+        \PYG{k}{public} \PYG{k}{static} \PYG{k}{readonly} \PYG{k+kt}{string} \PYG{n}{uri} \PYG{p}{=} \PYG{l+s}{\PYGZdq{}https://yohanesmario.com/public/popup\PYGZus{}tester.html?id=0\PYGZdq{}}\PYG{p}{;}
+        \PYG{c+c1}{//public static readonly string uri = \PYGZdq{}https://yohanesmario.com/\PYGZdq{};}
+        \PYG{k}{public} \PYG{k}{static} \PYG{k}{readonly} \PYG{k+kt}{string} \PYG{n}{resource} \PYG{p}{=} \PYG{l+s}{\PYGZdq{}WiFiWebAutoLogin\PYGZdq{}}\PYG{p}{;}
+        \PYG{k}{public} \PYG{k}{static} \PYG{k}{readonly} \PYG{k+kt}{string} \PYG{n}{username} \PYG{p}{=} \PYG{l+s}{\PYGZdq{}userWiFiWebAutoLogin\PYGZdq{}}\PYG{p}{;}
+        \PYG{k}{public} \PYG{k}{static} \PYG{k}{readonly} \PYG{k+kt}{string} \PYG{n}{separator} \PYG{p}{=} \PYG{l+s}{\PYGZdq{}\PYGZlt{}::\PYGZgt{}\PYGZdq{}}\PYG{p}{;}
+    \PYG{p}{\PYGZcb{}}
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}

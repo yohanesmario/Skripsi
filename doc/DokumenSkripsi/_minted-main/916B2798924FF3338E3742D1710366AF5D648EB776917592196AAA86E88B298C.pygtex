@@ -1,0 +1,149 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8}]
+\PYG{k}{using} \PYG{n+nn}{System}\PYG{p}{;}
+\PYG{k}{using} \PYG{n+nn}{System.Collections.Generic}\PYG{p}{;}
+\PYG{k}{using} \PYG{n+nn}{System.IO}\PYG{p}{;}
+\PYG{k}{using} \PYG{n+nn}{System.Linq}\PYG{p}{;}
+\PYG{k}{using} \PYG{n+nn}{System.Runtime.InteropServices.WindowsRuntime}\PYG{p}{;}
+\PYG{k}{using} \PYG{n+nn}{Windows.ApplicationModel}\PYG{p}{;}
+\PYG{k}{using} \PYG{n+nn}{Windows.ApplicationModel.Activation}\PYG{p}{;}
+\PYG{k}{using} \PYG{n+nn}{Windows.ApplicationModel.Background}\PYG{p}{;}
+\PYG{k}{using} \PYG{n+nn}{Windows.ApplicationModel.Core}\PYG{p}{;}
+\PYG{k}{using} \PYG{n+nn}{Windows.Foundation}\PYG{p}{;}
+\PYG{k}{using} \PYG{n+nn}{Windows.Foundation.Collections}\PYG{p}{;}
+\PYG{k}{using} \PYG{n+nn}{Windows.UI.Notifications}\PYG{p}{;}
+\PYG{k}{using} \PYG{n+nn}{Windows.UI.Xaml}\PYG{p}{;}
+\PYG{k}{using} \PYG{n+nn}{Windows.UI.Xaml.Controls}\PYG{p}{;}
+\PYG{k}{using} \PYG{n+nn}{Windows.UI.Xaml.Controls.Primitives}\PYG{p}{;}
+\PYG{k}{using} \PYG{n+nn}{Windows.UI.Xaml.Data}\PYG{p}{;}
+\PYG{k}{using} \PYG{n+nn}{Windows.UI.Xaml.Input}\PYG{p}{;}
+\PYG{k}{using} \PYG{n+nn}{Windows.UI.Xaml.Media}\PYG{p}{;}
+\PYG{k}{using} \PYG{n+nn}{Windows.UI.Xaml.Navigation}\PYG{p}{;}
+
+\PYG{k}{namespace} \PYG{n+nn}{WiFiWebAutoLogin}
+\PYG{p}{\PYGZob{}}
+    \PYG{c+c1}{/// \PYGZlt{}summary\PYGZgt{}}
+    \PYG{c+c1}{/// Provides application\PYGZhy{}specific behavior to supplement the default Application class.}
+    \PYG{c+c1}{/// \PYGZlt{}/summary\PYGZgt{}}
+    \PYG{k}{sealed} \PYG{k}{partial} \PYG{k}{class} \PYG{n+nc}{App} \PYG{p}{:} \PYG{n}{Application}
+    \PYG{p}{\PYGZob{}}
+        \PYG{c+c1}{/// \PYGZlt{}summary\PYGZgt{}}
+        \PYG{c+c1}{/// Initializes the singleton application object.  This is the first line of authored code}
+        \PYG{c+c1}{/// executed, and as such is the logical equivalent of main() or WinMain().}
+        \PYG{c+c1}{/// \PYGZlt{}/summary\PYGZgt{}}
+        \PYG{k}{public} \PYG{n+nf}{App}\PYG{p}{()}
+        \PYG{p}{\PYGZob{}}
+            \PYG{k}{this}\PYG{p}{.}\PYG{n}{InitializeComponent}\PYG{p}{();}
+            \PYG{k}{this}\PYG{p}{.}\PYG{n}{Suspending} \PYG{p}{+=} \PYG{n}{OnSuspending}\PYG{p}{;}
+        \PYG{p}{\PYGZcb{}}
+
+        \PYG{c+c1}{/// \PYGZlt{}summary\PYGZgt{}}
+        \PYG{c+c1}{/// Invoked when the application is launched normally by the end user.  Other entry points}
+        \PYG{c+c1}{/// will be used such as when the application is launched to open a specific file.}
+        \PYG{c+c1}{/// \PYGZlt{}/summary\PYGZgt{}}
+        \PYG{c+c1}{/// \PYGZlt{}param name=\PYGZdq{}e\PYGZdq{}\PYGZgt{}Details about the launch request and process.\PYGZlt{}/param\PYGZgt{}}
+        \PYG{k}{protected} \PYG{k}{override} \PYG{k}{void} \PYG{n+nf}{OnLaunched}\PYG{p}{(}\PYG{n}{LaunchActivatedEventArgs} \PYG{n}{e}\PYG{p}{)}
+        \PYG{p}{\PYGZob{}}
+            \PYG{c+c1}{// Initialize background task}
+            \PYG{k+kt}{bool} \PYG{n}{taskRegistered} \PYG{p}{=} \PYG{k}{false}\PYG{p}{;}
+            \PYG{k+kt}{string} \PYG{n}{taskName} \PYG{p}{=} \PYG{l+s}{\PYGZdq{}CustomBackgroundTask\PYGZdq{}}\PYG{p}{;}
+
+            \PYG{k}{foreach} \PYG{p}{(}\PYG{k+kt}{var} \PYG{n}{task} \PYG{k}{in} \PYG{n}{BackgroundTaskRegistration}\PYG{p}{.}\PYG{n}{AllTasks}\PYG{p}{)} \PYG{p}{\PYGZob{}}
+                \PYG{k}{if} \PYG{p}{(}\PYG{n}{task}\PYG{p}{.}\PYG{n}{Value}\PYG{p}{.}\PYG{n}{Name} \PYG{p}{==} \PYG{n}{taskName}\PYG{p}{)} \PYG{p}{\PYGZob{}}
+                    \PYG{n}{task}\PYG{p}{.}\PYG{n}{Value}\PYG{p}{.}\PYG{n}{Unregister}\PYG{p}{(}\PYG{k}{true}\PYG{p}{);}
+                \PYG{p}{\PYGZcb{}}
+            \PYG{p}{\PYGZcb{}}
+
+            \PYG{k}{if} \PYG{p}{(!}\PYG{n}{taskRegistered}\PYG{p}{)} \PYG{p}{\PYGZob{}}
+                \PYG{c+c1}{// Register task}
+                \PYG{k+kt}{var} \PYG{n}{builder} \PYG{p}{=} \PYG{k}{new} \PYG{n}{BackgroundTaskBuilder}\PYG{p}{();}
+
+                \PYG{n}{builder}\PYG{p}{.}\PYG{n}{Name} \PYG{p}{=} \PYG{n}{taskName}\PYG{p}{;}
+                \PYG{n}{builder}\PYG{p}{.}\PYG{n}{TaskEntryPoint} \PYG{p}{=} \PYG{l+s}{\PYGZdq{}WiFiWebAutoLogin.RuntimeComponents.CustomBackgroundTask\PYGZdq{}}\PYG{p}{;}
+                \PYG{n}{builder}\PYG{p}{.}\PYG{n}{SetTrigger}\PYG{p}{(}\PYG{k}{new} \PYG{n}{SystemTrigger}\PYG{p}{(}\PYG{n}{SystemTriggerType}\PYG{p}{.}\PYG{n}{NetworkStateChange}\PYG{p}{,} \PYG{k}{false}\PYG{p}{));}
+                \PYG{n}{builder}\PYG{p}{.}\PYG{n}{AddCondition}\PYG{p}{(}\PYG{k}{new} \PYG{n}{SystemCondition}\PYG{p}{(}\PYG{n}{SystemConditionType}\PYG{p}{.}\PYG{n}{UserPresent}\PYG{p}{));}
+                \PYG{n}{BackgroundTaskRegistration} \PYG{n}{task} \PYG{p}{=} \PYG{n}{builder}\PYG{p}{.}\PYG{n}{Register}\PYG{p}{();}
+            \PYG{p}{\PYGZcb{}}
+\PYG{c+cp}{\PYGZsh{}if DEBUG}
+            \PYG{k}{if} \PYG{p}{(}\PYG{n}{System}\PYG{p}{.}\PYG{n}{Diagnostics}\PYG{p}{.}\PYG{n}{Debugger}\PYG{p}{.}\PYG{n}{IsAttached}\PYG{p}{)} \PYG{p}{\PYGZob{}}
+                \PYG{c+c1}{//this.DebugSettings.EnableFrameRateCounter = true;}
+                \PYG{k}{this}\PYG{p}{.}\PYG{n}{DebugSettings}\PYG{p}{.}\PYG{n}{EnableFrameRateCounter} \PYG{p}{=} \PYG{k}{false}\PYG{p}{;}
+            \PYG{p}{\PYGZcb{}}
+\PYG{c+cp}{\PYGZsh{}endif}
+            \PYG{n}{Frame} \PYG{n}{rootFrame} \PYG{p}{=} \PYG{n}{Window}\PYG{p}{.}\PYG{n}{Current}\PYG{p}{.}\PYG{n}{Content} \PYG{k}{as} \PYG{n}{Frame}\PYG{p}{;}
+
+            \PYG{c+c1}{// Do not repeat app initialization when the Window already has content,}
+            \PYG{c+c1}{// just ensure that the window is active}
+            \PYG{k}{if} \PYG{p}{(}\PYG{n}{rootFrame} \PYG{p}{==} \PYG{k}{null}\PYG{p}{)} \PYG{p}{\PYGZob{}}
+                \PYG{c+c1}{// Create a Frame to act as the navigation context and navigate to the first page}
+                \PYG{n}{rootFrame} \PYG{p}{=} \PYG{k}{new} \PYG{n}{Frame}\PYG{p}{();}
+
+                \PYG{n}{rootFrame}\PYG{p}{.}\PYG{n}{NavigationFailed} \PYG{p}{+=} \PYG{n}{OnNavigationFailed}\PYG{p}{;}
+
+                \PYG{c+c1}{//if (e.PreviousExecutionState == ApplicationExecutionState.Terminated) \PYGZob{}}
+                    \PYG{c+c1}{//TODO: Load state from previously suspended application}
+                \PYG{c+c1}{//\PYGZcb{}}
+
+                \PYG{c+c1}{// Place the frame in the current Window}
+                \PYG{n}{Window}\PYG{p}{.}\PYG{n}{Current}\PYG{p}{.}\PYG{n}{Content} \PYG{p}{=} \PYG{n}{rootFrame}\PYG{p}{;}
+            \PYG{p}{\PYGZcb{}}
+
+            \PYG{c+c1}{//if (e.PrelaunchActivated == false) \PYGZob{}}
+                \PYG{c+c1}{//if (rootFrame.Content == null) \PYGZob{}}
+                    \PYG{c+c1}{// When the navigation stack isn\PYGZsq{}t restored navigate to the first page,}
+                    \PYG{c+c1}{// configuring the new page by passing required information as a navigation}
+                    \PYG{c+c1}{// parameter}
+                    \PYG{n}{rootFrame}\PYG{p}{.}\PYG{n}{Navigate}\PYG{p}{(}\PYG{k}{typeof}\PYG{p}{(}\PYG{n}{MainPage}\PYG{p}{),} \PYG{n}{e}\PYG{p}{.}\PYG{n}{Arguments}\PYG{p}{);}
+                \PYG{c+c1}{//\PYGZcb{}}
+                \PYG{c+c1}{// Ensure the current window is active}
+                \PYG{n}{Window}\PYG{p}{.}\PYG{n}{Current}\PYG{p}{.}\PYG{n}{Activate}\PYG{p}{();}
+            \PYG{c+c1}{//\PYGZcb{}}
+        \PYG{p}{\PYGZcb{}}
+
+        \PYG{k}{protected} \PYG{k}{override} \PYG{k}{void} \PYG{n+nf}{OnActivated}\PYG{p}{(}\PYG{n}{IActivatedEventArgs} \PYG{n}{args}\PYG{p}{)} \PYG{p}{\PYGZob{}}
+            \PYG{k}{if} \PYG{p}{(}\PYG{n}{args}\PYG{p}{.}\PYG{n}{Kind} \PYG{p}{==} \PYG{n}{ActivationKind}\PYG{p}{.}\PYG{n}{ToastNotification}\PYG{p}{)} \PYG{p}{\PYGZob{}}
+                \PYG{k+kt}{var} \PYG{n}{toastArgs} \PYG{p}{=} \PYG{n}{args} \PYG{k}{as} \PYG{n}{ToastNotificationActivatedEventArgs}\PYG{p}{;}
+                \PYG{k+kt}{var} \PYG{n}{arguments} \PYG{p}{=} \PYG{n}{toastArgs}\PYG{p}{.}\PYG{n}{Argument}\PYG{p}{;}
+
+                \PYG{k}{if} \PYG{p}{(}\PYG{n}{arguments} \PYG{p}{==} \PYG{l+s}{\PYGZdq{}Yes\PYGZdq{}}\PYG{p}{)} \PYG{p}{\PYGZob{}}
+                    \PYG{n}{Frame} \PYG{n}{rootFrame} \PYG{p}{=} \PYG{n}{Window}\PYG{p}{.}\PYG{n}{Current}\PYG{p}{.}\PYG{n}{Content} \PYG{k}{as} \PYG{n}{Frame}\PYG{p}{;}
+                    \PYG{k}{if} \PYG{p}{(}\PYG{n}{rootFrame} \PYG{p}{==} \PYG{k}{null}\PYG{p}{)} \PYG{p}{\PYGZob{}}
+                        \PYG{n}{rootFrame} \PYG{p}{=} \PYG{k}{new} \PYG{n}{Frame}\PYG{p}{();}
+                        \PYG{n}{Window}\PYG{p}{.}\PYG{n}{Current}\PYG{p}{.}\PYG{n}{Content} \PYG{p}{=} \PYG{n}{rootFrame}\PYG{p}{;}
+                    \PYG{p}{\PYGZcb{}}
+                    \PYG{n}{rootFrame}\PYG{p}{.}\PYG{n}{Navigate}\PYG{p}{(}\PYG{k}{typeof}\PYG{p}{(}\PYG{n}{MainPage}\PYG{p}{));}
+                    \PYG{n}{Window}\PYG{p}{.}\PYG{n}{Current}\PYG{p}{.}\PYG{n}{Activate}\PYG{p}{();}
+                \PYG{p}{\PYGZcb{}}
+                \PYG{k}{else} \PYG{p}{\PYGZob{}}
+                    \PYG{n}{CoreApplication}\PYG{p}{.}\PYG{n}{Exit}\PYG{p}{();}
+                \PYG{p}{\PYGZcb{}}
+
+                \PYG{n}{ToastNotificationManager}\PYG{p}{.}\PYG{n}{History}\PYG{p}{.}\PYG{n}{Remove}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}WWAL\PYGZus{}TOAST\PYGZdq{}}\PYG{p}{);}
+            \PYG{p}{\PYGZcb{}}
+        \PYG{p}{\PYGZcb{}}
+
+        \PYG{c+c1}{/// \PYGZlt{}summary\PYGZgt{}}
+        \PYG{c+c1}{/// Invoked when Navigation to a certain page fails}
+        \PYG{c+c1}{/// \PYGZlt{}/summary\PYGZgt{}}
+        \PYG{c+c1}{/// \PYGZlt{}param name=\PYGZdq{}sender\PYGZdq{}\PYGZgt{}The Frame which failed navigation\PYGZlt{}/param\PYGZgt{}}
+        \PYG{c+c1}{/// \PYGZlt{}param name=\PYGZdq{}e\PYGZdq{}\PYGZgt{}Details about the navigation failure\PYGZlt{}/param\PYGZgt{}}
+        \PYG{k}{void} \PYG{n+nf}{OnNavigationFailed}\PYG{p}{(}\PYG{k+kt}{object} \PYG{n}{sender}\PYG{p}{,} \PYG{n}{NavigationFailedEventArgs} \PYG{n}{e}\PYG{p}{)}
+        \PYG{p}{\PYGZob{}}
+            \PYG{k}{throw} \PYG{k}{new} \PYG{n+nf}{Exception}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}Failed to load Page \PYGZdq{}} \PYG{p}{+} \PYG{n}{e}\PYG{p}{.}\PYG{n}{SourcePageType}\PYG{p}{.}\PYG{n}{FullName}\PYG{p}{);}
+        \PYG{p}{\PYGZcb{}}
+
+        \PYG{c+c1}{/// \PYGZlt{}summary\PYGZgt{}}
+        \PYG{c+c1}{/// Invoked when application execution is being suspended.  Application state is saved}
+        \PYG{c+c1}{/// without knowing whether the application will be terminated or resumed with the contents}
+        \PYG{c+c1}{/// of memory still intact.}
+        \PYG{c+c1}{/// \PYGZlt{}/summary\PYGZgt{}}
+        \PYG{c+c1}{/// \PYGZlt{}param name=\PYGZdq{}sender\PYGZdq{}\PYGZgt{}The source of the suspend request.\PYGZlt{}/param\PYGZgt{}}
+        \PYG{c+c1}{/// \PYGZlt{}param name=\PYGZdq{}e\PYGZdq{}\PYGZgt{}Details about the suspend request.\PYGZlt{}/param\PYGZgt{}}
+        \PYG{k}{private} \PYG{k}{void} \PYG{n+nf}{OnSuspending}\PYG{p}{(}\PYG{k+kt}{object} \PYG{n}{sender}\PYG{p}{,} \PYG{n}{SuspendingEventArgs} \PYG{n}{e}\PYG{p}{)}
+        \PYG{p}{\PYGZob{}}
+            \PYG{k+kt}{var} \PYG{n}{deferral} \PYG{p}{=} \PYG{n}{e}\PYG{p}{.}\PYG{n}{SuspendingOperation}\PYG{p}{.}\PYG{n}{GetDeferral}\PYG{p}{();}
+            \PYG{c+c1}{//TODO: Save application state and stop any background activity}
+            \PYG{n}{deferral}\PYG{p}{.}\PYG{n}{Complete}\PYG{p}{();}
+        \PYG{p}{\PYGZcb{}}
+    \PYG{p}{\PYGZcb{}}
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}

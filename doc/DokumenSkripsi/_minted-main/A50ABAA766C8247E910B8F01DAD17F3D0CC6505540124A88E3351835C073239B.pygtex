@@ -1,0 +1,29 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8}]
+\PYG{k+kd}{var} \PYG{n+nx}{inputs} \PYG{o}{=} \PYG{n+nb}{document}\PYG{p}{.}\PYG{n+nx}{getElementsByTagName}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}input\PYGZdq{}}\PYG{p}{);}
+\PYG{k+kd}{var} \PYG{n+nx}{ahrefs} \PYG{o}{=} \PYG{n+nb}{document}\PYG{p}{.}\PYG{n+nx}{getElementsByTagName}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}a\PYGZdq{}}\PYG{p}{);}
+\PYG{k+kd}{var} \PYG{n+nx}{buttons} \PYG{o}{=} \PYG{n+nb}{document}\PYG{p}{.}\PYG{n+nx}{getElementsByTagName}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}button\PYGZdq{}}\PYG{p}{);}
+
+\PYG{k+kd}{function} \PYG{n+nx}{addClickListener}\PYG{p}{(}\PYG{n+nx}{el}\PYG{p}{,} \PYG{n+nx}{tagName}\PYG{p}{,} \PYG{n+nx}{idx}\PYG{p}{)} \PYG{p}{\PYGZob{}}
+    \PYG{n+nx}{el}\PYG{p}{.}\PYG{n+nx}{addEventListener}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}click\PYGZdq{}}\PYG{p}{,} \PYG{k+kd}{function} \PYG{p}{()} \PYG{p}{\PYGZob{}}
+        \PYG{n+nx}{ScriptNotifyHandler}\PYG{p}{.}\PYG{n+nx}{passAction}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}document.getElementsByTagName(\PYGZbs{}\PYGZdq{}\PYGZdq{}} \PYG{o}{+} \PYG{n+nx}{tagName} \PYG{o}{+} \PYG{l+s+s2}{\PYGZdq{}\PYGZbs{}\PYGZdq{})[\PYGZdq{}} \PYG{o}{+} \PYG{n+nx}{idx} \PYG{o}{+} \PYG{l+s+s2}{\PYGZdq{}].click();\PYGZdq{}}\PYG{p}{);}
+    \PYG{p}{\PYGZcb{});}
+\PYG{p}{\PYGZcb{}}
+\PYG{k+kd}{function} \PYG{n+nx}{addChangeListener}\PYG{p}{(}\PYG{n+nx}{el}\PYG{p}{,} \PYG{n+nx}{tagName}\PYG{p}{,} \PYG{n+nx}{idx}\PYG{p}{)} \PYG{p}{\PYGZob{}}
+    \PYG{n+nx}{el}\PYG{p}{.}\PYG{n+nx}{addEventListener}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}change\PYGZdq{}}\PYG{p}{,} \PYG{k+kd}{function} \PYG{p}{()} \PYG{p}{\PYGZob{}}
+        \PYG{n+nx}{ScriptNotifyHandler}\PYG{p}{.}\PYG{n+nx}{passAction}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}document.getElementsByTagName(\PYGZbs{}\PYGZdq{}\PYGZdq{}} \PYG{o}{+} \PYG{n+nx}{tagName} \PYG{o}{+} \PYG{l+s+s2}{\PYGZdq{}\PYGZbs{}\PYGZdq{})[\PYGZdq{}} \PYG{o}{+} \PYG{n+nx}{idx} \PYG{o}{+} \PYG{l+s+s2}{\PYGZdq{}].value = \PYGZdq{}} \PYG{o}{+} \PYG{n+nx}{JSON}\PYG{p}{.}\PYG{n+nx}{stringify}\PYG{p}{(}\PYG{n+nb}{document}\PYG{p}{.}\PYG{n+nx}{getElementsByTagName}\PYG{p}{(}\PYG{n+nx}{tagName}\PYG{p}{)[}\PYG{n+nx}{idx}\PYG{p}{].}\PYG{n+nx}{value}\PYG{p}{)} \PYG{o}{+} \PYG{l+s+s2}{\PYGZdq{};\PYGZdq{}}\PYG{p}{);}
+    \PYG{p}{\PYGZcb{});}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{k}{for} \PYG{p}{(}\PYG{k+kd}{var} \PYG{n+nx}{i} \PYG{o}{=} \PYG{l+m+mi}{0}\PYG{p}{;} \PYG{n+nx}{i} \PYG{o}{\PYGZlt{}} \PYG{n+nx}{inputs}\PYG{p}{.}\PYG{n+nx}{length}\PYG{p}{;} \PYG{n+nx}{i}\PYG{o}{++}\PYG{p}{)} \PYG{p}{\PYGZob{}}
+    \PYG{n+nx}{addClickListener}\PYG{p}{(}\PYG{n+nx}{inputs}\PYG{p}{[}\PYG{n+nx}{i}\PYG{p}{],} \PYG{l+s+s2}{\PYGZdq{}input\PYGZdq{}}\PYG{p}{,} \PYG{n+nx}{i}\PYG{p}{);}
+    \PYG{n+nx}{addChangeListener}\PYG{p}{(}\PYG{n+nx}{inputs}\PYG{p}{[}\PYG{n+nx}{i}\PYG{p}{],} \PYG{l+s+s2}{\PYGZdq{}input\PYGZdq{}}\PYG{p}{,} \PYG{n+nx}{i}\PYG{p}{);}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{k}{for} \PYG{p}{(}\PYG{k+kd}{var} \PYG{n+nx}{i} \PYG{o}{=} \PYG{l+m+mi}{0}\PYG{p}{;} \PYG{n+nx}{i} \PYG{o}{\PYGZlt{}} \PYG{n+nx}{ahrefs}\PYG{p}{.}\PYG{n+nx}{length}\PYG{p}{;} \PYG{n+nx}{i}\PYG{o}{++}\PYG{p}{)} \PYG{p}{\PYGZob{}}
+    \PYG{n+nx}{addClickListener}\PYG{p}{(}\PYG{n+nx}{ahrefs}\PYG{p}{[}\PYG{n+nx}{i}\PYG{p}{],} \PYG{l+s+s2}{\PYGZdq{}a\PYGZdq{}}\PYG{p}{,} \PYG{n+nx}{i}\PYG{p}{);}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{k}{for} \PYG{p}{(}\PYG{k+kd}{var} \PYG{n+nx}{i} \PYG{o}{=} \PYG{l+m+mi}{0}\PYG{p}{;} \PYG{n+nx}{i} \PYG{o}{\PYGZlt{}} \PYG{n+nx}{buttons}\PYG{p}{.}\PYG{n+nx}{length}\PYG{p}{;} \PYG{n+nx}{i}\PYG{o}{++}\PYG{p}{)} \PYG{p}{\PYGZob{}}
+    \PYG{n+nx}{addClickListener}\PYG{p}{(}\PYG{n+nx}{buttons}\PYG{p}{[}\PYG{n+nx}{i}\PYG{p}{],} \PYG{l+s+s2}{\PYGZdq{}button\PYGZdq{}}\PYG{p}{,} \PYG{n+nx}{i}\PYG{p}{);}
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}

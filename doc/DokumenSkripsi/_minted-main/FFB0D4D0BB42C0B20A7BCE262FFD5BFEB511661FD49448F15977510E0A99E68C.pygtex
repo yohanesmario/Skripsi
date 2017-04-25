@@ -1,0 +1,23 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8}]
+\PYG{n+nt}{\PYGZlt{}Page}
+    \PYG{n+na}{x:Class=}\PYG{l+s}{\PYGZdq{}WiFiWebAutoLogin.MainPage\PYGZdq{}}
+    \PYG{n+na}{xmlns=}\PYG{l+s}{\PYGZdq{}http://schemas.microsoft.com/winfx/2006/xaml/presentation\PYGZdq{}}
+    \PYG{n+na}{xmlns:x=}\PYG{l+s}{\PYGZdq{}http://schemas.microsoft.com/winfx/2006/xaml\PYGZdq{}}
+    \PYG{n+na}{xmlns:local=}\PYG{l+s}{\PYGZdq{}using:WiFiWebAutoLogin\PYGZdq{}}
+    \PYG{n+na}{xmlns:d=}\PYG{l+s}{\PYGZdq{}http://schemas.microsoft.com/expression/blend/2008\PYGZdq{}}
+    \PYG{n+na}{xmlns:mc=}\PYG{l+s}{\PYGZdq{}http://schemas.openxmlformats.org/markup\PYGZhy{}compatibility/2006\PYGZdq{}}
+    \PYG{n+na}{mc:Ignorable=}\PYG{l+s}{\PYGZdq{}d\PYGZdq{}}\PYG{n+nt}{\PYGZgt{}}
+
+    \PYG{n+nt}{\PYGZlt{}Grid} \PYG{n+na}{Background=}\PYG{l+s}{\PYGZdq{}\PYGZob{}ThemeResource ApplicationPageBackgroundThemeBrush\PYGZcb{}\PYGZdq{}}\PYG{n+nt}{\PYGZgt{}}
+        \PYG{n+nt}{\PYGZlt{}Grid} \PYG{n+na}{Margin=}\PYG{l+s}{\PYGZdq{}0,0,0,52\PYGZdq{}}\PYG{n+nt}{\PYGZgt{}}
+            \PYG{n+nt}{\PYGZlt{}TextBlock} \PYG{n+na}{x:Name=}\PYG{l+s}{\PYGZdq{}textBlock\PYGZdq{}} \PYG{n+na}{TextWrapping=}\PYG{l+s}{\PYGZdq{}Wrap\PYGZdq{}} \PYG{n+na}{TextAlignment=}\PYG{l+s}{\PYGZdq{}Center\PYGZdq{}} \PYG{n+na}{Text=}\PYG{l+s}{\PYGZdq{}\PYGZdq{}} \PYG{n+na}{VerticalAlignment=}\PYG{l+s}{\PYGZdq{}Center\PYGZdq{}} \PYG{n+na}{HorizontalAlignment=}\PYG{l+s}{\PYGZdq{}Center\PYGZdq{}} \PYG{n+na}{FontSize=}\PYG{l+s}{\PYGZdq{}16\PYGZdq{}}\PYG{n+nt}{/\PYGZgt{}}
+            \PYG{n+nt}{\PYGZlt{}WebView} \PYG{n+na}{Name=}\PYG{l+s}{\PYGZdq{}MainWebView\PYGZdq{}} \PYG{n+na}{NewWindowRequested=}\PYG{l+s}{\PYGZdq{}MainWebView\PYGZus{}NewWindowRequested\PYGZdq{}} \PYG{n+na}{DOMContentLoaded=}\PYG{l+s}{\PYGZdq{}MainWebView\PYGZus{}DOMContentLoaded\PYGZdq{}} \PYG{n+na}{ContentLoading=}\PYG{l+s}{\PYGZdq{}MainWebView\PYGZus{}ContentLoading\PYGZdq{}} \PYG{n+na}{LongRunningScriptDetected=}\PYG{l+s}{\PYGZdq{}MainWebView\PYGZus{}LongRunningScriptDetected\PYGZdq{}} \PYG{n+na}{PermissionRequested=}\PYG{l+s}{\PYGZdq{}MainWebView\PYGZus{}PermissionRequested\PYGZdq{}} \PYG{n+na}{LoadCompleted=}\PYG{l+s}{\PYGZdq{}MainWebView\PYGZus{}LoadCompleted\PYGZdq{}} \PYG{n+na}{NavigationStarting=}\PYG{l+s}{\PYGZdq{}MainWebView\PYGZus{}NavigationStarting\PYGZdq{}} \PYG{n+na}{NavigationCompleted=}\PYG{l+s}{\PYGZdq{}MainWebView\PYGZus{}NavigationCompleted\PYGZdq{}} \PYG{n+na}{Margin=}\PYG{l+s}{\PYGZdq{}0,768,0,\PYGZhy{}768\PYGZdq{}} \PYG{n+nt}{/\PYGZgt{}}
+        \PYG{n+nt}{\PYGZlt{}/Grid\PYGZgt{}}
+        \PYG{n+nt}{\PYGZlt{}Grid} \PYG{n+na}{Height=}\PYG{l+s}{\PYGZdq{}52\PYGZdq{}} \PYG{n+na}{VerticalAlignment=}\PYG{l+s}{\PYGZdq{}Bottom\PYGZdq{}} \PYG{n+na}{RequestedTheme=}\PYG{l+s}{\PYGZdq{}Dark\PYGZdq{}} \PYG{n+na}{Background=}\PYG{l+s}{\PYGZdq{}Black\PYGZdq{}}\PYG{n+nt}{\PYGZgt{}}
+            \PYG{n+nt}{\PYGZlt{}Button} \PYG{n+na}{x:Name=}\PYG{l+s}{\PYGZdq{}button\PYGZdq{}} \PYG{n+na}{Content=}\PYG{l+s}{\PYGZdq{}Delete\PYGZdq{}} \PYG{n+na}{HorizontalAlignment=}\PYG{l+s}{\PYGZdq{}Right\PYGZdq{}} \PYG{n+na}{Margin=}\PYG{l+s}{\PYGZdq{}0,0,10,10\PYGZdq{}} \PYG{n+na}{VerticalAlignment=}\PYG{l+s}{\PYGZdq{}Bottom\PYGZdq{}} \PYG{n+na}{Click=}\PYG{l+s}{\PYGZdq{}button\PYGZus{}Click\PYGZdq{}} \PYG{n+na}{RequestedTheme=}\PYG{l+s}{\PYGZdq{}Dark\PYGZdq{}}\PYG{n+nt}{/\PYGZgt{}}
+            \PYG{n+nt}{\PYGZlt{}ComboBox} \PYG{n+na}{x:Name=}\PYG{l+s}{\PYGZdq{}comboBox\PYGZdq{}} \PYG{n+na}{HorizontalAlignment=}\PYG{l+s}{\PYGZdq{}Right\PYGZdq{}} \PYG{n+na}{Margin=}\PYG{l+s}{\PYGZdq{}0,0,78,10\PYGZdq{}} \PYG{n+na}{VerticalAlignment=}\PYG{l+s}{\PYGZdq{}Bottom\PYGZdq{}} \PYG{n+na}{Width=}\PYG{l+s}{\PYGZdq{}200\PYGZdq{}} \PYG{n+na}{RequestedTheme=}\PYG{l+s}{\PYGZdq{}Dark\PYGZdq{}}\PYG{n+nt}{/\PYGZgt{}}
+            \PYG{n+nt}{\PYGZlt{}TextBlock} \PYG{n+na}{x:Name=}\PYG{l+s}{\PYGZdq{}textBlock1\PYGZdq{}} \PYG{n+na}{HorizontalAlignment=}\PYG{l+s}{\PYGZdq{}Right\PYGZdq{}} \PYG{n+na}{Margin=}\PYG{l+s}{\PYGZdq{}0,0,283,16\PYGZdq{}} \PYG{n+na}{TextWrapping=}\PYG{l+s}{\PYGZdq{}Wrap\PYGZdq{}} \PYG{n+na}{Text=}\PYG{l+s}{\PYGZdq{}Recorded WiFi :\PYGZdq{}} \PYG{n+na}{VerticalAlignment=}\PYG{l+s}{\PYGZdq{}Bottom\PYGZdq{}} \PYG{n+na}{RequestedTheme=}\PYG{l+s}{\PYGZdq{}Dark\PYGZdq{}}\PYG{n+nt}{/\PYGZgt{}}
+        \PYG{n+nt}{\PYGZlt{}/Grid\PYGZgt{}}
+    \PYG{n+nt}{\PYGZlt{}/Grid\PYGZgt{}}
+\PYG{n+nt}{\PYGZlt{}/Page\PYGZgt{}}
+\end{Verbatim}

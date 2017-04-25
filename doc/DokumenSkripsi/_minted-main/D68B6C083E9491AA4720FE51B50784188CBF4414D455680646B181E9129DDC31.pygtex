@@ -1,0 +1,10 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8}]
+\PYG{n+nt}{\PYGZlt{}Application}
+    \PYG{n+na}{x:Class=}\PYG{l+s}{\PYGZdq{}WiFiWebAutoLogin.App\PYGZdq{}}
+    \PYG{n+na}{xmlns=}\PYG{l+s}{\PYGZdq{}http://schemas.microsoft.com/winfx/2006/xaml/presentation\PYGZdq{}}
+    \PYG{n+na}{xmlns:x=}\PYG{l+s}{\PYGZdq{}http://schemas.microsoft.com/winfx/2006/xaml\PYGZdq{}}
+    \PYG{n+na}{xmlns:local=}\PYG{l+s}{\PYGZdq{}using:WiFiWebAutoLogin\PYGZdq{}}
+    \PYG{n+na}{RequestedTheme=}\PYG{l+s}{\PYGZdq{}Light\PYGZdq{}}\PYG{n+nt}{\PYGZgt{}}
+
+\PYG{n+nt}{\PYGZlt{}/Application\PYGZgt{}}
+\end{Verbatim}

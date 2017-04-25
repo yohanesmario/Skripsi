@@ -136,9 +136,9 @@ Algoritma yang digunakan untuk melakukan deteksi \textit{captive portal} adalah 
 
 \begin{algorithm}[H]
     \If{Network Detected and No Internet Connection}{
-        Display notification\;
+        Ask user to run application via notification\;
         \If{"Yes" button clicked}{
-            Access "http://107.172.253.111/network\_status.html"\;
+            Access a web page which can only be opened if there is an internet connection\;
             \If{Redirected}{
                 Captive portal detected\;
             }
@@ -148,16 +148,16 @@ Algoritma yang digunakan untuk melakukan deteksi \textit{captive portal} adalah 
 
 \hfill
 
-Algoritma di atas menjelaskan deteksi \textit{captive portal} dilakukan dengan melakukan deteksi jaringan yang tidak terhubung dengan internet. Jika ditemukan jaringan yang tidak terhubung dengan internet, maka akan muncul notifikasi yang memungkinkan pengguna untuk menjalankan perangkat lunak. Saat perangkat lunak dijalankan, perangkat lunak akan mencoba untuk mengakses halaman pancingan. Jika didapat respon HTTP yang berupa \textit{redirect}, maka pada jaringan tersebut terdapat \textit{captive portal}. Algoritma ini akan didaftarkan pada sistem saat perangkat lunak pertama kali dijalankan dan dipanggil saat ada perubahan status jaringan.
+Algoritma di atas menjelaskan deteksi \textit{captive portal} dilakukan dengan melakukan deteksi jaringan yang tidak terhubung dengan internet. Jika ditemukan jaringan yang tidak terhubung dengan internet, maka akan muncul notifikasi yang memungkinkan pengguna untuk menjalankan perangkat lunak. Saat perangkat lunak dijalankan, perangkat lunak akan mencoba untuk mengakses halaman pancingan yang beralamatkan pada \texttt{http://107.172.253.111/network\_status.html}. Jika didapat respon HTTP yang berupa \textit{redirect}, maka pada jaringan tersebut terdapat \textit{captive portal}. Algoritma ini akan didaftarkan pada sistem saat perangkat lunak pertama kali dijalankan dan dipanggil saat ada perubahan status jaringan.
 
 \subsection{Struktur Data dan Format \textit{Fingerprint}}
 \label{subsec:struktur_data_dan_format_fingerprint}
 
-\textit{Fingerprint} suatu halaman terdiri dari SSID, uri, serta isi \textit{tag} head pada halaman tersebut. Data ini disimpan dalam satu buah string dan dipisahkan oleh separator "<::>" (tanpa tanda petik). Salah satu contoh \textit{fingerprint} adalah \texttt{WIFIKU<::>https://example.com/login<::><title>Halaman Login</title>} yang memiliki arti bahwa \textit{fingerprint} tersebut berasal dari WiFi dengan:
+\textit{Fingerprint} suatu halaman terdiri dari SSID, uri, serta isi \textit{tag} head pada halaman tersebut. Data ini disimpan dalam satu buah string dan dipisahkan oleh separator "<::>" (tanpa tanda petik). Salah satu contoh \textit{fingerprint} adalah \texttt{UNPAR9<::>https://cas.unpar.ac.id/login<::><title>Halaman Login</title>} yang memiliki arti bahwa \textit{fingerprint} tersebut berasal dari WiFi dengan:
 
 \begin{itemize}
-    \item{SSID \texttt{WIFIKU},}
-    \item{uri \texttt{https://hotspot.mikrotik.co.id/login},}
+    \item{SSID \texttt{UNPAR9},}
+    \item{uri \texttt{https://cas.unpar.ac.id/login},}
     \item{serta isi \textit{tag} head \texttt{<title>Halaman Login</title>}.}
 \end{itemize}
 

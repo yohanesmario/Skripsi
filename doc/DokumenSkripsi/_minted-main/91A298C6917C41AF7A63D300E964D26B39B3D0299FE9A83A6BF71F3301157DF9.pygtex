@@ -1,0 +1,124 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8}]
+\PYG{k}{using} \PYG{n+nn}{System}\PYG{p}{;}
+\PYG{k}{using} \PYG{n+nn}{System.Collections.Generic}\PYG{p}{;}
+\PYG{k}{using} \PYG{n+nn}{System.IO}\PYG{p}{;}
+\PYG{k}{using} \PYG{n+nn}{System.Linq}\PYG{p}{;}
+\PYG{k}{using} \PYG{n+nn}{System.Runtime.InteropServices.WindowsRuntime}\PYG{p}{;}
+\PYG{k}{using} \PYG{n+nn}{System.Threading.Tasks}\PYG{p}{;}
+\PYG{k}{using} \PYG{n+nn}{Windows.Foundation}\PYG{p}{;}
+\PYG{k}{using} \PYG{n+nn}{Windows.Foundation.Collections}\PYG{p}{;}
+\PYG{k}{using} \PYG{n+nn}{Windows.UI.Xaml}\PYG{p}{;}
+\PYG{k}{using} \PYG{n+nn}{Windows.UI.Xaml.Controls}\PYG{p}{;}
+\PYG{k}{using} \PYG{n+nn}{Windows.UI.Xaml.Controls.Primitives}\PYG{p}{;}
+\PYG{k}{using} \PYG{n+nn}{Windows.UI.Xaml.Data}\PYG{p}{;}
+\PYG{k}{using} \PYG{n+nn}{Windows.UI.Xaml.Input}\PYG{p}{;}
+\PYG{k}{using} \PYG{n+nn}{Windows.UI.Xaml.Media}\PYG{p}{;}
+\PYG{k}{using} \PYG{n+nn}{Windows.UI.Xaml.Navigation}\PYG{p}{;}
+\PYG{k}{using} \PYG{n+nn}{Windows.Storage}\PYG{p}{;}
+\PYG{k}{using} \PYG{n+nn}{System.Reflection}\PYG{p}{;}
+\PYG{k}{using} \PYG{n+nn}{WiFiWebAutoLogin.RuntimeComponents}\PYG{p}{;}
+\PYG{k}{using} \PYG{n+nn}{Windows.UI.ViewManagement}\PYG{p}{;}
+\PYG{k}{using} \PYG{n+nn}{WiFiWebAutoLogin.Classes}\PYG{p}{;}
+\PYG{k}{using} \PYG{n+nn}{System.Diagnostics}\PYG{p}{;}
+\PYG{k}{using} \PYG{n+nn}{Windows.System.Threading}\PYG{p}{;}
+
+\PYG{c+c1}{// The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352\PYGZam{}clcid=0x409}
+
+\PYG{k}{namespace} \PYG{n+nn}{WiFiWebAutoLogin}
+\PYG{p}{\PYGZob{}}
+    \PYG{c+c1}{/// \PYGZlt{}summary\PYGZgt{}}
+    \PYG{c+c1}{/// An empty page that can be used on its own or navigated to within a Frame.}
+    \PYG{c+c1}{/// \PYGZlt{}/summary\PYGZgt{}}
+    \PYG{k}{public} \PYG{k}{sealed} \PYG{k}{partial} \PYG{k}{class} \PYG{n+nc}{MainPage} \PYG{p}{:} \PYG{n}{Page}
+    \PYG{p}{\PYGZob{}}
+        \PYG{k}{private} \PYG{n}{CaptivePortalDetector} \PYG{n}{cpd} \PYG{p}{=} \PYG{k}{null}\PYG{p}{;}
+        \PYG{k}{private} \PYG{n}{ThreadPoolTimer} \PYG{n}{timeoutTimer} \PYG{p}{=} \PYG{k}{null}\PYG{p}{;}
+        \PYG{k}{private} \PYG{k+kt}{bool} \PYG{n}{loaded} \PYG{p}{=} \PYG{k}{true}\PYG{p}{;}
+
+        \PYG{k}{public} \PYG{n+nf}{MainPage}\PYG{p}{()}
+        \PYG{p}{\PYGZob{}}
+            \PYG{k}{this}\PYG{p}{.}\PYG{n}{InitializeComponent}\PYG{p}{();}
+            \PYG{n}{ApplicationView}\PYG{p}{.}\PYG{n}{GetForCurrentView}\PYG{p}{().}\PYG{n}{SetPreferredMinSize}\PYG{p}{(}\PYG{k}{new} \PYG{n}{Size} \PYG{p}{\PYGZob{}} \PYG{n}{Width} \PYG{p}{=} \PYG{l+m}{600}\PYG{p}{,} \PYG{n}{Height} \PYG{p}{=} \PYG{l+m}{150} \PYG{p}{\PYGZcb{});}
+            \PYG{n}{ApplicationView}\PYG{p}{.}\PYG{n}{PreferredLaunchViewSize} \PYG{p}{=} \PYG{k}{new} \PYG{n}{Size}\PYG{p}{(}\PYG{l+m}{600}\PYG{p}{,} \PYG{l+m}{150}\PYG{p}{);}
+            \PYG{n}{ApplicationView}\PYG{p}{.}\PYG{n}{PreferredLaunchWindowingMode} \PYG{p}{=} \PYG{n}{ApplicationViewWindowingMode}\PYG{p}{.}\PYG{n}{PreferredLaunchViewSize}\PYG{p}{;}
+            \PYG{n}{MainWebView}\PYG{p}{.}\PYG{n}{Margin} \PYG{p}{=} \PYG{k}{new} \PYG{n}{Thickness}\PYG{p}{(}\PYG{l+m}{0}\PYG{p}{,} \PYG{k+kt}{int}\PYG{p}{.}\PYG{n}{MaxValue}\PYG{p}{,} \PYG{l+m}{0}\PYG{p}{,} \PYG{k+kt}{int}\PYG{p}{.}\PYG{n}{MinValue}\PYG{p}{);}
+            \PYG{n}{textBlock}\PYG{p}{.}\PYG{n}{Text} \PYG{p}{=} \PYG{l+s}{\PYGZdq{}Initializing...\PYGZdq{}}\PYG{p}{;}
+            \PYG{k}{this}\PYG{p}{.}\PYG{n}{setup}\PYG{p}{();}
+        \PYG{p}{\PYGZcb{}}
+
+        \PYG{k}{private} \PYG{k}{async} \PYG{k}{void} \PYG{n+nf}{setup}\PYG{p}{()} \PYG{p}{\PYGZob{}}
+            \PYG{n}{cpd} \PYG{p}{=} \PYG{k}{await} \PYG{n}{CaptivePortalDetector}\PYG{p}{.}\PYG{n}{getInstance}\PYG{p}{();}
+            \PYG{n}{cpd}\PYG{p}{.}\PYG{n}{setup}\PYG{p}{(}\PYG{n}{MainWebView}\PYG{p}{,} \PYG{n}{textBlock}\PYG{p}{,} \PYG{n}{comboBox}\PYG{p}{);}
+            \PYG{n}{Debug}\PYG{p}{.}\PYG{n}{WriteLine}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}TEST SETUP\PYGZdq{}}\PYG{p}{);}
+        \PYG{p}{\PYGZcb{}}
+
+        \PYG{k}{private} \PYG{k}{void} \PYG{n+nf}{MainWebView\PYGZus{}LoadCompleted}\PYG{p}{(}\PYG{k+kt}{object} \PYG{n}{sender}\PYG{p}{,} \PYG{n}{NavigationEventArgs} \PYG{n}{e}\PYG{p}{)} \PYG{p}{\PYGZob{}}
+            \PYG{k}{if} \PYG{p}{(}\PYG{n}{cpd} \PYG{p}{!=} \PYG{k}{null}\PYG{p}{)} \PYG{p}{\PYGZob{}}
+                \PYG{k}{this}\PYG{p}{.}\PYG{n}{loaded} \PYG{p}{=} \PYG{k}{true}\PYG{p}{;}
+                \PYG{n}{cpd}\PYG{p}{.}\PYG{n}{onLoad}\PYG{p}{();}
+            \PYG{p}{\PYGZcb{}}
+        \PYG{p}{\PYGZcb{}}
+
+        \PYG{k}{private} \PYG{k}{void} \PYG{n+nf}{MainWebView\PYGZus{}NavigationStarting}\PYG{p}{(}\PYG{n}{WebView} \PYG{n}{sender}\PYG{p}{,} \PYG{n}{WebViewNavigationStartingEventArgs} \PYG{n}{args}\PYG{p}{)} \PYG{p}{\PYGZob{}}
+            \PYG{n}{Debug}\PYG{p}{.}\PYG{n}{WriteLine}\PYG{p}{(}\PYG{n}{args}\PYG{p}{.}\PYG{n}{Uri}\PYG{p}{);}
+            \PYG{k}{if} \PYG{p}{(}\PYG{n}{cpd} \PYG{p}{!=} \PYG{k}{null}\PYG{p}{)} \PYG{p}{\PYGZob{}}
+                \PYG{k}{this}\PYG{p}{.}\PYG{n}{cpd}\PYG{p}{.}\PYG{n}{navigationStarting}\PYG{p}{();}
+
+                \PYG{k}{if} \PYG{p}{(}\PYG{k}{this}\PYG{p}{.}\PYG{n}{timeoutTimer}\PYG{p}{!=}\PYG{k}{null}\PYG{p}{)} \PYG{p}{\PYGZob{}}
+                    \PYG{k}{this}\PYG{p}{.}\PYG{n}{timeoutTimer}\PYG{p}{.}\PYG{n}{Cancel}\PYG{p}{();}
+                    \PYG{k}{this}\PYG{p}{.}\PYG{n}{timeoutTimer} \PYG{p}{=} \PYG{k}{null}\PYG{p}{;}
+                \PYG{p}{\PYGZcb{}}
+
+                \PYG{n}{ScriptNotifyHandler} \PYG{n}{scriptNotify} \PYG{p}{=} \PYG{k}{new} \PYG{n}{ScriptNotifyHandler}\PYG{p}{();}
+                \PYG{n}{MainWebView}\PYG{p}{.}\PYG{n}{AddWebAllowedObject}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}ScriptNotifyHandler\PYGZdq{}}\PYG{p}{,} \PYG{n}{scriptNotify}\PYG{p}{);}
+
+                \PYG{c+c1}{// Handle Timeout}
+                \PYG{k}{this}\PYG{p}{.}\PYG{n}{loaded} \PYG{p}{=} \PYG{k}{false}\PYG{p}{;}
+                \PYG{k}{this}\PYG{p}{.}\PYG{n}{timeoutTimer} \PYG{p}{=} \PYG{n}{ThreadPoolTimer}\PYG{p}{.}\PYG{n}{CreateTimer}\PYG{p}{(}\PYG{k}{async} \PYG{p}{(}\PYG{n}{source}\PYG{p}{)} \PYG{p}{=\PYGZgt{}} \PYG{p}{\PYGZob{}}
+                    \PYG{k}{await} \PYG{n}{Windows}\PYG{p}{.}\PYG{n}{ApplicationModel}\PYG{p}{.}\PYG{n}{Core}\PYG{p}{.}\PYG{n}{CoreApplication}\PYG{p}{.}\PYG{n}{MainView}\PYG{p}{.}\PYG{n}{CoreWindow}\PYG{p}{.}\PYG{n}{Dispatcher}\PYG{p}{.}\PYG{n}{RunAsync}\PYG{p}{(}\PYG{n}{Windows}\PYG{p}{.}\PYG{n}{UI}\PYG{p}{.}\PYG{n}{Core}\PYG{p}{.}\PYG{n}{CoreDispatcherPriority}\PYG{p}{.}\PYG{n}{Normal}\PYG{p}{,} \PYG{p}{()} \PYG{p}{=\PYGZgt{}} \PYG{p}{\PYGZob{}}
+                        \PYG{k}{this}\PYG{p}{.}\PYG{n}{timeoutTimer} \PYG{p}{=} \PYG{k}{null}\PYG{p}{;}
+                        \PYG{k}{if} \PYG{p}{(!}\PYG{k}{this}\PYG{p}{.}\PYG{n}{loaded}\PYG{p}{)} \PYG{p}{\PYGZob{}}
+                            \PYG{k}{this}\PYG{p}{.}\PYG{n}{cpd}\PYG{p}{.}\PYG{n}{timeout}\PYG{p}{();}
+                        \PYG{p}{\PYGZcb{}}
+                    \PYG{p}{\PYGZcb{});}
+                \PYG{p}{\PYGZcb{},} \PYG{n}{TimeSpan}\PYG{p}{.}\PYG{n}{FromSeconds}\PYG{p}{(}\PYG{l+m}{20}\PYG{p}{));}
+            \PYG{p}{\PYGZcb{}}
+        \PYG{p}{\PYGZcb{}}
+
+        \PYG{k}{private} \PYG{k}{void} \PYG{n+nf}{MainWebView\PYGZus{}NewWindowRequested}\PYG{p}{(}\PYG{n}{WebView} \PYG{n}{sender}\PYG{p}{,} \PYG{n}{WebViewNewWindowRequestedEventArgs} \PYG{n}{args}\PYG{p}{)} \PYG{p}{\PYGZob{}}
+            \PYG{n}{args}\PYG{p}{.}\PYG{n}{Handled} \PYG{p}{=} \PYG{k}{true}\PYG{p}{;}
+            \PYG{n}{cpd}\PYG{p}{.}\PYG{n}{queueUri}\PYG{p}{(}\PYG{n}{args}\PYG{p}{.}\PYG{n}{Uri}\PYG{p}{);}
+        \PYG{p}{\PYGZcb{}}
+
+        \PYG{k}{private} \PYG{k}{async} \PYG{k}{void} \PYG{n+nf}{MainWebView\PYGZus{}NavigationCompleted}\PYG{p}{(}\PYG{n}{WebView} \PYG{n}{sender}\PYG{p}{,} \PYG{n}{WebViewNavigationCompletedEventArgs} \PYG{n}{args}\PYG{p}{)} \PYG{p}{\PYGZob{}}
+            \PYG{k}{if} \PYG{p}{(}\PYG{n}{cpd} \PYG{p}{!=} \PYG{k}{null}\PYG{p}{)} \PYG{p}{\PYGZob{}}
+                \PYG{k}{await} \PYG{n}{sender}\PYG{p}{.}\PYG{n}{InvokeScriptAsync}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}eval\PYGZdq{}}\PYG{p}{,} \PYG{k}{new} \PYG{k+kt}{string}\PYG{p}{[]} \PYG{p}{\PYGZob{}}
+                    \PYG{l+s}{\PYGZdq{}window.open = function(url)\PYGZob{}ScriptNotifyHandler.windowOpen(url)\PYGZcb{};\PYGZdq{}} \PYG{p}{+}
+                    \PYG{l+s}{\PYGZdq{}var open = window.open;\PYGZdq{}} \PYG{p}{+}
+                    \PYG{l+s}{\PYGZdq{}document.open = window.open;\PYGZdq{}}
+                \PYG{p}{\PYGZcb{});}
+            \PYG{p}{\PYGZcb{}}
+        \PYG{p}{\PYGZcb{}}
+
+        \PYG{k}{private} \PYG{k}{void} \PYG{n+nf}{button\PYGZus{}Click}\PYG{p}{(}\PYG{k+kt}{object} \PYG{n}{sender}\PYG{p}{,} \PYG{n}{RoutedEventArgs} \PYG{n}{e}\PYG{p}{)} \PYG{p}{\PYGZob{}}
+            \PYG{n}{cpd}\PYG{p}{.}\PYG{n}{removeLoginInformation}\PYG{p}{((}\PYG{k+kt}{string}\PYG{p}{)}\PYG{n}{comboBox}\PYG{p}{.}\PYG{n}{SelectedItem}\PYG{p}{);}
+        \PYG{p}{\PYGZcb{}}
+
+        \PYG{k}{private} \PYG{k}{void} \PYG{n+nf}{MainWebView\PYGZus{}DOMContentLoaded}\PYG{p}{(}\PYG{n}{WebView} \PYG{n}{sender}\PYG{p}{,} \PYG{n}{WebViewDOMContentLoadedEventArgs} \PYG{n}{args}\PYG{p}{)} \PYG{p}{\PYGZob{}}
+            \PYG{c+c1}{// DISABLED}
+        \PYG{p}{\PYGZcb{}}
+
+        \PYG{k}{private} \PYG{k}{void} \PYG{n+nf}{MainWebView\PYGZus{}ContentLoading}\PYG{p}{(}\PYG{n}{WebView} \PYG{n}{sender}\PYG{p}{,} \PYG{n}{WebViewContentLoadingEventArgs} \PYG{n}{args}\PYG{p}{)} \PYG{p}{\PYGZob{}}
+            \PYG{c+c1}{// DISABLED}
+        \PYG{p}{\PYGZcb{}}
+
+        \PYG{k}{private} \PYG{k}{void} \PYG{n+nf}{MainWebView\PYGZus{}LongRunningScriptDetected}\PYG{p}{(}\PYG{n}{WebView} \PYG{n}{sender}\PYG{p}{,} \PYG{n}{WebViewLongRunningScriptDetectedEventArgs} \PYG{n}{args}\PYG{p}{)} \PYG{p}{\PYGZob{}}
+            \PYG{c+c1}{// DISABLED}
+        \PYG{p}{\PYGZcb{}}
+
+        \PYG{k}{private} \PYG{k}{void} \PYG{n+nf}{MainWebView\PYGZus{}PermissionRequested}\PYG{p}{(}\PYG{n}{WebView} \PYG{n}{sender}\PYG{p}{,} \PYG{n}{WebViewPermissionRequestedEventArgs} \PYG{n}{args}\PYG{p}{)} \PYG{p}{\PYGZob{}}
+            \PYG{c+c1}{// Debug.WriteLine(\PYGZdq{}DEBUG PERMISSION\PYGZdq{});}
+        \PYG{p}{\PYGZcb{}}
+    \PYG{p}{\PYGZcb{}}
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}

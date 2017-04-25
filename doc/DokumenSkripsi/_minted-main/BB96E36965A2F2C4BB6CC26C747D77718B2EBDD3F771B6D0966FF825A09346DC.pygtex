@@ -1,0 +1,32 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8}]
+\PYG{k}{using} \PYG{n+nn}{System}\PYG{p}{;}
+\PYG{k}{using} \PYG{n+nn}{System.Collections.Generic}\PYG{p}{;}
+\PYG{k}{using} \PYG{n+nn}{System.Linq}\PYG{p}{;}
+\PYG{k}{using} \PYG{n+nn}{System.Text}\PYG{p}{;}
+\PYG{k}{using} \PYG{n+nn}{System.Threading.Tasks}\PYG{p}{;}
+\PYG{k}{using} \PYG{n+nn}{Windows.Foundation.Metadata}\PYG{p}{;}
+\PYG{k}{using} \PYG{n+nn}{WiFiWebAutoLogin.Classes}\PYG{p}{;}
+\PYG{k}{using} \PYG{n+nn}{System.Diagnostics}\PYG{p}{;}
+
+\PYG{k}{namespace} \PYG{n+nn}{WiFiWebAutoLogin.RuntimeComponents}
+\PYG{p}{\PYGZob{}}
+\PYG{n+na}{    [AllowForWeb]}
+    \PYG{k}{public} \PYG{k}{sealed} \PYG{k}{class} \PYG{n+nc}{ScriptNotifyHandler}
+    \PYG{p}{\PYGZob{}}
+        \PYG{k}{public} \PYG{k}{async} \PYG{k}{void} \PYG{n+nf}{passAction}\PYG{p}{(}\PYG{k+kt}{string} \PYG{n}{args}\PYG{p}{)} \PYG{p}{\PYGZob{}}
+            \PYG{n}{CaptivePortalDetector} \PYG{n}{cpd} \PYG{p}{=} \PYG{k}{await} \PYG{n}{CaptivePortalDetector}\PYG{p}{.}\PYG{n}{getInstance}\PYG{p}{();}
+            \PYG{n}{cpd}\PYG{p}{.}\PYG{n}{passAction}\PYG{p}{(}\PYG{n}{args}\PYG{p}{);}
+        \PYG{p}{\PYGZcb{}}
+
+        \PYG{k}{public} \PYG{k}{async} \PYG{k}{void} \PYG{n+nf}{windowOpen}\PYG{p}{(}\PYG{k+kt}{string} \PYG{n}{args}\PYG{p}{)} \PYG{p}{\PYGZob{}}
+            \PYG{n}{CaptivePortalDetector} \PYG{n}{cpd} \PYG{p}{=} \PYG{k}{await} \PYG{n}{CaptivePortalDetector}\PYG{p}{.}\PYG{n}{getInstance}\PYG{p}{();}
+            \PYG{n}{cpd}\PYG{p}{.}\PYG{n}{queueUri}\PYG{p}{(}\PYG{k}{new} \PYG{n}{Uri}\PYG{p}{(}\PYG{n}{args}\PYG{p}{));}
+            \PYG{n}{Debug}\PYG{p}{.}\PYG{n}{WriteLine}\PYG{p}{(}\PYG{n}{args}\PYG{p}{);}
+        \PYG{p}{\PYGZcb{}}
+
+        \PYG{k}{public} \PYG{k}{void} \PYG{n+nf}{testDebug}\PYG{p}{(}\PYG{k+kt}{string} \PYG{n}{args}\PYG{p}{)} \PYG{p}{\PYGZob{}}
+            \PYG{n}{Debug}\PYG{p}{.}\PYG{n}{WriteLine}\PYG{p}{(}\PYG{n}{args}\PYG{p}{);}
+        \PYG{p}{\PYGZcb{}}
+    \PYG{p}{\PYGZcb{}}
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}

@@ -1,0 +1,32 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8}]
+\PYG{k}{using} \PYG{n+nn}{System}\PYG{p}{;}
+\PYG{k}{using} \PYG{n+nn}{System.Collections.Generic}\PYG{p}{;}
+\PYG{k}{using} \PYG{n+nn}{System.Linq}\PYG{p}{;}
+\PYG{k}{using} \PYG{n+nn}{System.Runtime.Serialization}\PYG{p}{;}
+\PYG{k}{using} \PYG{n+nn}{System.Text}\PYG{p}{;}
+\PYG{k}{using} \PYG{n+nn}{System.Threading.Tasks}\PYG{p}{;}
+
+\PYG{k}{namespace} \PYG{n+nn}{WiFiWebAutoLogin.Classes} \PYG{p}{\PYGZob{}}
+\PYG{n+na}{    [DataContract]}
+    \PYG{k}{class} \PYG{n+nc}{ActionSequence} \PYG{p}{\PYGZob{}}
+\PYG{n+na}{        [DataMember]}
+        \PYG{k}{private} \PYG{n}{LinkedList}\PYG{p}{\PYGZlt{}}\PYG{k+kt}{string}\PYG{p}{\PYGZgt{}} \PYG{n}{actions}\PYG{p}{;}
+
+        \PYG{k}{public} \PYG{n+nf}{ActionSequence}\PYG{p}{()} \PYG{p}{\PYGZob{}}
+            \PYG{k}{this}\PYG{p}{.}\PYG{n}{actions} \PYG{p}{=} \PYG{k}{new} \PYG{n}{LinkedList}\PYG{p}{\PYGZlt{}}\PYG{k+kt}{string}\PYG{p}{\PYGZgt{}();}
+        \PYG{p}{\PYGZcb{}}
+
+        \PYG{k}{public} \PYG{k}{void} \PYG{n+nf}{add}\PYG{p}{(}\PYG{k+kt}{string} \PYG{n}{action}\PYG{p}{)} \PYG{p}{\PYGZob{}}
+            \PYG{k}{this}\PYG{p}{.}\PYG{n}{actions}\PYG{p}{.}\PYG{n}{AddLast}\PYG{p}{(}\PYG{n}{action}\PYG{p}{);}
+        \PYG{p}{\PYGZcb{}}
+
+        \PYG{k}{public} \PYG{n}{IEnumerable}\PYG{p}{\PYGZlt{}}\PYG{k+kt}{string}\PYG{p}{\PYGZgt{}} \PYG{n}{getEnumerable}\PYG{p}{()} \PYG{p}{\PYGZob{}}
+            \PYG{k}{return} \PYG{k}{this}\PYG{p}{.}\PYG{n}{actions}\PYG{p}{.}\PYG{n}{AsEnumerable}\PYG{p}{();}
+        \PYG{p}{\PYGZcb{}}
+
+        \PYG{k}{public} \PYG{k}{void} \PYG{n+nf}{reset}\PYG{p}{()} \PYG{p}{\PYGZob{}}
+            \PYG{k}{this}\PYG{p}{.}\PYG{n}{actions}\PYG{p}{.}\PYG{n}{Clear}\PYG{p}{();}
+        \PYG{p}{\PYGZcb{}}
+    \PYG{p}{\PYGZcb{}}
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}

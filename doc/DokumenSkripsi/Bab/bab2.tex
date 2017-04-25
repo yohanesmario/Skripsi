@@ -12,11 +12,11 @@ Bab ini menjelaskan mengenai teori-teori yang digunakan dalam penelitian ini, an
 
 \begin{enumerate}
     \item{Memberikan alamat IP melalui DHCP pada perangkat yang baru terhubung.}
-    \item{Tutup seluruh akses kecuali ke \textit{captive portal server}.}
-    \item{Arahkan seluruh \textit{request} HTTP ke \textit{captive portal}.}
-    \item{Tampilkan aturan penggunaan, informasi pembayaran, dan\/atau halaman \textit{login}.}
-    \item{Jika pengguna telah menyetujui aturan penggunaan atau telah melakukan \textit{login}, buka akses.}
-    \item{Opsional: Saat pengguna telah melewati batas waktu tertentu, tutup akses.}
+    \item{Menutup seluruh akses kecuali ke \textit{captive portal server}.}
+    \item{Mengarahkan seluruh \textit{request} HTTP ke \textit{captive portal}.}
+    \item{Menampilkan aturan penggunaan, informasi pembayaran, dan\/atau halaman \textit{login}.}
+    \item{Membuka akses jika pengguna telah menyetujui aturan penggunaan atau telah melakukan \textit{login}.}
+    \item{Opsional: Menutup akses saat pengguna telah melewati batas waktu tertentu.}
 \end{enumerate}
 
 Akan tetapi, pada prakteknya, implementasi \textit{captive portal} sangat beragam dan bersifat \textit{ad-hoc}\cite{HTTPWG_CP:2016}. Beberapa perilaku \textit{captive portal} lain yang teramati adalah sebagai berikut:
@@ -139,6 +139,17 @@ Beberapa \textit{method} yang dimiliki oleh WebView adalah:
 \end{itemize}
 
 Salah satu \textit{event} yang dimiliki oleh kelas WebView adalah \textit{event} ScriptNotify. \textit{Event} ini berguna untuk menangkap hasil dari fungsi javascript window.external.notify.
+
+
+
+\section{\textit{Interface} IBackgroundTask Pada UWP}
+\label{sec:ibackgroundtask}
+
+\textit{Interface} IBackgroundTask pada UWP memiliki metode yang dapat dijalankan di belakang layar\cite{WinAPI:2016}. Interface ini memiliki satu metode yang harus diimplementasikan oleh kelas yang mengimplementasikan \textit{interface} ini, yaitu:
+
+\begin{itemize}
+    \item{Run(IBackgroundTaskInstance taskInstance)\\Metode ini adalah metode yang dijalankan berdasarkan \textit{trigger} yang diberikan oleh sistem operasi. Metode ini memiliki satu parameter yaitu taskInstance yang merupakan \textit{instance} dari \textit{task} yang diciptakan oleh sistem operasi.}
+\end{itemize}
 
 
 

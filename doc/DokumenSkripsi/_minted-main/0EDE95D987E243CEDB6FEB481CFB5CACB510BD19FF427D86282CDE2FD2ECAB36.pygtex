@@ -1,0 +1,64 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8}]
+\PYG{k}{using} \PYG{n+nn}{System}\PYG{p}{;}
+\PYG{k}{using} \PYG{n+nn}{System.Collections.Generic}\PYG{p}{;}
+\PYG{k}{using} \PYG{n+nn}{System.Collections.ObjectModel}\PYG{p}{;}
+\PYG{k}{using} \PYG{n+nn}{System.Linq}\PYG{p}{;}
+\PYG{k}{using} \PYG{n+nn}{System.Runtime.Serialization}\PYG{p}{;}
+\PYG{k}{using} \PYG{n+nn}{System.Text}\PYG{p}{;}
+\PYG{k}{using} \PYG{n+nn}{System.Threading.Tasks}\PYG{p}{;}
+\PYG{k}{using} \PYG{n+nn}{Windows.ApplicationModel.Contacts}\PYG{p}{;}
+
+\PYG{k}{namespace} \PYG{n+nn}{WiFiWebAutoLogin.Classes} \PYG{p}{\PYGZob{}}
+\PYG{n+na}{    [DataContract]}
+    \PYG{k}{class} \PYG{n+nc}{LoginInformation} \PYG{p}{\PYGZob{}}
+\PYG{n+na}{        [DataMember]}
+        \PYG{k}{private} \PYG{n}{Dictionary}\PYG{p}{\PYGZlt{}}\PYG{k+kt}{string}\PYG{p}{,} \PYG{n}{ActionSequence}\PYG{p}{\PYGZgt{}} \PYG{n}{actionSequences}\PYG{p}{;}
+
+        \PYG{k}{public} \PYG{n+nf}{LoginInformation}\PYG{p}{()} \PYG{p}{\PYGZob{}}
+            \PYG{k}{this}\PYG{p}{.}\PYG{n}{actionSequences} \PYG{p}{=} \PYG{k}{new} \PYG{n}{Dictionary}\PYG{p}{\PYGZlt{}}\PYG{k+kt}{string}\PYG{p}{,} \PYG{n}{ActionSequence}\PYG{p}{\PYGZgt{}();}
+            \PYG{n}{ActionSequence} \PYG{n}{actionSequence} \PYG{p}{=} \PYG{k}{new} \PYG{n}{ActionSequence}\PYG{p}{();}
+            \PYG{c+c1}{//actionSequence.add(new Action(Action.ACTION\PYGZus{}TYPE\PYGZus{}INPUT, \PYGZdq{}\PYGZsh{}username\PYGZdq{}, \PYGZdq{}TEST\PYGZdq{}));}
+            \PYG{c+c1}{//this.actionSequences.Add(\PYGZdq{}TEST\PYGZdq{}, actionSequence);}
+        \PYG{p}{\PYGZcb{}}
+
+        \PYG{k}{public} \PYG{n}{ActionSequence} \PYG{n+nf}{getActionSequence}\PYG{p}{(}\PYG{k+kt}{string} \PYG{n}{fingerprint}\PYG{p}{)} \PYG{p}{\PYGZob{}}
+            \PYG{k}{try} \PYG{p}{\PYGZob{}}
+                \PYG{k}{return} \PYG{k}{this}\PYG{p}{.}\PYG{n}{actionSequences}\PYG{p}{[}\PYG{n}{fingerprint}\PYG{p}{];}
+            \PYG{p}{\PYGZcb{}} \PYG{k}{catch} \PYG{p}{(}\PYG{n}{Exception} \PYG{n}{e}\PYG{p}{)} \PYG{p}{\PYGZob{}}
+                \PYG{k}{return} \PYG{k}{null}\PYG{p}{;}
+            \PYG{p}{\PYGZcb{}}
+        \PYG{p}{\PYGZcb{}}
+
+        \PYG{k}{public} \PYG{k}{void} \PYG{n+nf}{addActionSequence}\PYG{p}{(}\PYG{k+kt}{string} \PYG{n}{fingerprint}\PYG{p}{,} \PYG{n}{ActionSequence} \PYG{n}{actionSequence}\PYG{p}{)} \PYG{p}{\PYGZob{}}
+            \PYG{k}{this}\PYG{p}{.}\PYG{n}{actionSequences}\PYG{p}{.}\PYG{n}{Add}\PYG{p}{(}\PYG{n}{fingerprint}\PYG{p}{,} \PYG{n}{actionSequence}\PYG{p}{);}
+        \PYG{p}{\PYGZcb{}}
+
+        \PYG{k}{public} \PYG{n}{List}\PYG{p}{\PYGZlt{}}\PYG{k+kt}{string}\PYG{p}{\PYGZgt{}} \PYG{n}{getList}\PYG{p}{()} \PYG{p}{\PYGZob{}}
+            \PYG{n}{Dictionary}\PYG{p}{\PYGZlt{}}\PYG{k+kt}{string}\PYG{p}{,} \PYG{n}{ActionSequence}\PYG{p}{\PYGZgt{}.}\PYG{n}{KeyCollection}\PYG{p}{.}\PYG{n}{Enumerator} \PYG{n}{loginInfoEnumerator} \PYG{p}{=} \PYG{n}{actionSequences}\PYG{p}{.}\PYG{n}{Keys}\PYG{p}{.}\PYG{n}{GetEnumerator}\PYG{p}{();}
+            \PYG{n}{List}\PYG{p}{\PYGZlt{}}\PYG{k+kt}{string}\PYG{p}{\PYGZgt{}} \PYG{n}{list} \PYG{p}{=} \PYG{k}{new} \PYG{n}{List}\PYG{p}{\PYGZlt{}}\PYG{k+kt}{string}\PYG{p}{\PYGZgt{}();}
+            \PYG{k}{while} \PYG{p}{(}\PYG{n}{loginInfoEnumerator}\PYG{p}{.}\PYG{n}{MoveNext}\PYG{p}{())} \PYG{p}{\PYGZob{}}
+                \PYG{k+kt}{string} \PYG{n}{ssid} \PYG{p}{=} \PYG{n}{loginInfoEnumerator}\PYG{p}{.}\PYG{n}{Current}\PYG{p}{.}\PYG{n}{Split}\PYG{p}{(}\PYG{k}{new} \PYG{k+kt}{string}\PYG{p}{[]} \PYG{p}{\PYGZob{}} \PYG{n}{Conf}\PYG{p}{.}\PYG{n}{separator} \PYG{p}{\PYGZcb{},} \PYG{n}{StringSplitOptions}\PYG{p}{.}\PYG{n}{RemoveEmptyEntries}\PYG{p}{)[}\PYG{l+m}{0}\PYG{p}{];}
+                \PYG{k}{if} \PYG{p}{(!}\PYG{n}{list}\PYG{p}{.}\PYG{n}{Contains}\PYG{p}{(}\PYG{n}{ssid}\PYG{p}{))} \PYG{p}{\PYGZob{}}
+                    \PYG{n}{list}\PYG{p}{.}\PYG{n}{Add}\PYG{p}{(}\PYG{n}{ssid}\PYG{p}{);}
+                \PYG{p}{\PYGZcb{}}
+            \PYG{p}{\PYGZcb{}}
+            \PYG{k}{return} \PYG{n}{list}\PYG{p}{;}
+        \PYG{p}{\PYGZcb{}}
+
+        \PYG{k}{public} \PYG{k}{void} \PYG{n+nf}{removeBySSID}\PYG{p}{(}\PYG{k+kt}{string} \PYG{n}{ssid}\PYG{p}{)} \PYG{p}{\PYGZob{}}
+            \PYG{n}{Dictionary}\PYG{p}{\PYGZlt{}}\PYG{k+kt}{string}\PYG{p}{,} \PYG{n}{ActionSequence}\PYG{p}{\PYGZgt{}.}\PYG{n}{KeyCollection}\PYG{p}{.}\PYG{n}{Enumerator} \PYG{n}{loginInfoEnumerator} \PYG{p}{=} \PYG{n}{actionSequences}\PYG{p}{.}\PYG{n}{Keys}\PYG{p}{.}\PYG{n}{GetEnumerator}\PYG{p}{();}
+            \PYG{n}{List}\PYG{p}{\PYGZlt{}}\PYG{k+kt}{string}\PYG{p}{\PYGZgt{}} \PYG{n}{removalList} \PYG{p}{=} \PYG{k}{new} \PYG{n}{List}\PYG{p}{\PYGZlt{}}\PYG{k+kt}{string}\PYG{p}{\PYGZgt{}();}
+            \PYG{k}{while} \PYG{p}{(}\PYG{n}{loginInfoEnumerator}\PYG{p}{.}\PYG{n}{MoveNext}\PYG{p}{())} \PYG{p}{\PYGZob{}}
+                \PYG{k+kt}{string} \PYG{n}{enumSSID} \PYG{p}{=} \PYG{n}{loginInfoEnumerator}\PYG{p}{.}\PYG{n}{Current}\PYG{p}{.}\PYG{n}{Split}\PYG{p}{(}\PYG{k}{new} \PYG{k+kt}{string}\PYG{p}{[]} \PYG{p}{\PYGZob{}} \PYG{n}{Conf}\PYG{p}{.}\PYG{n}{separator} \PYG{p}{\PYGZcb{},} \PYG{n}{StringSplitOptions}\PYG{p}{.}\PYG{n}{RemoveEmptyEntries}\PYG{p}{)[}\PYG{l+m}{0}\PYG{p}{];}
+                \PYG{k}{if} \PYG{p}{(}\PYG{n}{enumSSID}\PYG{p}{.}\PYG{n}{Equals}\PYG{p}{(}\PYG{n}{ssid}\PYG{p}{))} \PYG{p}{\PYGZob{}}
+                    \PYG{n}{removalList}\PYG{p}{.}\PYG{n}{Add}\PYG{p}{(}\PYG{n}{loginInfoEnumerator}\PYG{p}{.}\PYG{n}{Current}\PYG{p}{);}
+                \PYG{p}{\PYGZcb{}}
+            \PYG{p}{\PYGZcb{}}
+            \PYG{n}{List}\PYG{p}{\PYGZlt{}}\PYG{k+kt}{string}\PYG{p}{\PYGZgt{}.}\PYG{n}{Enumerator} \PYG{n}{removalListEnumerator} \PYG{p}{=} \PYG{n}{removalList}\PYG{p}{.}\PYG{n}{GetEnumerator}\PYG{p}{();}
+            \PYG{k}{while} \PYG{p}{(}\PYG{n}{removalListEnumerator}\PYG{p}{.}\PYG{n}{MoveNext}\PYG{p}{())} \PYG{p}{\PYGZob{}}
+                \PYG{n}{actionSequences}\PYG{p}{.}\PYG{n}{Remove}\PYG{p}{(}\PYG{n}{removalListEnumerator}\PYG{p}{.}\PYG{n}{Current}\PYG{p}{);}
+            \PYG{p}{\PYGZcb{}}
+        \PYG{p}{\PYGZcb{}}
+    \PYG{p}{\PYGZcb{}}
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}
