@@ -132,7 +132,7 @@
       <Project>{2fdf06c7-98e8-4947-a010-63dc6086c82b}</Project>
       <Name>WiFiWebAutoLogin.Classes</Name>
     </ProjectReference>
-    <ProjectReference Include="..\WiFiWebAutoLogin.Connector\WiFiWebAutoLogin.RuntimeComponents.csproj">
+    <ProjectReference Include="..\WiFiWebAutoLogin.RuntimeComponents\WiFiWebAutoLogin.RuntimeComponents.csproj">
       <Project>{f88193b0-4b71-4500-b691-bd1cf16290af}</Project>
       <Name>WiFiWebAutoLogin.RuntimeComponents</Name>
     </ProjectReference>

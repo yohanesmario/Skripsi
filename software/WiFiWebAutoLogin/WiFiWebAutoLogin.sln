@@ -5,7 +5,7 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WiFiWebAutoLogin", "WiFiWebAutoLogin\WiFiWebAutoLogin.csproj", "{C566DC39-02BD-47B3-A31F-A5D427E0E9B7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WiFiWebAutoLogin.RuntimeComponents", "WiFiWebAutoLogin.Connector\WiFiWebAutoLogin.RuntimeComponents.csproj", "{F88193B0-4B71-4500-B691-BD1CF16290AF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WiFiWebAutoLogin.RuntimeComponents", "WiFiWebAutoLogin.RuntimeComponents\WiFiWebAutoLogin.RuntimeComponents.csproj", "{F88193B0-4B71-4500-B691-BD1CF16290AF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WiFiWebAutoLogin.Classes", "WiFiWebAutoLogin.Classes\WiFiWebAutoLogin.Classes.csproj", "{2FDF06C7-98E8-4947-A010-63DC6086C82B}"
 EndProject
