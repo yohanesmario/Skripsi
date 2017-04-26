@@ -1,5 +1,9 @@
-Skripsi : WiFi Web Auto Login
+Skripsi
 ============================
+
+    Topik   : WiFi Web Auto Login
+    Judul   : Perangkat Lunak Login Otomatis Untuk Captive Portal Wi-Fi
+              (Automated Login Software For Wi-Fi Captive Portal)
 
     Penulis : Yohanes Mario Chandra
     NPM     : 2011730031
