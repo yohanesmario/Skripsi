@@ -35,9 +35,9 @@
 \newcommand{\pembA}{Pascal Alfadian}
 \newcommand{\pembB}{-}
 \newcommand{\semesterPertama}{41 - Ganjil 16/17} % semester pertama kali topik diambil, angka 1 dimulai dari sem Ganjil 96/97
-\newcommand{\lamaSkripsi}{1} % Jumlah semester untuk mengerjakan skripsi s.d. dokumen ini dibuat
+\newcommand{\lamaSkripsi}{2} % Jumlah semester untuk mengerjakan skripsi s.d. dokumen ini dibuat
 \newcommand{\kulPertama}{Skripsi 1} % Kuliah dimana topik ini diambil pertama kali
-\newcommand{\tipePR}{B} % tipe progress report :
+\newcommand{\tipePR}{C} % tipe progress report :
 % A : dokumen pendukung untuk pengambilan ke-2 di Skripsi 1
 % B : dokumen untuk reviewer pada presentasi dan review Skripsi 1
 % C : dokumen pendukung untuk pengambilan ke-2 di Skripsi 2
@@ -172,6 +172,22 @@ Setelah pengguna melalui sudah pernah melakukan login pertama kali menggunakan a
             \item{Sistem menghapus informasi login lama dan menyimpan informasi login baru.}
         \end{enumerate}
         
+        \textbf{Skenario memicu login otomatis}
+        
+        Nama: Memicu login otomatis\\
+        Aktor: WiFi\\
+        Kondisi awal: Perangkat lunak sudah dijalankan.\\
+        Deskripsi: Sistem memicu login otomatis berdasarkan perubahan status WiFi.\\
+        Kondisi Akhir: klien terotentikasi pada \textit{captive portal}.\\\\
+        Skenario:
+        \begin{enumerate}
+            \item{Sistem mendeteksi adanya koneksi WiFi yang terjadi.}
+            \item{Sistem mendeteksi adanya \textit{captive portal}.}
+            \item{Sistem mendeteksi adanya informasi login untuk \textit{captive portal} tersebut.}
+            \item{Sistem mengirimkan informasi login kepada \textit{captive portal}.}
+            \item{Sistem mendeteksi koneksi dengan internet dan klien sudah terotentikasi pada \textit{captive portal} tersebut.}
+        \end{enumerate}
+        
         Diagram Kelas:
         
         \begin{figure}[h]
@@ -203,7 +219,7 @@ lunak tersebut.\\
 		{\bf status :} Ada sejak rencana kerja skripsi.\\
 		{\bf hasil :} Dilaksanakan pada Skripsi 2.
 
-		\item Melakukan pengujian (dan eksperimen) yang melibatkan responde untuk menilai hasil simulasi secara kualitatif\\
+		\item Melakukan pengujian (dan eksperimen) yang melibatkan responden untuk menilai hasil simulasi secara kualitatif\\
 		{\bf status :} Ada sejak rencana kerja skripsi.\\
 		{\bf hasil :} Dilaksanakan pada Skripsi 2.
 
@@ -213,7 +229,10 @@ lunak tersebut.\\
 
 	\end{enumerate}
 
-\section{Pencapaian Rencana Kerja\footnote{Terdapat kesalahan pada dokumen rencana kerja terdahulu. Terdapat 8 poin rencana kerja, sementara hanya tertera 7 poin pada tabel rencana kerja. Poin nomer 7 seharusnya adalah poin nomer 8, dan poin nomer 7 yang sebenarnya belum dimasukkan. Oleh karena itu, dilakukan perubahan tabel rencana kerja dan nilainya mengikuti nilai terbaru pada progress report ini.}}
+\pagebreak
+
+\section{Pencapaian Rencana Kerja\footnote{Terdapat kesalahan pada dokumen rencana kerja terdahulu di mana terdapat 8 poin rencana kerja, sementara hanya tertera 7 poin pada tabel rencana kerja. Poin-poin rencana kerja yang benar adalah yang ada pada dokumen ini.}}
+
 Persentase penyelesaian skripsi sampai dengan dokumen ini dibuat dapat dilihat pada tabel berikut :
 
 \begin{center}
@@ -249,8 +268,6 @@ Keterangan (*)\\
 	%\item Skripsi diambil bersamaan dengan kuliah ASD karena selama 5 semester pertama kuliah tersebut sangat dihindari dan tidak diambil, dan selama 4 semester terakhir kuliah tersebut selalu mendapat nilai E
 	%\item Mengalami kesulitan pada saat sudah mulai membuat program komputer karena selama ini selalu dibantu teman
 %\end{itemize}
-
-\pagebreak
 
 \vspace{1cm}
 \centering Bandung, \tanggal\\
