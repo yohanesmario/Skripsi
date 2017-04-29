@@ -8,7 +8,8 @@
 \pagestyle{myheadings}
 \usepackage{etoolbox}
 \usepackage{setspace} 
-\usepackage{lipsum} 
+\usepackage{lipsum}
+\usepackage{algorithm2e}
 \setlength{\headsep}{30pt}
 \usepackage[inner=2cm,outer=2.5cm,top=2.5cm,bottom=2cm]{geometry} %margin
 % \pagestyle{empty}
@@ -28,7 +29,7 @@
 %ISILAH DATA DATA BERIKUT INI:
 \newcommand{\nama}{Yohanes Mario Chandra}
 \newcommand{\@npm}{2011730031}
-\newcommand{\tanggal}{22/11/2016} %Tanggal pembuatan dokumen
+\newcommand{\tanggal}{30/04/2017} %Tanggal pembuatan dokumen
 \newcommand{\@judultopik}{Wi-Fi Web Auto Login} % Judul/topik anda
 \newcommand{\kodetopik}{PAS4105}
 \newcommand{\jumpemb}{1} % Jumlah pembimbing, 1 atau 2
@@ -103,7 +104,7 @@ Setelah pengguna melalui sudah pernah melakukan login pertama kali menggunakan a
             \item{
                 Metode Rekam dan Kirim Informasi Login
                 
-                Kelas WebView pada \textit{Universal Windows Platform} (UWP) hanya dapat dihubungkan dengan kode C\# menggunakan javascript. \textit{Method} yang digunakan untuk melakukan eksekusi javascript pada WebView adalah InvokeScriptAsync. Metode ini memiliki parameter string berupa nama fungsi javascript yang ingin dipanggil dan array of string yang berisi argumen yang ingin dikirimkan ke dalam fungsi tersebut. Salah satu fungsi yang dapat dipanggil adalah \textit{eval}. Dengan menggunakan \textit{eval}, ekspresi javascript apapun dapat dijalankan pada WebView. Untuk mengirimkan data dari javascript ke kode C\#, dapat dijalankan fungsi window.external.notify dengan parameter berupa string. Oleh karena itu, diperlukan \textit{encoding} tertentu (seperti JSON) untuk memasukkan lebih dari satu argumen.
+                Kelas WebView pada \textit{Universal Windows Platform} (UWP) hanya dapat dihubungkan dengan kode C\# menggunakan javascript. \textit{Method} yang digunakan untuk melakukan eksekusi javascript pada WebView adalah InvokeScriptAsync. Metode ini memiliki parameter string berupa nama fungsi javascript yang ingin dipanggil dan array of string yang berisi argumen yang ingin dikirimkan ke dalam fungsi tersebut. Salah satu fungsi yang dapat dipanggil adalah \textit{eval}. Dengan menggunakan \textit{eval}, ekspresi javascript apapun dapat dijalankan pada WebView. Untuk mengirimkan data dari javascript ke kode C\#, dapat dijalankan fungsi window.external.notify dengan parameter berupa string. Oleh karena itu, diperlukan \textit{encoding} tertentu (seperti JSON\footnote{https://tools.ietf.org/html/rfc7159}) untuk memasukkan lebih dari satu argumen.
 
                 InvokeScriptAsync dapat digunakan untuk memanggil fungsi \textit{eval} dengan parameter berupa function yang dapat digunakan untuk menekan tombol atau memasukkan nilai pada \textit{text field} tertentu. Selain itu, dapat dimasukkan event listener yang dapat memanggil window.external.notify menggunakan cara ini. Fungsi window.external.notify dapat membantu mengirimkan event-event seperti mouse click, keypress, atau perubahan nilai pada \textit{text field} yang ada pada halaman HTML pada WebView tersebut.
             }
@@ -131,39 +132,36 @@ Setelah pengguna melalui sudah pernah melakukan login pertama kali menggunakan a
             \label{fig:usecase}
         \end{figure}
 
-        \textbf{Skenario merekam informasi login}
-        
+        \textbf{Skenario merekam informasi login}\\
         Nama: Merekam informasi login\\
         Aktor: Pengguna\\
         Kondisi awal: Perangkat lunak mendeteksi adanya \textit{captive portal}.\\
         Deskripsi: Pengguna menyimpan informasi login.\\
-        Kondisi Akhir: Informasi login tersimpan di dalam perangkat lunak.\\\\
+        Kondisi Akhir: Informasi login tersimpan di dalam perangkat lunak.\\
         Skenario:
         \begin{enumerate}
             \item{Pengguna memasukkan informasi login ke dalam form HTML.}
             \item{Sistem menyimpan informasi login yang dimasukkan oleh pengguna.}
         \end{enumerate}
 
-        \textbf{Skenario menghapus informasi login}
-        
+        \textbf{Skenario menghapus informasi login}\\
         Nama: Menghapus informasi login\\
         Aktor: Pengguna\\
         Kondisi awal: Perangkat lunak sudah dijalankan.\\
         Deskripsi: Pengguna menghapus informasi login.\\
-        Kondisi Akhir: Informasi login dihapus dari perangkat lunak.\\\\
+        Kondisi Akhir: Informasi login dihapus dari perangkat lunak.\\
         Skenario:
         \begin{enumerate}
             \item{Pengguna memilih untuk menghapus informasi login.}
             \item{Sistem menghapus informasi login.}
         \end{enumerate}
 
-        \textbf{Skenario mengubah informasi login}
-        
+        \textbf{Skenario mengubah informasi login}\\
         Nama: Mengubah informasi login\\
         Aktor: Pengguna\\
         Kondisi awal: Perangkat lunak sudah dijalankan.\\
         Deskripsi: Pengguna mengubah informasi login.\\
-        Kondisi Akhir: Informasi login diubah dari perangkat lunak.\\\\
+        Kondisi Akhir: Informasi login diubah dari perangkat lunak.\\
         Skenario:
         \begin{enumerate}
             \item{Pengguna memilih untuk mengubah informasi login.}
@@ -171,14 +169,13 @@ Setelah pengguna melalui sudah pernah melakukan login pertama kali menggunakan a
             \item{Pengguna memasukkan informasi login baru.}
             \item{Sistem menghapus informasi login lama dan menyimpan informasi login baru.}
         \end{enumerate}
-        
-        \textbf{Skenario memicu login otomatis}
-        
+
+        \textbf{Skenario memicu login otomatis}\\
         Nama: Memicu login otomatis\\
         Aktor: WiFi\\
         Kondisi awal: Perangkat lunak sudah dijalankan.\\
         Deskripsi: Sistem memicu login otomatis berdasarkan perubahan status WiFi.\\
-        Kondisi Akhir: klien terotentikasi pada \textit{captive portal}.\\\\
+        Kondisi Akhir: Klien terotentikasi pada \textit{captive portal}.\\
         Skenario:
         \begin{enumerate}
             \item{Sistem mendeteksi adanya koneksi WiFi yang terjadi.}
@@ -208,24 +205,438 @@ Setelah pengguna melalui sudah pernah melakukan login pertama kali menggunakan a
 
 		\item Merancang perangkat lunak login otomatis ini\\
 		{\bf status :} Ada sejak rencana kerja skripsi.\\
-		{\bf hasil :} Dilaksanakan pada Skripsi 2.
+		{\bf hasil :} Perancangan yang dilakukan mencakupi perancangan kelas, diagram \textit{sequence}, serta penjelasan mengenai hasil analisis yang tidak mungkin diimplementasikan dan cara lain yang dilakukan untuk mendapatkan hasil yang serupa.
+        \begin{itemize}
+            \item{
+                {\bf Perancangan Kelas}\\
+                Gambar \ref{fig:DetailedClassDiagram} menjelaskan mengenai kelas-kelas dalam perangkat lunak yang dibuat. Beberapa kelas utama yang perlu dijelaskan antara lain:\\
+                \textbf{MainPage} : Kelas ini merupakan kelas yang berperan sebagai tampilan utama aplikasi. Atribut-atribut yang dimiliki oleh kelas ini adalah:
+                \begin{itemize}
+                    \item{cpd\\Atribut untuk menyimpan \textit{instance} CaptivePortalDetector.}
+                    \item{timeoutTimer\\Atribut untuk menyimpan timer yang digunakan untuk menghitung \textit{connection timeout}.}
+                    \item{loaded\\Atribut untuk menyimpan status \textit{loading} suatu halaman.}
+                \end{itemize}
+                Metode-metode yang dimiliki oleh kelas ini adalah:
+                \begin{itemize}
+                    \item{setup\\Metode ini digunakan untuk melakukan \textit{setup} awal saat aplikasi dieksekusi. Fungsinya adalah untuk menyimpan \textit{instance} CaptivePortalDetector dan memanggil metode setup() pada \textit{instance} tersebut.}
+                    \item{MainWebView\_LoadCompleted\\Metode ini dipanggil saat WebView selesai melakukan loading halaman. Fungsinya adalah untuk memanggil metode onLoad() pada CaptivePortalDetector.}
+                    \item{MainWebView\_NavigationStarting\\Metode ini dipanggil saat WebView baru akan memulai navigasi ke halaman baru. Fungsinya adalah untuk memulai \textit{timer} untuk \textit{timeout} dan memasukkan objek ScriptNotifyHandler.}
+                    \item{MainWebView\_NewWindowRequested\\Metode ini dipanggil saat WebView melakukan \textit{request} untuk membuka window baru. Fungsinya adalah untuk memanggil metode queueUri() pada CaptivePortalDetector.}
+                    \item{MainWebView\_NavigationCompleted\\Metode ini dipanggil saat WebView selesai melakukan navigasi ke halaman baru, namun belum selesai melakukan loading halaman tersebut. Fungsinya adalah untuk melakukan \textit{override} fungsi-fungsi JavaScript seperti window.open() dan open() agar bisa diakses dari JavaScript tanpa aksi langsung dari pengguna.}
+                \end{itemize}
+                
+                \textbf{NetChangeDetectorBackgroundTask} : Kelas ini merupakan kelas yang digunakan untuk melakukan deteksi perubahan jaringan yang nantinya digunakan untuk menampilkan notifikasi apabila terdeteksi adanya jaringan yang terhubung tanpa adanya internet. Atribut yang dimiliki oleh kelas ini adalah:
+                \begin{itemize}
+                    \item{lastSSID\\Atribut ini menyimpan SSID terakhir yang nantinya akan dibandingkan dengan SSID terbaru untuk mendeteksi adanya perubahan SSID.}
+                \end{itemize}
+                Metode-metode yang dimiliki oleh kelas ini adalah:
+                \begin{itemize}
+                    \item{Run\\Metode ini dipanggil saat Windows mengalami perubahan jaringan. Fungsinya adalah untuk menampilkan notifikasi apabila kondisi \texttt{connectionChanged() \&\& lastSSID!=null \&\& hasNoInternetAccess()} terpenuhi.}
+                    \item{hasNoInternetAccess\\Metode ini digunakan untuk medeteksi tidak adanya akses internet menggunakan API yang diberkan oleh UWP.}
+                    \item{conectionChanged\\Metode ini digunakan untuk medeteksi perubahan SSID.}
+                \end{itemize}
+                
+                \textbf{ScriptNotifyHandler} : Kelas ini merupakan kelas yang digunakan untuk menghubungkan sisi javascript pada WebView dengan kode C\#. Metode-metode yang dimiliki oleh kelas ini adalah:
+                \begin{itemize}
+                    \item{passAction\\Metode ini dipanggil saat \textit{listener} yang sudah disisipkan ke dalam WebView mendeteksi \textit{action} yang dapat direkam. \textit{Action} yang direkam berupa teks yang berisi kode javascript yang dapat mereplikasi \textit{action} tersebut.}
+                    \item{windowOpen\\Metode ini dipanggil saat javascript pada WebView memanggil fungsi window.open atau fungsi open.}
+                \end{itemize}
+                
+                \textbf{CaptivePortalDetector} : Kelas ini merupakan kelas utama yang berfungsi untuk melakukan deteksi \textit{captive portal}, menyisipkan kode \textit{listener} pada WebView, merekam \textit{action sequence} yang dilakukan oleh pengguna, dan menjalankan kembali \textit{action sequence} yang sudah tersimpan. Kelas ini menggunakan \textit{design pattern} singleton agar kelas-kelas lainnya bisa mengakses \textit{instance} yang sama pada setiap \textit{session}. Atribut yang dimiliki oleh kelas ini adalah:
+                \begin{itemize}
+                    \item{instance\\Atribut ini menyimpan \textit{instance} CaptivePortalDetector.}
+                    \item{storage\\Atribut ini menyimpan objek Storage yang digunakan untuk menyimpan dan mengakses informasi login.}
+                    \item{ssid\\Atribut ini menyimpan SSID saat ini.}
+                    \item{uriQueue\\Atribut ini menyimpan queue Uri yang perlu diakses.}
+                    \item{webView\\Atribut ini menyimpan WebView yang digunakan untuk melakukan deteksi \textit{captive portal}.}
+                    \item{textBlock\\Atribut ini menyimpan TextBlock yang digunakan untuk menampilkan pesan kepada pengguna.}
+                    \item{comboBox\\Atribut ini menyimpan ComboBox yang digunakan untuk menampilkan daftar SSID yang sudah tersimpan kepada pengguna.}
+                    \item{currentFingerprint\\Atribut ini menyimpan fingerprint saat ini.}
+                    \item{currentActionSequence\\Atribut ini menyimpan ActionSequence yang terkait dengan fingerprint saat ini.}
+                    \item{timer\\Atribut ini menyimpan timer yang digunakan untuk mengatur waktu akses Uri dalam uriQueue.}
+                \end{itemize}
+                Metode-metode yang dimiliki oleh kelas ini adalah:
+                \begin{itemize}
+                    \item{getInstance\\Metode ini digunakan untuk mendapatkan \textit{instance} dari CaptivePortalDetector.}
+                    \item{setup\\Metode ini digunakan untuk melakukan \textit{setup} awal yang menyimpan WebView, TextBlock, dan ComboBox ke dalam \textit{instance} CaptivePortalDetector.}
+                    \item{refreshList\\Metode ini digunakan untuk melakukan \textit{refresh} tampilan ComboBox.}
+                    \item{updateWebView\\Metode ini digunakan untuk menentukan melakukan deteksi \textit{captive portal} jika terhubung dengan koneksi WiFi, atau menampilkan pesan kepada pengguna juka tidak terhubung dengan koneksi WiFi.}
+                    \item{onLoad\\Metode ini dipanggil saat WebView sudah selesai melakukan \textit{loading} halaman. Fungsinya adalah untuk melakukan deployListener(), menjalankan aksi-aksi yang sudah terekam pada informasi login, dan mendeteksi sudah atau belum terjadinya koneksi dengan internet.}
+                    \item{navigationStarting\\Metode ini dipanggil saat WebView mulai melakukan navigasi ke halaman baru. Fungsinya adalah untuk membatalkan timer untuk membuka halaman-halaman popup dari halaman sebelumnya.}
+                    \item{passAction\\Metode ini digunakan untuk menyimpan \textit{action} yang dikirimkan oleh ScriptNotifyHandler ke dalam currentActionSequence.}
+                    \item{updateSSID\\Metode ini digunakan untuk mendapatkan SSID terbaru.}
+                    \item{queueUri\\Metode ini digunakan untuk memasukkan Uri baru ke dalam uriQueue.}
+                    \item{timeout\\Metode ini digunakan untuk menyatakan bahwa terjadi \textit{connection timeout}.}
+                    \item{removeLoginInformation\\Metode ini digunakan untuk menghapus seluruh informasi login yang terkait dengan SSID tertentu.}
+                \end{itemize}
+                
+                \textbf{Storage} : Kelas ini digunakan untuk menyimpan informasi login dan password yang digunakan untuk melakukan enkripsi. Atribut yang dimiliki oleh kelas ini adalah:
+                \begin{itemize}
+                    \item{fileName\\Atribut ini menyimpan nama file yang digunakan untuk menyimpan informasi login yang terenkripsi.}
+                    \item{password\\Atribut ini menyimpan password yang digunakan untuk melakukan enkripsi.}
+                    \item{loginInfo\\Atribut ini menyimpan objek LoginInformation yang digunakan untuk menyimpan seluruh informasi login.}
+                \end{itemize}
+                Metode-metode yang dimiliki oleh kelas ini adalah:
+                \begin{itemize}
+                    \item{setup\\Metode ini digunakan untuk melakukan \textit{setup} awal seperti membuka file dan melakukan dekripsi.}
+                    \item{getLoginInfo\\Metode ini digunakan untuk mendapatkan objek LoginInformation.}
+                    \item{saveData\\Metode ini digunakan untuk menyimpan data yang ada pada objek LoginInformation ke dalam file dan melakukan enkripsi pada file tersebut.}
+                \end{itemize}
+                
+                \textbf{LoginInformation} : Kelas ini digunakan untuk merepresentasikan informasi login. Atribut yang dimiliki oleh kelas ini adalah:
+                \begin{itemize}
+                    \item{actionSequences\\Atribut ini merupakan pasangan \textit{key-value} antara suatu fingerprint dengan ActionSequence.}
+                \end{itemize}
+                Metode-metode yang dimiliki oleh kelas ini adalah:
+                \begin{itemize}
+                    \item{getActionSequence\\Metode ini digunakan untuk mendapatkan ActionSequence berdasarkan fingerprint tertentu.}
+                    \item{addActionSequence\\Metode ini digunakan untuk menambahkan ActionSequence untuk fingerprint tertentu.}
+                    \item{removeBySSID\\Metode ini digunakan untuk menghapus ActionSequence milik fingerprint tertentu.}
+                    \item{getList\\Metode ini digunakan untuk mendapatkan daftar SSID yang sudah direkam.}
+                \end{itemize}
+                
+                \textbf{ActionSequence} : Kelas ini digunakan untuk merepresentasikan urutan \textit{action}. Atribut yang dimiliki oleh kelas ini adalah:
+                \begin{itemize}
+                    \item{actions\\Atribut ini merupakan daftar \textit{action} yang berupa kode javascript.}
+                \end{itemize}
+                Metode-metode yang dimiliki oleh kelas ini adalah:
+                \begin{itemize}
+                    \item{add\\Metode ini digunakan untuk menambahkan \textit{action} ke dalam daftar ini.}
+                    \item{getEnumerable\\Metode ini digunakan untuk mendapatkan enumerable dari daftar \textit{actions}, sehingga mempermudah eksekusi \textit{actions}.}
+                    \item{reset\\Metode ini digunakan untuk menghapus seluruh \textit{action} yang ada pada daftar ini.}
+                \end{itemize}
+                
+                \begin{figure}[!htb]
+                    \centering
+                    \includegraphics[scale=0.63]{DetailedClassDiagram.png}
+                    \caption[Diagram Kelas Rinci.]{Diagram Kelas Rinci.} 
+                    \label{fig:DetailedClassDiagram}
+                \end{figure}
+            }
+            \item{
+                {\bf Perancangan Algoritma dan Struktur Data}
+                \begin{itemize}
+                    \item{
+                        {\bf Algoritma Deteksi \textit{Captive Portal}}\\
+                        Algoritma yang digunakan untuk melakukan deteksi \textit{captive portal} adalah sebagai berikut:
+
+                        \hfill
+
+                        \begin{algorithm}[H]
+                            \If{Network Detected and No Internet Connection}{
+                                Ask user to run application via notification\;
+                                \If{"Yes" button clicked}{
+                                    Access a web page which can only be opened if there is an internet connection\;
+                                    \If{Redirected}{
+                                        Captive portal detected\;
+                                    }
+                                }
+                            }
+                        \end{algorithm}
+
+                        \hfill
+
+                        Algoritma di atas menjelaskan deteksi \textit{captive portal} dilakukan dengan melakukan deteksi jaringan yang tidak terhubung dengan internet. Jika ditemukan jaringan yang tidak terhubung dengan internet, maka akan muncul notifikasi yang memungkinkan pengguna untuk menjalankan perangkat lunak. Saat perangkat lunak dijalankan, perangkat lunak akan mencoba untuk mengakses halaman pancingan yang beralamatkan pada:
+                        \begin{center}\texttt{http://107.172.253.111/network\_status.html}\end{center}
+                        Jika didapat respon HTTP yang berupa \textit{redirect}, maka pada jaringan tersebut terdapat \textit{captive portal}. Algoritma ini akan didaftarkan pada sistem saat perangkat lunak pertama kali dijalankan dan dipanggil saat ada perubahan status jaringan.
+                    }
+                    \item{
+                        {\bf Struktur Data dan Format \textit{Fingerprint}}\\
+                        \textit{Fingerprint} suatu halaman terdiri dari SSID, uri, serta isi \textit{tag} head pada halaman tersebut. Data ini disimpan dalam satu buah string dan dipisahkan oleh separator "<::>" (tanpa tanda petik). Salah satu contoh \textit{fingerprint} adalah:
+                        \begin{center}
+                            \texttt{UNPAR9<::>https://cas.unpar.ac.id/login<::><title>Halaman Login</title>}
+                        \end{center}
+                        yang memiliki arti bahwa \textit{fingerprint} tersebut berasal dari WiFi dengan:
+                        \begin{itemize}
+                            \item{SSID \texttt{UNPAR9},}
+                            \item{uri \texttt{https://cas.unpar.ac.id/login},}
+                            \item{serta isi \textit{tag} head \texttt{<title>Halaman Login</title>}.}
+                        \end{itemize}
+                    }
+                    \item{
+                        {\bf Struktur Data LoginInformation}\\
+                        Kelas LoginInformation memiliki daftar objek bertipe ActionSequence yang disimpan pada properti actionSequences bertipe Dictionary. Kelas Dictionary dapat menyimpan data yang berupa pasangan \textit{key-value}. \textit{Key} yang digunakan bertipe string dan merupakan \textit{fingerprint} suatu halaman. Value yang disimpan adalah objek bertipe ActionSequence yang merupakan list aksi-aksi yang perlu dilakukan untuk halaman tersebut.
+
+Kelas ActionSequence memiliki properti actions yang bertipe LinkedList<string>. Setiap elemen LinkedList tersebut menyimpan string yang merupakan kode JavaScript yang akan dieksekusi pada halaman yang bersangkutan. \textit{Username} dan \textit{password} juga tersimpan di dalam kode JavaScript tersebut. Salah satu contoh string yang disimpan dalam properti actions adalah \texttt{document.getElementsByTagName("input")[0].value = "username";} yang berarti ubah isi elemen input pertama dengan "username".
+                    }
+                \end{itemize}
+            }
+            \item{
+                {\bf Perancangan Interaksi Perangkat Lunak}
+                \begin{itemize}
+                    \item{
+                        {\bf Perancangan Interaksi Deteksi Jaringan}\\
+                        \begin{figure}[!htb]
+                            \centering
+                            \includegraphics[scale=0.9]{SequenceDiagramNetworkDetection.png}
+                            \caption[Diagram Interaksi Deteksi Jaringan.]{Diagram Interaksi Deteksi Jaringan.} 
+                            \label{fig:NetworkDetectionSequenceDiagram}
+                        \end{figure}
+                        Gambar \ref{fig:NetworkDetectionSequenceDiagram} menjelaskan mengenai interaksi antar objek dalam perangkat lunak untuk melakukan deteksi perubahan jaringan. Interaksi yang terjadi adalah sebagai berikut:
+
+                        \begin{enumerate}
+                            \item{Saat komputer mengalami perubahan jaringan (tidak terhubung menjadi terhubung dan sebaliknya, atau terjadi perubahan \textit{cost} jaringan), \textit{trigger} NetworkStateChange akan diaktifkan oleh Windows, dan objek NetChangeDetectorBackgroundTask yang sudah didaftarkan akan menerima \textit{trigger} tersebut.}
+                            \item{Jika kondisi \texttt{connectionChanged() \&\& lastSSID!=null \&\& hasNoInternetAccess()} terpenuhi, maka:}
+                            \begin{enumerate}
+                                \item{NetChangeDetectorBackgroundTask memerintahkan ToastNotifier untuk memunculkan notifikasi menggunakan method Show().}
+                                \item{Saat user menekan tombol "Yes" pada notifikasi, App.xaml diaktivasi.}
+                            \end{enumerate}
+                        \end{enumerate}
+                    }
+                    \item{
+                        {\bf Perancangan Interaksi Penciptaan Password}
+                        \begin{figure}[!htb]
+                            \centering
+                            \includegraphics[scale=0.9]{SequenceDiagramPasswordGeneration.png}
+                            \caption[Diagram Interaksi Penciptaan Password.]{Diagram Interaksi Penciptaan Password.} 
+                            \label{fig:PasswordGenerationSequenceDiagram}
+                        \end{figure}
+
+                        Gambar \ref{fig:PasswordGenerationSequenceDiagram} menjelaskan mengenai interaksi antar objek dalam perangkat lunak untuk menciptakan password random saat perangkat lunak pertama kali dijalankan. Interaksi yang terjadi adalah sebagai berikut:
+
+                        \begin{enumerate}
+                            \item{MainPage.xaml melakukan setup().}
+                            \item{MainPage.xaml memanggil metode getInstance() pada CaptivePortalDetector untuk mendapatkan \textit{instance} CaptivePortalDetector.}
+                            \item{CaptivePortalDetector menciptakan objek Storage baru pada \textit{constructor}-nya.}
+                            \item{Objek Storage berusaha untuk mendapatkan password dengan memangil metode Retrieve() pada objek PasswordVault, namun mendapatkan exception karena belum ada password yang disimpan.}
+                            \item{Objek Storage memasukkan password baru yang diciptakan secara random menggunakan metode Add() pada PasswordVault.}
+                            \item{Objek Storage memanggil metode Retrieve() kembali pada objek PasswordVault, dan mendapatkan password yang baru saja diciptakan. Setelah itu, CaptivePortalDetector mendapatkan objek Storage, dan MainPage.xaml mendapatkan \textit{instance} CaptivePortalDetector.}
+                        \end{enumerate}
+                    }
+                    \item{
+                        {\bf Perancangan Interaksi Penyimpanan Informasi Login}
+                        \begin{figure}[!htb]
+                            \centering
+                            \includegraphics[scale=0.9]{SequenceDiagramLoginInformationSaving.png}
+                            \caption[Diagram Interaksi Penyimpanan Informasi Login.]{Diagram Interaksi Penyimpanan Informasi Login.} 
+                            \label{fig:LoginInformationSavingSequenceDiagram}
+                        \end{figure}
+
+                        Gambar \ref{fig:LoginInformationSavingSequenceDiagram} menjelaskan mengenai interaksi antar objek dalam perangkat lunak untuk menyimpan informasi login. Interaksi yang terjadi adalah sebagai berikut:
+
+                        \begin{enumerate}
+                            \item{MainPage.xaml melakukan setup().}
+                            \item{MainPage.xaml memanggil metode getInstance() pada kelas CaptivePortalDetector untuk mendapatkan \textit{instance} CaptivePortalDetector. MainPage.xaml mendapatkan \textit{instance} CaptivePortalDetector.}
+                            \item{MainPage.xaml memanggil metode setup() pada objek CaptivePortalDetector.}
+                            \item{CaptivePortalDetector melakukan updateWebView() untuk mengarahkan WebView ke URI yang digunakan untuk melakukan deteksi koneksi internet.}
+                            \item{WebView memanggil metode onLoad() pada objek CaptivePortalDetector saat halaman selesai dimuat.}
+                            \item{Jika halaman tidak berisi teks "connected" (tanpa tanda petik), CaptivePortalDetector melakukan deployListeners() untuk menangkap semua \textit{event} yang mungkin dilakukan oleh pengguna pada halaman tersebut.}
+                            \item{Metode passAction() dipanggil pada objek CaptivePortalDetector saat pengguna melakukan klik atau input teks untuk mengirimkan aksi yang baru saja dilakukan oleh pengguna.}
+                            \item{CaptivePortalDetector memanggil metode add() pada objek ActionSequence untuk menyimpan aksi tersebut.}
+                        \end{enumerate}
+                    }
+                \end{itemize}
+            }
+            \item{
+                {\bf Perancangan Antarmuka}\\
+                Pengguna memerlukan antarmuka untuk berinteraksi dengan perangkat lunak. Antarmuka yang diperlukan adalah:
+                \begin{itemize}
+                    \item{
+                        {\bf Antarmuka Notifikasi}
+                        \begin{figure}[!htb]
+                            \centering
+                            \includegraphics[scale=0.5]{UI_Notification.png}
+                            \caption[Rancangan Antarmuka Notifikasi.]{Rancangan Antarmuka Notifikasi.}
+                            \label{fig:RancanganAntarmukaNotifikasi}
+                        \end{figure}
+
+                        Antarmuka notifikasi muncul setiap kali terhubung dengan WiFi yang menggunakan \textit{captive portal}. Gambar \ref{fig:RancanganAntarmukaNotifikasi} menampilkan desain antarmuka notifikasi. Desain antarmuka notifikasi menggunakan desain notifikasi standar windows dengan dua tombol, "Yes" dan "No". Jika tombol "Yes" ditekan, maka notifikasi akan hilang dan aplikasi akan dijalankan. Jika tombol "No" ditekan, maka notifikasi akan hilang. Antarmuka notifikasi adalah antarmuka yang pertama kali akan muncul dalam siklus aplikasi karena kelas NetChangeDetectorBackgroundTask didaftarkan pada sistem untuk mendeteksi perubahan jaringan.
+                    }
+                    \item{
+                        {\bf Antarmuka Message Box}
+                        \begin{figure}[!htb]
+                            \centering
+                            \includegraphics[scale=0.5]{UI_MessageBox.png}
+                            \caption[Rancangan Antarmuka Message Box.]{Rancangan Antarmuka Message Box.}
+                            \label{fig:RancanganAntarmukaMessageBox}
+                        \end{figure}
+
+                        Gambar \ref{fig:RancanganAntarmukaMessageBox} menampilkan desain antarmuka message box. Selain label untuk menaruh pesan, antarmuka ini juga memiliki \textit{selector} untuk dapat menghapus WiFi yang sudah terekam. Dengan menghapus WiFi yang terdapat pada \textit{selector} ini, pengguna dapat merekam ulang informasi login pada WiFi tersebut.
+                    }
+                    \item{
+                        {\bf Antarmuka Web Browser}
+                        \begin{figure}[!htb]
+                            \centering
+                            \includegraphics[scale=0.5]{UI_WebBrowser.png}
+                            \caption[Rancangan Antarmuka Web Browser.]{Rancangan Antarmuka Web Browser.}
+                            \label{fig:RancanganAntarmukaWebBrowser}
+                        \end{figure}
+
+                        Gambar \ref{fig:RancanganAntarmukaWebBrowser} menampilkan desain antarmuka web browser. Antarmuka ini digunakan untuk menampilkan halaman web yang berkaitan dengan login \textit{captive portal}. Pada antarmuka inilah aksi pengguna akan direkam secara otomatis. Selain itu, pada antarmuka ini terdapat komponen yang sama dengan antarmuka message box, yaitu komponen \textit{selector} untuk menghapus SSID WiFi yang sudah terekam.
+                    }
+                \end{itemize}
+                
+            }
+        \end{itemize}
 
 		\item  Melakukan pengujian terhadap perangkat lunak untuk menghasilkan perbaikan teradap perangkat
 lunak tersebut.\\
 		{\bf status :} Ada sejak rencana kerja skripsi. \\
-		{\bf hasil :} Dilaksanakan pada Skripsi 2.
+		{\bf hasil :} Setelah dilakukan implementasi pertama, ditemukan beberapa masalah yang membuat rancangan perangkat lunak tidak dapat sepenuhnya didasarkan pada hasil analisis, di antaranya:
 
-		\item Membuat kesimpulan dari hasil penelitian dan saran untuk penelitian selanjutnya.\\
-		{\bf status :} Ada sejak rencana kerja skripsi.\\
-		{\bf hasil :} Dilaksanakan pada Skripsi 2.
+            \begin{itemize}
+                \item{Fungsi window.external.notify tidak berperilaku sebagaimana yang diperkirakan. Fungsi ini diharapkan dapat dipanggil secara langsung di dalam kode javascript, namun ternyata tidak bisa. Setiap halaman yang ingin memanfaatkan fungsi ini harus didaftarkan pada Package.appxmanifest. Metode yang digunakan untuk mendapatkan hasil yang sama dengan fungsi yang diberikan oleh window.external.notify adalah dengan menggunakan kelas bertipe RuntimeComponent yang diizinkan untuk dapat diakses oleh JavaScript pada WebView. Kelas ini adalah ScriptNotifyHandler pada gambar \ref{fig:DetailedClassDiagram}.}
+                \item{Fungsi window.open dan fungsi open tidak dapat dijalankan secara otomatis sehingga popup tidak muncul. Metode yang digunakan untuk mendapatkan hasil yang sama dari yang direncanakan sebelumnya adalah dengan melakukan \textit{override} fungsi window.open dan fungsi open pada saat halaman selesai dimuat, dan mengubungkannya dengan kelas ScriptNotifyHandler. Akan tetapi, metode ini masih kurang memadai karena kode JavaScript yang memanggil fungsi-fungsi tersebut pada saat halaman dimuat akan dieksekusi sebelum \textit{override} terjadi.}
+            \end{itemize}
+
+            Perancangan yang sudah dibuat merupakan hasil revisi dari pengujian ini.
 
 		\item Melakukan pengujian (dan eksperimen) yang melibatkan responden untuk menilai hasil simulasi secara kualitatif\\
 		{\bf status :} Ada sejak rencana kerja skripsi. Namun responden tidak dibutuhkan untuk keperluan pengujian.\\
-		{\bf hasil :} Dilaksanakan pada Skripsi 2.
+		{\bf hasil :} Pengujian dibagi menjadi 2 bagian, yaitu pengujian fungsional dan pengujian eksperimental.
+        \begin{itemize}
+            \item{
+                {\bf Pengujian Fungsional}\\
+                Pengujian fungsional dilakukan pada jaringan WiFi di kost di jalan Ciumbuleuit nomor 149, Bandung, dengan SSID "C149Net".
+                \begin{itemize}
+                    \item{
+                        {\bf Rencana Pengujian Fungsional}\\
+                        Pengujian fungsional dilakukan menggunakan teknik \textit{black box}. Pengujian fungsional dilakukan untuk memastikan fungsi-fungsi utama dalam perangkat lunak sudah berjalan dengan baik. Fungsi-fungsi yang akan diuji mencakupi:
+
+                        \begin{itemize}
+                            \item{Deteksi perubahan jaringan.}
+                            \item{Deteksi \textit{captive portal}.}
+                            \item{Login otomatis.}
+                        \end{itemize}
+
+                        Setiap fungsi yang diuji diberikan kasus pengujian positif dan pengujian negatif.
+                    }
+                    \item{
+                        {\bf Hasil Pengujian Fungsional}\\
+                        Hasil-hasil pengujian fungsional adalah sebagai berikut:
+
+                        \begin{itemize}
+                            \item{
+                                \textbf{Pengujian deteksi perubahan jaringan}
+                                
+                                \begin{itemize}
+                                    \item{
+                                        \textbf{Pengujian positif}\\
+                                        \textbf{Kasus}: Menghubungkan komputer dengan WiFi yang terhubung dengan \textit{captive portal}.\\
+                                        \textbf{Hasil yang diharapkan}: Muncul notifikasi.\\
+                                        \textbf{Hasil yang didapatkan}: Muncul notifikasi "Network Detected" dengan pesan "Would you like to run WiFiWebAutoLogin?".\\
+                                        \textbf{Kesimpulan}: Fungsi berjalan sesuai harapan.
+                                    }
+                                    \item{
+                                        \textbf{Pengujian negatif}\\
+                                        \textbf{Kasus}: Menghubungkan komputer dengan WiFi yang tidak terhubung dengan \textit{captive portal}.\\
+                                        \textbf{Hasil yang diharapkan}: Tidak muncul notifikasi apapun.\\
+                                        \textbf{Hasil yang didapatkan}: Tidak muncul notifikasi apapun.\\
+                                        \textbf{Kesimpulan}: Fungsi berjalan sesuai harapan.
+                                    }
+                                \end{itemize}
+                            }
+                            \item{
+                                \textbf{Pengujian deteksi \textit{captive portal}}
+                                
+                                \begin{itemize}
+                                    \item{
+                                        \textbf{Pengujian positif}\\
+                                        \textbf{Kasus}: Menghubungkan komputer dengan WiFi yang terhubung dengan \textit{captive portal} dan menekan tombol "Yes" pada notifikasi.\\
+                                        \textbf{Hasil yang diharapkan}: Muncul halaman login.\\
+                                        \textbf{Hasil yang didapatkan}: Muncul halaman login \textit{captive portal}.\\
+                                        \textbf{Kesimpulan}: Fungsi berjalan sesuai harapan.
+                                    }
+                                    \item{
+                                        \textbf{Pengujian negatif}\\
+                                        \textbf{Kasus}: Menghubungkan komputer dengan WiFi yang tidak terhubung dengan \textit{captive portal} maupun internet dan menekan tombol "Yes" pada notifikasi\\
+                                        \textbf{Hasil yang diharapkan}: Muncul pesan \textit{timeout}.\\
+                                        \textbf{Hasil yang didapatkan}: Muncul pesan "Operation timeout. Check your network connection.".\\
+                                        \textbf{Kesimpulan}: Fungsi berjalan sesuai harapan.
+                                    }
+                                \end{itemize}
+                            }
+                            \item{
+                                \textbf{Pengujian login otomatis}
+                                
+                                \begin{itemize}
+                                    \item{
+                                        \textbf{Pengujian positif}\\
+                                        \textbf{Kasus}: Menghubungkan komputer dengan WiFi yang terhubung dengan \textit{captive portal} yang sudah pernah dijalankan login secara manual.\\
+                                        \textbf{Hasil yang diharapkan}: Muncul pesan "Connected.".\\
+                                        \textbf{Hasil yang didapatkan}: Muncul pesan "Executing recorded actions...", lalu setelah beberapa saat, muncul pesan "Connected.".\\
+                                        \textbf{Kesimpulan}: Fungsi berjalan sesuai harapan.
+                                    }
+                                    \item{
+                                        \textbf{Pengujian negatif}\\
+                                        \textbf{Kasus}: Menghubungkan komputer dengan WiFi yang terhubung dengan \textit{captive portal} yang belum pernah dijalankan login secara manual.\\
+                                        \textbf{Hasil yang diharapkan}: Muncul halaman login.\\
+                                        \textbf{Hasil yang didapatkan}: Muncul halaman login \textit{captive portal}.\\
+                                        \textbf{Kesimpulan}: Fungsi berjalan sesuai harapan.
+                                    }
+                                \end{itemize}
+                            }
+                        \end{itemize}
+                    }
+                \end{itemize}
+            }
+            \item{
+                {\bf Pengujian Eksperimental}\\
+                Pengujian eksperimental dilakukan untuk memeriksa apakah perangkat lunak dapat berjalan pada beragam \textit{captive portal}.
+                \begin{itemize}
+                    \item{
+                        {\bf Rencana Pengujian Eksperimental}\\
+                        Pengujian eksperimental dilakukan pada \textit{captive portal} pada jaringan WiFi dengan SSID:
+
+                        \begin{itemize}
+                            \item{\textit{C149Net} pada kost di jalan Ciumbuleuit nomor 149, Bandung.}
+                            \item{\textit{Starbucks@wifi.id} pada Starbucks Dipatiukur, Bandung.}
+                            \item{\textit{wifi.id} pada Starbucks Dipatiukur, Bandung.}
+                            \item{\textit{UNPAR9} pada gedung 10 Universitas Katolik Parahyangan, Bandung.}
+                            \item{\textit{FTIS.cisco} pada gedung 9 Universitas Katolik Parahyangan, Bandung.}
+                        \end{itemize}
+                    }
+                    \item{
+                        {\bf Hasil Pengujian Eksperimental}\\
+                        Hasil pengujian eksperimental akan dijelaskan untuk setiap SSID yang diuji. Penjelasan berupa narasi hasil yang didapatkan berdasarkan langkah-langkah yang sama dengan pengujian fungsional \textit{black box}.
+                        \begin{itemize}
+                            \item{
+                                {\bf Hasil Pengujian WiFi C149Net}\\
+                                Pengujian pada WiFi dengan SSID C149Net yang berlokasi pada kost di jalan Ciumbuleuit nomor 149, Bandung, mendapatkan hasil sesuai harapan. Notifikasi muncul pada saat WiFi pertama kali terhubung. Halaman login muncul setelah tombol "Yes" pada notifikasi ditekan. Setelah memasukkan \textit{username} dan \textit{password}, pesan "Connected." muncul. Jika informasi login sudah tersimpan, pesan "Connected." akan langsung muncul setelah menekan tombol "Yes" pada notifikasi.
+                            }
+                            \item{
+                                {\bf Hasil Pengujian WiFi Starbucks@wifi.id}\\
+                                Pengujian pada WiFi dengan SSID Starbucks@wifi.id yang berlokasi pada Starbucks Dipatiukur, Bandung, mendapatkan hasil sesuai harapan. Notifikasi muncul pada saat WiFi pertama kali terhubung. Halaman \textit{captive portal} muncul setelah tombol "Yes" pada notifikasi ditekan. Setelah menekan tombol "continue" pada halaman tersebut, lalu menekan tombol "lanjutkan" pada halaman selanjutnya, pesan "Connected." muncul. Jika informasi login sudah tersimpan, pesan "Connected." akan langsung muncul setelah menekan tombol "Yes" pada notifikasi.
+                            }
+                            \item{
+                                {\bf Hasil Pengujian WiFi wifi.id}\\
+                                Pengujian pada WiFi dengan SSID wifi.id yang berlokasi pada Starbucks Dipatiukur, Bandung, mendapatkan hasil yang tidak sesuai harapan. Notifikasi muncul pada saat WiFi pertama kali terhubung. Halaman login muncul setelah tombol "Yes" pada notifikasi ditekan. Akan tetapi, login tidak dapat dilakukan karena perlu membeli voucher setiap kali ingin melakukan login.
+                            }
+                            \item{
+                                {\bf Hasil Pengujian WiFi UNPAR9}\\
+                                Pengujian pada WiFi dengan SSID UNPAR9 yang berlokasi pada gedung 10 Universitas Katolik Parahyangan, Bandung, mendapatkan hasil yang tidak sesuai harapan. Notifikasi muncul pada saat WiFi pertama kali terhubung. Halaman login muncul setelah tombol "Yes" pada notifikasi ditekan. Setelah login dilakukan, proses terhenti pada halaman \texttt{https://portal.unpar.ac.id/home}. Hal ini dikarenakan WiFi di Universitas Katolik Parahyangan menggunakan CAS\footnote{\textit{Central Authorization Service}}. Selain itu, CAS ini menggunakan \textit{pop-up} untuk menampilkan halaman \texttt{https://wireless.unpar.ac.id/status} dan halaman tersebut adalah halaman yang membuka popup yang menuju ke halaman tujuan. WebView pada UWP tidak memperbolehkan pemanggilan fungsi open(), window.open(), el.click() dan form.submit() yang bukan merupakan aksi langsung oleh pengguna. \textit{Override} tiap fungsi tersebut dimungkinkan setelah halaman selesai dimuat, namun itu berarti fungsi hasil \textit{override} tidak akan digunakan jika fungsi tersebut dipanggil pada saat halaman pertama kali dimuat. Hal ini mencakup \textit{onload event} dan script yang dipanggil langsung pada \textit{script tag} baik pada \textit{body} maupun \textit{head}.
+                            }
+                            \item{
+                                {\bf Hasil Pengujian WiFi FTIS.cisco}\\
+                                Pengujian pada WiFi dengan SSID FTIS.cisco yang berlokasi pada gedung 9 Universitas Katolik Parahyangan, Bandung, mendapatkan hasil yang tidak sesuai harapan. Hal ini terjadi karena WiFi ini merupakan jaringan internal Fakultas Teknologi dan Sains yang menggunakan jaringan WiFi Universitas Katolik Parahyangan untuk akses internet. Proses terhenti pada halaman yang sama dengan WiFi UNPAR9, yaitu pada halaman \texttt{https://portal.unpar.ac.id/home}. Penyebab terjadinya hal ini juga sama dengan yang terjadi pada WiFi UNPAR9.
+                            }
+                        \end{itemize}
+                    }
+                \end{itemize}
+            }
+        \end{itemize}
+        
+        \item Membuat kesimpulan dari hasil penelitian dan saran untuk penelitian selanjutnya.\\
+		{\bf status :} Ada sejak rencana kerja skripsi.\\
+		{\bf hasil :} Kesimpulan dan saran yang dihasilkan dari penelitian ini adalah:
+        \begin{itemize}
+            \item{
+                {\bf Kesimpulan}
+                \begin{itemize}
+                    \item{Implementasi perangkat lunak untuk melakukan login otomatis pada \textit{captive portal} berhasil dilakukan walaupun memiliki keterbatasan tidak dapat melakukan login otomatis jika \textit{captive portal} bergantung pada pop-up untuk mengakses halaman tujuan.}
+                    \item{\textit{Username} dan \textit{password} sudah disimpan secara aman dalam file yang dienkripsi menggunakan kunci yang diciptakan secara random per aplikasi.}
+                    \item{SSID, uri, dan konten \textit{tag} head adalah informasi yang dibutuhkan untuk membedakan antar halaman pada setiap \textit{captive portal}.}
+                \end{itemize}
+            }
+            \item{
+                {\bf Saran}\\
+                Saran dari peneliti yang dapat dilakukan untuk mengembangkan penelitian ini adalah gunakan \textit{platform} lain selain UWP, seperti Windows Form, Java, Android, atau iOS. Hal ini dapat dilakukan untuk menghindari keterbatasan WebView pada UWP dalam menangani pop-up. Jika ingin tetap menggunakan UWP, maka penerus penelitian ini harus menciptakan WebView sendiri. Hal ini dapat dilakukan menggunakan Canvas yang sudah disediakan oleh UWP dan menggabungkannya dengan teknologi-teknologi yang sudah ada seperti webkit atau gecko.
+            }
+        \end{itemize}
 
 		\item Menulis dokumen skripsi.\\
 		{\bf status :} Ada sejak rencana kerja skripsi.\\
-		{\bf hasil :} Sudah dikerjakan sampai dengan bab 3 (Analisis).
+		{\bf hasil :} Sudah dikerjakan sampai dengan bab 6 (Kesimpulan dan Saran)\footnote{https://github.com/yohanesmario/Skripsi/raw/master/doc/DokumenSkripsi/main.pdf}.
 
 	\end{enumerate}
 
@@ -241,13 +652,13 @@ Persentase penyelesaian skripsi sampai dengan dokumen ini dibuat dapat dilihat p
     1*  & 2*(\%) & 3*(\%) & 4*(\%) &5* &6*(\%)\\ \hline \hline
     1   & 5  & 5  &  &  & 5 \\ \hline
     2   & 10 & 10  &   &  & 10 \\ \hline
-    3   & 15  & 10  & 5 & {\footnotesize kaji ulang singkat kebutuhan pada S2}  & 10  \\ \hline
-    4   & 10  &  & 10 &  & \\ \hline
-    5   & 15  &   & 15 & & \\ \hline
-    6   & 10 &   & 10  & & \\ \hline
-    7   & 5 &   & 5  & & \\ \hline
-    8   & 30  & 15  & 15 & {\footnotesize sebagian bab 1 dan 2, serta bagian awal analisis di S1} & 15 \\ \hline
-    Total  & 100  & 40  & 60 &  & 40\\ \hline
+    3   & 15  & 10  & 5 & {\footnotesize kaji ulang singkat kebutuhan pada S2}  & 15  \\ \hline
+    4   & 10  &  & 10 &  & 10 \\ \hline
+    5   & 15  &   & 15 & & 15 \\ \hline
+    6   & 5 &   & 5  & & 5 \\ \hline
+    7   & 10 &   & 10  & & 10 \\ \hline
+    8   & 30  & 15  & 15 & {\footnotesize sebagian bab 1 dan 2, serta bagian awal analisis di S1} & 30 \\ \hline
+    Total  & 100  & 40  & 60 &  & 100\\ \hline
                           \end{tabular}
 \end{center}
 
