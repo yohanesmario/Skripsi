@@ -17,8 +17,6 @@
         \PYG{k}{public} \PYG{n+nf}{LoginInformation}\PYG{p}{()} \PYG{p}{\PYGZob{}}
             \PYG{k}{this}\PYG{p}{.}\PYG{n}{actionSequences} \PYG{p}{=} \PYG{k}{new} \PYG{n}{Dictionary}\PYG{p}{\PYGZlt{}}\PYG{k+kt}{string}\PYG{p}{,} \PYG{n}{ActionSequence}\PYG{p}{\PYGZgt{}();}
             \PYG{n}{ActionSequence} \PYG{n}{actionSequence} \PYG{p}{=} \PYG{k}{new} \PYG{n}{ActionSequence}\PYG{p}{();}
-            \PYG{c+c1}{//actionSequence.add(new Action(Action.ACTION\PYGZus{}TYPE\PYGZus{}INPUT, \PYGZdq{}\PYGZsh{}username\PYGZdq{}, \PYGZdq{}TEST\PYGZdq{}));}
-            \PYG{c+c1}{//this.actionSequences.Add(\PYGZdq{}TEST\PYGZdq{}, actionSequence);}
         \PYG{p}{\PYGZcb{}}
 
         \PYG{k}{public} \PYG{n}{ActionSequence} \PYG{n+nf}{getActionSequence}\PYG{p}{(}\PYG{k+kt}{string} \PYG{n}{fingerprint}\PYG{p}{)} \PYG{p}{\PYGZob{}}

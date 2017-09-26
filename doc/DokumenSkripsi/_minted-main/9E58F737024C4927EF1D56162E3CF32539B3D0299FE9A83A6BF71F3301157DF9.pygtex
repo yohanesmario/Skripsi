@@ -117,7 +117,7 @@
         \PYG{p}{\PYGZcb{}}
 
         \PYG{k}{private} \PYG{k}{void} \PYG{n+nf}{MainWebView\PYGZus{}PermissionRequested}\PYG{p}{(}\PYG{n}{WebView} \PYG{n}{sender}\PYG{p}{,} \PYG{n}{WebViewPermissionRequestedEventArgs} \PYG{n}{args}\PYG{p}{)} \PYG{p}{\PYGZob{}}
-            \PYG{c+c1}{// Debug.WriteLine(\PYGZdq{}DEBUG PERMISSION\PYGZdq{});}
+            \PYG{c+c1}{// DISABLED}
         \PYG{p}{\PYGZcb{}}
     \PYG{p}{\PYGZcb{}}
 \PYG{p}{\PYGZcb{}}

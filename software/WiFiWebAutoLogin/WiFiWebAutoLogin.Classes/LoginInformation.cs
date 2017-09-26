@@ -16,8 +16,6 @@ namespace WiFiWebAutoLogin.Classes {
         public LoginInformation() {
             this.actionSequences = new Dictionary<string, ActionSequence>();
             ActionSequence actionSequence = new ActionSequence();
-            //actionSequence.add(new Action(Action.ACTION_TYPE_INPUT, "#username", "TEST"));
-            //this.actionSequences.Add("TEST", actionSequence);
         }
 
         public ActionSequence getActionSequence(string fingerprint) {

@@ -116,7 +116,7 @@ namespace WiFiWebAutoLogin
         }
 
         private void MainWebView_PermissionRequested(WebView sender, WebViewPermissionRequestedEventArgs args) {
-            // Debug.WriteLine("DEBUG PERMISSION");
+            // DISABLED
         }
     }
 }

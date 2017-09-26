@@ -115,7 +115,6 @@ namespace WiFiWebAutoLogin.Classes {
 
                     // Deploy Listeners
                     this.deployListeners();
-                    //await this.webView.InvokeScriptAsync("eval", new string[] { "document.body.innerHTML = " + (await this.EscapeJSONString(WebUtility.HtmlEncode(this.currentFingerprint))) });
                     if (this.uriQueue.Count > 0) {
                         this.startTimer();
                     }
@@ -202,7 +201,6 @@ namespace WiFiWebAutoLogin.Classes {
                 this.currentActionSequence.add(args);
                 this.storage.saveData();
             }
-            //await this.webView.InvokeScriptAsync("eval", new string[] { "document.body.innerHTML = '" + args + "';" });
         }
 
         public void updateSSID() {

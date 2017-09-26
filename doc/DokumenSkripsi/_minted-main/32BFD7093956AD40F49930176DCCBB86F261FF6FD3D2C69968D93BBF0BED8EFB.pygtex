@@ -116,7 +116,6 @@
 
                     \PYG{c+c1}{// Deploy Listeners}
                     \PYG{k}{this}\PYG{p}{.}\PYG{n}{deployListeners}\PYG{p}{();}
-                    \PYG{c+c1}{//await this.webView.InvokeScriptAsync(\PYGZdq{}eval\PYGZdq{}, new string[] \PYGZob{} \PYGZdq{}document.body.innerHTML = \PYGZdq{} + (await this.EscapeJSONString(WebUtility.HtmlEncode(this.currentFingerprint))) \PYGZcb{});}
                     \PYG{k}{if} \PYG{p}{(}\PYG{k}{this}\PYG{p}{.}\PYG{n}{uriQueue}\PYG{p}{.}\PYG{n}{Count} \PYG{p}{\PYGZgt{}} \PYG{l+m}{0}\PYG{p}{)} \PYG{p}{\PYGZob{}}
                         \PYG{k}{this}\PYG{p}{.}\PYG{n}{startTimer}\PYG{p}{();}
                     \PYG{p}{\PYGZcb{}}
@@ -203,7 +202,6 @@
                 \PYG{k}{this}\PYG{p}{.}\PYG{n}{currentActionSequence}\PYG{p}{.}\PYG{k}{add}\PYG{p}{(}\PYG{n}{args}\PYG{p}{);}
                 \PYG{k}{this}\PYG{p}{.}\PYG{n}{storage}\PYG{p}{.}\PYG{n}{saveData}\PYG{p}{();}
             \PYG{p}{\PYGZcb{}}
-            \PYG{c+c1}{//await this.webView.InvokeScriptAsync(\PYGZdq{}eval\PYGZdq{}, new string[] \PYGZob{} \PYGZdq{}document.body.innerHTML = \PYGZsq{}\PYGZdq{} + args + \PYGZdq{}\PYGZsq{};\PYGZdq{} \PYGZcb{});}
         \PYG{p}{\PYGZcb{}}
 
         \PYG{k}{public} \PYG{k}{void} \PYG{n+nf}{updateSSID}\PYG{p}{()} \PYG{p}{\PYGZob{}}

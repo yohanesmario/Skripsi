@@ -9,7 +9,9 @@
 \PYG{k}{using} \PYG{n+nn}{System.Xml.Serialization}\PYG{p}{;}
 \PYG{k}{using} \PYG{n+nn}{Windows.Security.Credentials}\PYG{p}{;}
 \PYG{k}{using} \PYG{n+nn}{Windows.Security.Cryptography}\PYG{p}{;}
+\PYG{k}{using} \PYG{n+nn}{Windows.Security.Cryptography.Core}\PYG{p}{;}
 \PYG{k}{using} \PYG{n+nn}{Windows.Storage}\PYG{p}{;}
+\PYG{k}{using} \PYG{n+nn}{Windows.Storage.Streams}\PYG{p}{;}
 
 \PYG{k}{namespace} \PYG{n+nn}{WiFiWebAutoLogin.Classes} \PYG{p}{\PYGZob{}}
     \PYG{k}{class} \PYG{n+nc}{Storage} \PYG{p}{\PYGZob{}}
@@ -39,7 +41,13 @@
                 \PYG{n}{file} \PYG{p}{=} \PYG{k}{await} \PYG{n}{folder}\PYG{p}{.}\PYG{n}{CreateFileAsync}\PYG{p}{(}\PYG{k}{this}\PYG{p}{.}\PYG{n}{fileName}\PYG{p}{);}
             \PYG{p}{\PYGZcb{}}
 
-            \PYG{k+kt}{string} \PYG{n}{json} \PYG{p}{=} \PYG{k}{await} \PYG{n}{FileIO}\PYG{p}{.}\PYG{n}{ReadTextAsync}\PYG{p}{(}\PYG{n}{file}\PYG{p}{);}
+            \PYG{n}{IBuffer} \PYG{n}{encryptedJson} \PYG{p}{=} \PYG{k}{await} \PYG{n}{FileIO}\PYG{p}{.}\PYG{n}{ReadBufferAsync}\PYG{p}{(}\PYG{n}{file}\PYG{p}{);}
+            \PYG{n}{SymmetricKeyAlgorithmProvider} \PYG{n}{algorithmProvider} \PYG{p}{=} \PYG{n}{SymmetricKeyAlgorithmProvider}\PYG{p}{.}\PYG{n}{OpenAlgorithm}\PYG{p}{(}\PYG{n}{SymmetricAlgorithmNames}\PYG{p}{.}\PYG{n}{AesCbcPkcs7}\PYG{p}{);}
+            \PYG{n}{IBuffer} \PYG{n}{bufferedPassword} \PYG{p}{=} \PYG{n}{CryptographicBuffer}\PYG{p}{.}\PYG{n}{ConvertStringToBinary}\PYG{p}{(}\PYG{n}{password}\PYG{p}{,} \PYG{n}{BinaryStringEncoding}\PYG{p}{.}\PYG{n}{Utf8}\PYG{p}{);}
+            \PYG{n}{IBuffer} \PYG{n}{decryptedJson} \PYG{p}{=} \PYG{n}{CryptographicEngine}\PYG{p}{.}\PYG{n}{Decrypt}\PYG{p}{(}\PYG{n}{algorithmProvider}\PYG{p}{.}\PYG{n}{CreateSymmetricKey}\PYG{p}{(}\PYG{n}{bufferedPassword}\PYG{p}{),} \PYG{n}{encryptedJson}\PYG{p}{,} \PYG{n}{bufferedPassword}\PYG{p}{);}
+            \PYG{n}{DataReader} \PYG{n}{dataReader} \PYG{p}{=} \PYG{n}{Windows}\PYG{p}{.}\PYG{n}{Storage}\PYG{p}{.}\PYG{n}{Streams}\PYG{p}{.}\PYG{n}{DataReader}\PYG{p}{.}\PYG{n}{FromBuffer}\PYG{p}{(}\PYG{n}{decryptedJson}\PYG{p}{);}
+            \PYG{k+kt}{string} \PYG{n}{json} \PYG{p}{=} \PYG{n}{dataReader}\PYG{p}{.}\PYG{n}{ReadString}\PYG{p}{(}\PYG{n}{decryptedJson}\PYG{p}{.}\PYG{n}{Length}\PYG{p}{);}
+
             \PYG{k}{if} \PYG{p}{(}\PYG{n}{json}\PYG{p}{.}\PYG{n}{Trim}\PYG{p}{().}\PYG{n}{Equals}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}\PYGZdq{}}\PYG{p}{))} \PYG{p}{\PYGZob{}}
                 \PYG{n}{loginInfo} \PYG{p}{=} \PYG{k}{new} \PYG{n}{LoginInformation}\PYG{p}{();}
                 \PYG{k}{this}\PYG{p}{.}\PYG{n}{saveData}\PYG{p}{();}
@@ -55,6 +63,19 @@
         \PYG{p}{\PYGZcb{}}
 
         \PYG{k}{public} \PYG{k}{async} \PYG{k}{void} \PYG{n+nf}{saveData}\PYG{p}{()} \PYG{p}{\PYGZob{}}
+            \PYG{n}{DataContractJsonSerializer} \PYG{n}{serializer} \PYG{p}{=} \PYG{k}{new} \PYG{n}{DataContractJsonSerializer}\PYG{p}{(}\PYG{k}{typeof}\PYG{p}{(}\PYG{n}{LoginInformation}\PYG{p}{));}
+            \PYG{n}{MemoryStream} \PYG{n}{stream} \PYG{p}{=} \PYG{k}{new} \PYG{n}{MemoryStream}\PYG{p}{();}
+            \PYG{n}{serializer}\PYG{p}{.}\PYG{n}{WriteObject}\PYG{p}{(}\PYG{n}{stream}\PYG{p}{,} \PYG{n}{loginInfo}\PYG{p}{);}
+            \PYG{n}{stream}\PYG{p}{.}\PYG{n}{Position} \PYG{p}{=} \PYG{l+m}{0}\PYG{p}{;}
+            \PYG{n}{StreamReader} \PYG{n}{sr} \PYG{p}{=} \PYG{k}{new} \PYG{n}{StreamReader}\PYG{p}{(}\PYG{n}{stream}\PYG{p}{);}
+            \PYG{k+kt}{string} \PYG{n}{data} \PYG{p}{=} \PYG{n}{sr}\PYG{p}{.}\PYG{n}{ReadToEnd}\PYG{p}{();}
+
+            \PYG{n}{SymmetricKeyAlgorithmProvider} \PYG{n}{algorithmProvider} \PYG{p}{=} \PYG{n}{SymmetricKeyAlgorithmProvider}\PYG{p}{.}\PYG{n}{OpenAlgorithm}\PYG{p}{(}\PYG{n}{SymmetricAlgorithmNames}\PYG{p}{.}\PYG{n}{AesCbcPkcs7}\PYG{p}{);}
+            \PYG{n}{IBuffer} \PYG{n}{keyMaterial} \PYG{p}{=} \PYG{n}{CryptographicBuffer}\PYG{p}{.}\PYG{n}{ConvertStringToBinary}\PYG{p}{(}\PYG{n}{password}\PYG{p}{,} \PYG{n}{BinaryStringEncoding}\PYG{p}{.}\PYG{n}{Utf8}\PYG{p}{);}
+            \PYG{n}{IBuffer} \PYG{n}{bufferedData} \PYG{p}{=} \PYG{n}{CryptographicBuffer}\PYG{p}{.}\PYG{n}{CreateFromByteArray}\PYG{p}{(}\PYG{n}{Encoding}\PYG{p}{.}\PYG{n}{UTF8}\PYG{p}{.}\PYG{n}{GetBytes}\PYG{p}{(}\PYG{n}{data}\PYG{p}{));}
+            \PYG{n}{CryptographicKey} \PYG{n}{key} \PYG{p}{=} \PYG{n}{algorithmProvider}\PYG{p}{.}\PYG{n}{CreateSymmetricKey}\PYG{p}{(}\PYG{n}{keyMaterial}\PYG{p}{);}
+            \PYG{n}{IBuffer} \PYG{n}{encryptedData} \PYG{p}{=} \PYG{n}{CryptographicEngine}\PYG{p}{.}\PYG{n}{Encrypt}\PYG{p}{(}\PYG{n}{key}\PYG{p}{,} \PYG{n}{bufferedData}\PYG{p}{,} \PYG{n}{keyMaterial}\PYG{p}{);}
+
             \PYG{n}{StorageFolder} \PYG{n}{folder} \PYG{p}{=} \PYG{n}{ApplicationData}\PYG{p}{.}\PYG{n}{Current}\PYG{p}{.}\PYG{n}{LocalFolder}\PYG{p}{;}
             \PYG{n}{StorageFile} \PYG{n}{file}\PYG{p}{;}
             \PYG{k}{try} \PYG{p}{\PYGZob{}}
@@ -63,12 +84,8 @@
             \PYG{k}{catch} \PYG{p}{(}\PYG{n}{Exception} \PYG{n}{e}\PYG{p}{)} \PYG{p}{\PYGZob{}}
                 \PYG{n}{file} \PYG{p}{=} \PYG{k}{await} \PYG{n}{folder}\PYG{p}{.}\PYG{n}{CreateFileAsync}\PYG{p}{(}\PYG{k}{this}\PYG{p}{.}\PYG{n}{fileName}\PYG{p}{);}
             \PYG{p}{\PYGZcb{}}
-
-            \PYG{n}{DataContractJsonSerializer} \PYG{n}{serializer} \PYG{p}{=} \PYG{k}{new} \PYG{n}{DataContractJsonSerializer}\PYG{p}{(}\PYG{k}{typeof}\PYG{p}{(}\PYG{n}{LoginInformation}\PYG{p}{));}
-            \PYG{n}{MemoryStream} \PYG{n}{stream} \PYG{p}{=} \PYG{k}{new} \PYG{n}{MemoryStream}\PYG{p}{();}
-            \PYG{n}{serializer}\PYG{p}{.}\PYG{n}{WriteObject}\PYG{p}{(}\PYG{n}{stream}\PYG{p}{,} \PYG{n}{loginInfo}\PYG{p}{);}
-            \PYG{n}{stream}\PYG{p}{.}\PYG{n}{Position} \PYG{p}{=} \PYG{l+m}{0}\PYG{p}{;}
-            \PYG{k}{await} \PYG{n}{FileIO}\PYG{p}{.}\PYG{n}{WriteTextAsync}\PYG{p}{(}\PYG{n}{file}\PYG{p}{,} \PYG{k}{await} \PYG{p}{(}\PYG{k}{new} \PYG{n}{StreamReader}\PYG{p}{(}\PYG{n}{stream}\PYG{p}{)).}\PYG{n}{ReadToEndAsync}\PYG{p}{());}
+            
+            \PYG{k}{await} \PYG{n}{FileIO}\PYG{p}{.}\PYG{n}{WriteBufferAsync}\PYG{p}{(}\PYG{n}{file}\PYG{p}{,} \PYG{n}{encryptedData}\PYG{p}{);}
         \PYG{p}{\PYGZcb{}}
     \PYG{p}{\PYGZcb{}}
 \PYG{p}{\PYGZcb{}}
