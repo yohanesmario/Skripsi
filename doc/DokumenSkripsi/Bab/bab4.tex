@@ -39,7 +39,7 @@ Gambar \ref{fig:DetailedClassDiagram} menjelaskan mengenai kelas-kelas dalam per
     \end{itemize}
     Metode-metode yang dimiliki oleh kelas ini adalah:
     \begin{itemize}
-        \item{Run\\Metode ini dipanggil saat Windows mengalami perubahan jaringan. Fungsinya adalah untuk menampilkan notifikasi apabila kondisi \texttt{connectionChanged() \&\& lastSSID!=null \&\& hasNoInternetAccess()} terpenuhi.}
+        \item{Run\\Metode ini dipanggil saat Windows mengalami perubahan jaringan. Fungsinya adalah untuk menampilkan notifikasi apabila kondisi \texttt{connectionChanged()}, \texttt{lastSSID!=null}, dan \texttt{hasNoInternetAccess()} terpenuhi.}
         \item{hasNoInternetAccess\\Metode ini digunakan untuk medeteksi tidak adanya akses internet menggunakan API yang diberkan oleh UWP.}
         \item{conectionChanged\\Metode ini digunakan untuk medeteksi perubahan SSID.}
     \end{itemize}
@@ -148,12 +148,17 @@ Algoritma yang digunakan untuk melakukan deteksi \textit{captive portal} adalah 
 
 \hfill
 
-Algoritma di atas menjelaskan deteksi \textit{captive portal} dilakukan dengan melakukan deteksi jaringan yang tidak terhubung dengan internet. Jika ditemukan jaringan yang tidak terhubung dengan internet, maka akan muncul notifikasi yang memungkinkan pengguna untuk menjalankan perangkat lunak. Saat perangkat lunak dijalankan, perangkat lunak akan mencoba untuk mengakses halaman pancingan yang beralamatkan pada \texttt{http://107.172.253.111/network\_status.html}. Jika didapat respon HTTP yang berupa \textit{redirect}, maka pada jaringan tersebut terdapat \textit{captive portal}. Algoritma ini akan didaftarkan pada sistem saat perangkat lunak pertama kali dijalankan dan dipanggil saat ada perubahan status jaringan.
+Algoritma di atas menjelaskan deteksi \textit{captive portal} dilakukan dengan melakukan deteksi jaringan yang tidak terhubung dengan internet. Jika ditemukan jaringan yang tidak terhubung dengan internet, maka akan muncul notifikasi yang memungkinkan pengguna untuk menjalankan perangkat lunak. Perangkat lunak akan mencoba untuk mengakses halaman pancingan yang beralamatkan pada \texttt{http://107.172.253.111/network\_status.html} pada saat perangkat lunak pertama kali dijalankan. Jika didapat respon HTTP yang berupa \textit{redirect}, maka pada jaringan tersebut terdapat \textit{captive portal}. Algoritma ini akan didaftarkan pada sistem saat perangkat lunak pertama kali dijalankan dan dipanggil saat ada perubahan status jaringan.
 
 \subsection{Struktur Data dan Format \textit{Fingerprint}}
 \label{subsec:struktur_data_dan_format_fingerprint}
 
-\textit{Fingerprint} suatu halaman terdiri dari SSID, uri, serta isi \textit{tag} head pada halaman tersebut. Data ini disimpan dalam satu buah string dan dipisahkan oleh separator "<::>" (tanpa tanda petik). Salah satu contoh \textit{fingerprint} adalah \texttt{UNPAR9<::>https://cas.unpar.ac.id/login<::><title>Halaman Login</title>} yang memiliki arti bahwa \textit{fingerprint} tersebut berasal dari WiFi dengan:
+\textit{Fingerprint} suatu halaman terdiri dari SSID, uri, serta isi \textit{tag} head pada halaman tersebut. Data ini disimpan dalam satu buah string dan dipisahkan oleh separator "<::>" (tanpa tanda petik). Salah satu contoh \textit{fingerprint} adalah:
+
+\hfill
+
+\texttt{UNPAR9<::>https://cas.unpar.ac.id/login<::><title>Halaman Login</title>}\\\\
+yang memiliki arti bahwa \textit{fingerprint} tersebut berasal dari WiFi dengan:
 
 \begin{itemize}
     \item{SSID \texttt{UNPAR9},}
@@ -188,7 +193,7 @@ Gambar \ref{fig:NetworkDetectionSequenceDiagram} menjelaskan mengenai interaksi 
 
 \begin{enumerate}
     \item{Saat komputer mengalami perubahan jaringan (tidak terhubung menjadi terhubung dan sebaliknya, atau terjadi perubahan \textit{cost} jaringan), \textit{trigger} NetworkStateChange akan diaktifkan oleh Windows, dan objek NetChangeDetectorBackgroundTask yang sudah didaftarkan akan menerima \textit{trigger} tersebut.}
-    \item{Jika kondisi \texttt{connectionChanged() \&\& lastSSID!=null \&\& hasNoInternetAccess()} terpenuhi, maka:}
+    \item{Jika kondisi \texttt{connectionChanged()}, \texttt{lastSSID!=null}, dan \texttt{hasNoInternetAccess()} terpenuhi, maka:}
     \begin{enumerate}
         \item{NetChangeDetectorBackgroundTask memerintahkan ToastNotifier untuk memunculkan notifikasi menggunakan method Show().}
         \item{Saat user menekan tombol "Yes" pada notifikasi, App.xaml diaktivasi.}
@@ -200,7 +205,7 @@ Gambar \ref{fig:NetworkDetectionSequenceDiagram} menjelaskan mengenai interaksi 
 
 \begin{figure}[!htb]
     \centering
-    \includegraphics[scale=0.9]{Gambar/SequenceDiagramPasswordGeneration.png}
+    \includegraphics[scale=0.8]{Gambar/SequenceDiagramPasswordGeneration.png}
     \caption[Diagram Interaksi Penciptaan Password.]{Diagram Interaksi Penciptaan Password.} 
     \label{fig:PasswordGenerationSequenceDiagram}
 \end{figure}
@@ -221,7 +226,7 @@ Gambar \ref{fig:PasswordGenerationSequenceDiagram} menjelaskan mengenai interaks
 
 \begin{figure}[!htb]
     \centering
-    \includegraphics[scale=0.9]{Gambar/SequenceDiagramLoginInformationSaving.png}
+    \includegraphics[scale=0.8]{Gambar/SequenceDiagramLoginInformationSaving.png}
     \caption[Diagram Interaksi Penyimpanan Informasi Login.]{Diagram Interaksi Penyimpanan Informasi Login.} 
     \label{fig:LoginInformationSavingSequenceDiagram}
 \end{figure}
