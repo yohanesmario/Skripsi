@@ -14,9 +14,16 @@ using System.IO;
 namespace WiFiWebAutoLogin.RuntimeComponents {
     public sealed class NetChangeDetectorBackgroundTask : IBackgroundTask {
         private static string lastSSID = "";
+        private static Boolean lastConnectionChanged = false;
 
         public void Run(IBackgroundTaskInstance taskInstance) {
-            if (this.connectionChanged() && lastSSID!=null && this.hasNoInternetAccess()) {
+            var mDeferral = taskInstance.GetDeferral();
+
+            Debug.WriteLine("Result:");
+            Debug.WriteLine(this.connectionChanged());
+            Debug.WriteLine(lastSSID != null);
+            Debug.WriteLine(this.hasNoInternetAccess());
+            if ((lastConnectionChanged || this.connectionChanged()) && lastSSID!=null && this.hasNoInternetAccess()) {
 
                 string xmlText = "<?xml version=\"1.0\" encoding=\"utf-8\" ?>" +
                     "<toast launch=\"app-defined-string\">" +
@@ -43,6 +50,8 @@ namespace WiFiWebAutoLogin.RuntimeComponents {
                 };
                 ToastNotificationManager.CreateToastNotifier().Show(notification);
             }
+
+            mDeferral.Complete();
         }
 
         private bool hasNoInternetAccess() {
@@ -55,6 +64,28 @@ namespace WiFiWebAutoLogin.RuntimeComponents {
             }
 
             return true;
+        }
+
+        private void testNotification() {
+            string xmlText = "<?xml version=\"1.0\" encoding=\"utf-8\" ?>" +
+                    "<toast launch=\"app-defined-string\">" +
+                        "<visual>" +
+                            "<binding template=\"ToastGeneric\">" +
+                                "<text>WiFiWebAutoLogin</text>" +
+                            "</binding>" +
+                        "</visual>" +
+                        "<audio src=\"ms-winsoundevent:Notification.Reminder\"/>" +
+                    "</toast>";
+
+            XmlDocument xmlContent = new XmlDocument();
+            xmlContent.LoadXml(xmlText);
+
+            ToastNotification notification = new ToastNotification(xmlContent);
+            notification.Tag = "WWAL_TOAST_TEST";
+            notification.Dismissed += (ToastNotification n, ToastDismissedEventArgs args) => {
+                ToastNotificationManager.History.Remove("WWAL_TOAST_TEST");
+            };
+            ToastNotificationManager.CreateToastNotifier().Show(notification);
         }
 
         private bool connectionChanged() {
@@ -85,20 +116,24 @@ namespace WiFiWebAutoLogin.RuntimeComponents {
             if (lastSSID != null) {
                 if (lastSSID.Equals(ssid)) {
                     lastSSID = ssid;
+                    lastConnectionChanged = false;
                     return false;
                 }
                 else {
                     lastSSID = ssid;
+                    lastConnectionChanged = true;
                     return true;
                 }
             }
             else {
                 if (ssid==null) {
                     lastSSID = ssid;
+                    lastConnectionChanged = false;
                     return false;
                 }
                 else {
                     lastSSID = ssid;
+                    lastConnectionChanged = true;
                     return true;
                 }
             }

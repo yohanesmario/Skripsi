@@ -224,6 +224,7 @@ namespace WiFiWebAutoLogin.Classes {
                 }
                 else {
                     this.ssid = data;
+                    Debug.WriteLine("[SSID]: " + data);
                 }
             }
             else {

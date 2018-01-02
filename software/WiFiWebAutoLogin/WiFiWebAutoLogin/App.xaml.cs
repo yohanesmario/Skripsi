@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -52,12 +53,22 @@ namespace WiFiWebAutoLogin
                 }
             }
 
+            taskName = "NetChangeDetectorBackgroundTask";
+
+            foreach (var task in BackgroundTaskRegistration.AllTasks) {
+                if (task.Value.Name == taskName) {
+                    task.Value.Unregister(true);
+                }
+            }
+
             if (!taskRegistered) {
+                Debug.WriteLine("Register Task");
+
                 // Register task
                 var builder = new BackgroundTaskBuilder();
 
                 builder.Name = taskName;
-                builder.TaskEntryPoint = "WiFiWebAutoLogin.RuntimeComponents.CustomBackgroundTask";
+                builder.TaskEntryPoint = "WiFiWebAutoLogin.RuntimeComponents.NetChangeDetectorBackgroundTask";
                 builder.SetTrigger(new SystemTrigger(SystemTriggerType.NetworkStateChange, false));
                 builder.AddCondition(new SystemCondition(SystemConditionType.UserPresent));
                 BackgroundTaskRegistration task = builder.Register();
