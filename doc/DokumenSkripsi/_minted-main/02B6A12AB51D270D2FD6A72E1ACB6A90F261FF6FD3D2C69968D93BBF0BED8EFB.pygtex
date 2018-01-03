@@ -225,6 +225,7 @@
                 \PYG{p}{\PYGZcb{}}
                 \PYG{k}{else} \PYG{p}{\PYGZob{}}
                     \PYG{k}{this}\PYG{p}{.}\PYG{n}{ssid} \PYG{p}{=} \PYG{n}{data}\PYG{p}{;}
+                    \PYG{n}{Debug}\PYG{p}{.}\PYG{n}{WriteLine}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}[SSID]: \PYGZdq{}} \PYG{p}{+} \PYG{n}{data}\PYG{p}{);}
                 \PYG{p}{\PYGZcb{}}
             \PYG{p}{\PYGZcb{}}
             \PYG{k}{else} \PYG{p}{\PYGZob{}}

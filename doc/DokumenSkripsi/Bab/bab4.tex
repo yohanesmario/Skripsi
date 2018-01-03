@@ -135,15 +135,21 @@ Algoritma yang digunakan untuk melakukan deteksi \textit{captive portal} adalah 
 \hfill
 
 \begin{algorithm}[H]
+    \KwData{Network Status}
+    \KwResult{Captive portal detected / Not captive portal}
     \If{Network Detected and No Internet Connection}{
         Ask user to run application via notification\;
         \If{"Yes" button clicked}{
             Access a web page which can only be opened if there is an internet connection\;
-            \If{Redirected}{
+            \eIf{Redirected}{
                 Captive portal detected\;
+            }{
+                Not captive portal\;
             }
         }
     }
+    \caption{Algoritma Deteksi \textit{Captive Portal}}
+    \label{algotitma_deteksi_captive_portal}
 \end{algorithm}
 
 \hfill

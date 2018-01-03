@@ -15,9 +15,16 @@
 \PYG{k}{namespace} \PYG{n+nn}{WiFiWebAutoLogin.RuntimeComponents} \PYG{p}{\PYGZob{}}
     \PYG{k}{public} \PYG{k}{sealed} \PYG{k}{class} \PYG{n+nc}{NetChangeDetectorBackgroundTask} \PYG{p}{:} \PYG{n}{IBackgroundTask} \PYG{p}{\PYGZob{}}
         \PYG{k}{private} \PYG{k}{static} \PYG{k+kt}{string} \PYG{n}{lastSSID} \PYG{p}{=} \PYG{l+s}{\PYGZdq{}\PYGZdq{}}\PYG{p}{;}
+        \PYG{k}{private} \PYG{k}{static} \PYG{n}{Boolean} \PYG{n}{lastConnectionChanged} \PYG{p}{=} \PYG{k}{false}\PYG{p}{;}
 
         \PYG{k}{public} \PYG{k}{void} \PYG{n+nf}{Run}\PYG{p}{(}\PYG{n}{IBackgroundTaskInstance} \PYG{n}{taskInstance}\PYG{p}{)} \PYG{p}{\PYGZob{}}
-            \PYG{k}{if} \PYG{p}{(}\PYG{k}{this}\PYG{p}{.}\PYG{n}{connectionChanged}\PYG{p}{()} \PYG{p}{\PYGZam{}\PYGZam{}} \PYG{n}{lastSSID}\PYG{p}{!=}\PYG{k}{null} \PYG{p}{\PYGZam{}\PYGZam{}} \PYG{k}{this}\PYG{p}{.}\PYG{n}{hasNoInternetAccess}\PYG{p}{())} \PYG{p}{\PYGZob{}}
+            \PYG{k+kt}{var} \PYG{n}{mDeferral} \PYG{p}{=} \PYG{n}{taskInstance}\PYG{p}{.}\PYG{n}{GetDeferral}\PYG{p}{();}
+
+            \PYG{n}{Debug}\PYG{p}{.}\PYG{n}{WriteLine}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}Result:\PYGZdq{}}\PYG{p}{);}
+            \PYG{n}{Debug}\PYG{p}{.}\PYG{n}{WriteLine}\PYG{p}{(}\PYG{k}{this}\PYG{p}{.}\PYG{n}{connectionChanged}\PYG{p}{());}
+            \PYG{n}{Debug}\PYG{p}{.}\PYG{n}{WriteLine}\PYG{p}{(}\PYG{n}{lastSSID} \PYG{p}{!=} \PYG{k}{null}\PYG{p}{);}
+            \PYG{n}{Debug}\PYG{p}{.}\PYG{n}{WriteLine}\PYG{p}{(}\PYG{k}{this}\PYG{p}{.}\PYG{n}{hasNoInternetAccess}\PYG{p}{());}
+            \PYG{k}{if} \PYG{p}{((}\PYG{n}{lastConnectionChanged} \PYG{p}{||} \PYG{k}{this}\PYG{p}{.}\PYG{n}{connectionChanged}\PYG{p}{())} \PYG{p}{\PYGZam{}\PYGZam{}} \PYG{n}{lastSSID}\PYG{p}{!=}\PYG{k}{null} \PYG{p}{\PYGZam{}\PYGZam{}} \PYG{k}{this}\PYG{p}{.}\PYG{n}{hasNoInternetAccess}\PYG{p}{())} \PYG{p}{\PYGZob{}}
 
                 \PYG{k+kt}{string} \PYG{n}{xmlText} \PYG{p}{=} \PYG{l+s}{\PYGZdq{}\PYGZlt{}?xml version=\PYGZbs{}\PYGZdq{}1.0\PYGZbs{}\PYGZdq{} encoding=\PYGZbs{}\PYGZdq{}utf\PYGZhy{}8\PYGZbs{}\PYGZdq{} ?\PYGZgt{}\PYGZdq{}} \PYG{p}{+}
                     \PYG{l+s}{\PYGZdq{}\PYGZlt{}toast launch=\PYGZbs{}\PYGZdq{}app\PYGZhy{}defined\PYGZhy{}string\PYGZbs{}\PYGZdq{}\PYGZgt{}\PYGZdq{}} \PYG{p}{+}
@@ -44,6 +51,8 @@
                 \PYG{p}{\PYGZcb{};}
                 \PYG{n}{ToastNotificationManager}\PYG{p}{.}\PYG{n}{CreateToastNotifier}\PYG{p}{().}\PYG{n}{Show}\PYG{p}{(}\PYG{n}{notification}\PYG{p}{);}
             \PYG{p}{\PYGZcb{}}
+
+            \PYG{n}{mDeferral}\PYG{p}{.}\PYG{n}{Complete}\PYG{p}{();}
         \PYG{p}{\PYGZcb{}}
 
         \PYG{k}{private} \PYG{k+kt}{bool} \PYG{n+nf}{hasNoInternetAccess}\PYG{p}{()} \PYG{p}{\PYGZob{}}
@@ -56,6 +65,28 @@
             \PYG{p}{\PYGZcb{}}
 
             \PYG{k}{return} \PYG{k}{true}\PYG{p}{;}
+        \PYG{p}{\PYGZcb{}}
+
+        \PYG{k}{private} \PYG{k}{void} \PYG{n+nf}{testNotification}\PYG{p}{()} \PYG{p}{\PYGZob{}}
+            \PYG{k+kt}{string} \PYG{n}{xmlText} \PYG{p}{=} \PYG{l+s}{\PYGZdq{}\PYGZlt{}?xml version=\PYGZbs{}\PYGZdq{}1.0\PYGZbs{}\PYGZdq{} encoding=\PYGZbs{}\PYGZdq{}utf\PYGZhy{}8\PYGZbs{}\PYGZdq{} ?\PYGZgt{}\PYGZdq{}} \PYG{p}{+}
+                    \PYG{l+s}{\PYGZdq{}\PYGZlt{}toast launch=\PYGZbs{}\PYGZdq{}app\PYGZhy{}defined\PYGZhy{}string\PYGZbs{}\PYGZdq{}\PYGZgt{}\PYGZdq{}} \PYG{p}{+}
+                        \PYG{l+s}{\PYGZdq{}\PYGZlt{}visual\PYGZgt{}\PYGZdq{}} \PYG{p}{+}
+                            \PYG{l+s}{\PYGZdq{}\PYGZlt{}binding template=\PYGZbs{}\PYGZdq{}ToastGeneric\PYGZbs{}\PYGZdq{}\PYGZgt{}\PYGZdq{}} \PYG{p}{+}
+                                \PYG{l+s}{\PYGZdq{}\PYGZlt{}text\PYGZgt{}WiFiWebAutoLogin\PYGZlt{}/text\PYGZgt{}\PYGZdq{}} \PYG{p}{+}
+                            \PYG{l+s}{\PYGZdq{}\PYGZlt{}/binding\PYGZgt{}\PYGZdq{}} \PYG{p}{+}
+                        \PYG{l+s}{\PYGZdq{}\PYGZlt{}/visual\PYGZgt{}\PYGZdq{}} \PYG{p}{+}
+                        \PYG{l+s}{\PYGZdq{}\PYGZlt{}audio src=\PYGZbs{}\PYGZdq{}ms\PYGZhy{}winsoundevent:Notification.Reminder\PYGZbs{}\PYGZdq{}/\PYGZgt{}\PYGZdq{}} \PYG{p}{+}
+                    \PYG{l+s}{\PYGZdq{}\PYGZlt{}/toast\PYGZgt{}\PYGZdq{}}\PYG{p}{;}
+
+            \PYG{n}{XmlDocument} \PYG{n}{xmlContent} \PYG{p}{=} \PYG{k}{new} \PYG{n}{XmlDocument}\PYG{p}{();}
+            \PYG{n}{xmlContent}\PYG{p}{.}\PYG{n}{LoadXml}\PYG{p}{(}\PYG{n}{xmlText}\PYG{p}{);}
+
+            \PYG{n}{ToastNotification} \PYG{n}{notification} \PYG{p}{=} \PYG{k}{new} \PYG{n}{ToastNotification}\PYG{p}{(}\PYG{n}{xmlContent}\PYG{p}{);}
+            \PYG{n}{notification}\PYG{p}{.}\PYG{n}{Tag} \PYG{p}{=} \PYG{l+s}{\PYGZdq{}WWAL\PYGZus{}TOAST\PYGZus{}TEST\PYGZdq{}}\PYG{p}{;}
+            \PYG{n}{notification}\PYG{p}{.}\PYG{n}{Dismissed} \PYG{p}{+=} \PYG{p}{(}\PYG{n}{ToastNotification} \PYG{n}{n}\PYG{p}{,} \PYG{n}{ToastDismissedEventArgs} \PYG{n}{args}\PYG{p}{)} \PYG{p}{=\PYGZgt{}} \PYG{p}{\PYGZob{}}
+                \PYG{n}{ToastNotificationManager}\PYG{p}{.}\PYG{n}{History}\PYG{p}{.}\PYG{n}{Remove}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}WWAL\PYGZus{}TOAST\PYGZus{}TEST\PYGZdq{}}\PYG{p}{);}
+            \PYG{p}{\PYGZcb{};}
+            \PYG{n}{ToastNotificationManager}\PYG{p}{.}\PYG{n}{CreateToastNotifier}\PYG{p}{().}\PYG{n}{Show}\PYG{p}{(}\PYG{n}{notification}\PYG{p}{);}
         \PYG{p}{\PYGZcb{}}
 
         \PYG{k}{private} \PYG{k+kt}{bool} \PYG{n+nf}{connectionChanged}\PYG{p}{()} \PYG{p}{\PYGZob{}}
@@ -86,20 +117,24 @@
             \PYG{k}{if} \PYG{p}{(}\PYG{n}{lastSSID} \PYG{p}{!=} \PYG{k}{null}\PYG{p}{)} \PYG{p}{\PYGZob{}}
                 \PYG{k}{if} \PYG{p}{(}\PYG{n}{lastSSID}\PYG{p}{.}\PYG{n}{Equals}\PYG{p}{(}\PYG{n}{ssid}\PYG{p}{))} \PYG{p}{\PYGZob{}}
                     \PYG{n}{lastSSID} \PYG{p}{=} \PYG{n}{ssid}\PYG{p}{;}
+                    \PYG{n}{lastConnectionChanged} \PYG{p}{=} \PYG{k}{false}\PYG{p}{;}
                     \PYG{k}{return} \PYG{k}{false}\PYG{p}{;}
                 \PYG{p}{\PYGZcb{}}
                 \PYG{k}{else} \PYG{p}{\PYGZob{}}
                     \PYG{n}{lastSSID} \PYG{p}{=} \PYG{n}{ssid}\PYG{p}{;}
+                    \PYG{n}{lastConnectionChanged} \PYG{p}{=} \PYG{k}{true}\PYG{p}{;}
                     \PYG{k}{return} \PYG{k}{true}\PYG{p}{;}
                 \PYG{p}{\PYGZcb{}}
             \PYG{p}{\PYGZcb{}}
             \PYG{k}{else} \PYG{p}{\PYGZob{}}
                 \PYG{k}{if} \PYG{p}{(}\PYG{n}{ssid}\PYG{p}{==}\PYG{k}{null}\PYG{p}{)} \PYG{p}{\PYGZob{}}
                     \PYG{n}{lastSSID} \PYG{p}{=} \PYG{n}{ssid}\PYG{p}{;}
+                    \PYG{n}{lastConnectionChanged} \PYG{p}{=} \PYG{k}{false}\PYG{p}{;}
                     \PYG{k}{return} \PYG{k}{false}\PYG{p}{;}
                 \PYG{p}{\PYGZcb{}}
                 \PYG{k}{else} \PYG{p}{\PYGZob{}}
                     \PYG{n}{lastSSID} \PYG{p}{=} \PYG{n}{ssid}\PYG{p}{;}
+                    \PYG{n}{lastConnectionChanged} \PYG{p}{=} \PYG{k}{true}\PYG{p}{;}
                     \PYG{k}{return} \PYG{k}{true}\PYG{p}{;}
                 \PYG{p}{\PYGZcb{}}
             \PYG{p}{\PYGZcb{}}

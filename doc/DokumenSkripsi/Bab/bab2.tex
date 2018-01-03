@@ -44,8 +44,9 @@ Kode status HTTP 511 menandakan bahwa klien perlu melakukan otentikasi untuk men
 \subsubsection{Kode Status HTTP 511 dan \textit{Captive Portal}}
 \label{par:http_511_and_captive_portal}
 
-Kode status 511 diciptakan untuk mengurangi masalah yang ditimbulkan oleh \textit{captive portal} kepada perangkat lunak yang mengharapkan respon dari server tujuan, bukan dari komponen perantara dalam jaringan. Sebagai contoh, perangkat lunak yang bersangkutan mengirimkan \textit{request} HTTP pada port TCP 80 sebagai berikut:
+Kode status 511 diciptakan untuk mengurangi masalah yang ditimbulkan oleh \textit{captive portal} kepada perangkat lunak yang mengharapkan respon dari server tujuan, bukan dari komponen perantara dalam jaringan. Sebagai contoh, perangkat lunak yang bersangkutan mengirimkan \textit{request} HTTP pada port TCP 80 seperti pada \textit{listing} \ref{listing:request_http} dan server akan mengirimkan respon dengan kode status 511 seperti pada \textit{listing} \ref{listing:respon_http_511}.
 
+\begin{listing}[h]
 \begin{minted}[mathescape,
                linenos,
                numbersep=5pt,
@@ -53,9 +54,11 @@ Kode status 511 diciptakan untuk mengurangi masalah yang ditimbulkan oleh \texti
 GET /index.htm HTTP/1.1
 Host: www.example.com
 \end{minted}
+\caption{\textit{Request} HTTP}
+\label{listing:request_http}
+\end{listing}
 
-Saat menerima \textit{request} tersebut, server login akan mengirimkan respon dengan kode status 511:
-
+\begin{listing}[h]
 \begin{minted}[mathescape,
                linenos,
                frame=lines]{http}
@@ -75,6 +78,9 @@ Content-Type: text/html
     </body>
 </html>
 \end{minted}
+\caption{Respon HTTP 511}
+\label{listing:respon_http_511}
+\end{listing}
 
 Respon ini memungkinkan klien untuk mendeteksi bahwa respon tersebut bukan berasal dari server tujuan. Selain itu, elemen meta pada HTML yang disajikan memungkinkan klien untuk melakukan login pada \textit{link} yang diberikan.
 

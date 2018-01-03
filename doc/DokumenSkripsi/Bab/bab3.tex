@@ -1,67 +1,14 @@
 \chapter{Analisis}
 \label{chap:analisis}
 
-Bab ini menjelaskan mengenai analisis perangkat lunak sejenis, analisis metode penyimpanan informasi login, analisis metode rekam dan kirim informasi login, analisis metode deteksi \textit{captive portal} , serta analisis perangkat lunak.
-
-
-
-\section{Analisis Perangkat Lunak Sejenis}
-\label{sec:perangkat_lunak_sejenis}
-
-Perangkat lunak sejenis pada Windows belum dapat ditemukan pada saat penelitian ini dilakukan. Oleh karena itu, perangkat lunak atau aplikasi sejenis yang dianalisis adalah aplikasi yang diciptakan untuk sistem operasi Android. Aplikasi tersebut bernama \textit{WiFi Web Login}\footnote{https://play.google.com/store/apps/details?id=co.uk.syslynx.wifiwebloginapp}.
-
-\subsubsection{Tampilan \textit{WiFi Web Login}}
-\label{subsubsec:tampilan_wifi_web_login}
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[scale=0.085]{Gambar/screenshot_wifiweblogin.png}
-    \caption[Tampilan aplikasi \textit{WiFi Web Login}.]{Tampilan aplikasi \textit{WiFi Web Login}.} 
-    \label{fig:screenshot_wifiweblogin}
-\end{figure}
-
-Pada gambar \ref{fig:screenshot_wifiweblogin} diperlihatkan langkah-langkah login \textit{captive portal} Unpar sebagai berikut:
-
-\begin{enumerate}
-    \item{Menunggu koneksi WiFi.}
-    \item{Mendeteksi koneksi WiFi UNPAR9.}
-    \item{Menampilkan halaman \textit{captive portal} setelah pengguna menekan tombol \textit{Automate Login}.}
-    \item{Pengguna memasukkan username dan password lalu menekan tombol login.}
-    \item{Sambungan ke internet terdeteksi dan dilakukan pemeriksaan sambungan berkala.}
-\end{enumerate}
-
-\subsubsection{Diagram Alir \textit{WiFi Web Login}}
-\label{subsubsec:diagram_alir_wifi_web_login}
-
-Langkah-langkah yang perlu ditempuh oleh aplikasi \textit{WiFi Web Login} dapat digambarkan oleh diagram alir.
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[scale=0.85]{Gambar/WifiWebLogin.png}
-    \caption[Diagram alir proses yang perlu dilalui oleh aplikasi \textit{WiFi Web Login}.]{Diagram alir proses yang perlu dilalui oleh aplikasi \textit{WiFi Web Login}.} 
-    \label{fig:wifiweblogin}
-\end{figure}
-
-Berdasarkan gambar \ref{fig:wifiweblogin}, langkah-langkah yang harus ditempuh untuk melakukan \textit{login} wifi berbasis web pada aplikasi ini adalah:
-
-\begin{enumerate}
-    \item{Deteksi sambungan dengan wifi yang bersangkutan.}
-    \item{Deteksi hubungan dengan internet.}
-    \item{Jika tidak terjadi hubungan dengan internet, deteksi apakah tersimpan informasi login untuk wifi yang bersangkutan.}
-    \item{Jika terdapat informasi login untuk wifi yang bersangkutan maka lakukan login otomatis.}
-    \item{Jika tidak terdapat informasi login untuk wifi yang bersangkutan maka rekam informasi login dan lakukan login.}
-\end{enumerate}
-
-Setelah pengguna melalui sudah pernah melakukan login pertama kali menggunakan aplikasi tersebut, maka aplikasi akan melakukan login otomatis setiap kali terhubung dengan wifi yang bersangkutan.
-
-
+Bab ini menjelaskan mengenai analisis metode penyimpanan informasi login, analisis metode rekam dan kirim informasi login, analisis metode deteksi \textit{captive portal}, analisis perangkat lunak, serta analisis perangkat lunak sejenis.
 
 \section{Analisis Metode Penyimpanan Informasi Login}
 \label{sec:metode_penyimpanan}
 
 Penyimpanan informasi login dapat dilakukan dengan beberapa metode, diantaranya adalah dengan menggunakan file teks atau menggunakan PasswordVault. Penyimpanan informasi menggunakan file teks berarti informasi disimpan dalam bentuk \textit{plaintext} dalam file yang diberikan \textit{access permission} tertentu. Sementara itu, penyimpanan informasi menggunakan PasswordVault memanfaatkan kelas API yang terdapat pada \textit{Universal Windows Platform} (UWP).
 
-Informasi yang perlu disimpan untuk dapat melakukan login otomatis adalah \textit{connection fingerprint} (seperti SSID WiFi, url, dan potongan unik dokumen html), username, password, dan langkah-langkah login seperti menekan tombol. Oleh karena itu, metode penyimpanan menggunakan credential locker dan file teks perlu dianalisis untuk dapat ditentukan metode mana yang paling cocok untuk digunakan dalam penelitian ini.
+Informasi yang perlu disimpan untuk dapat melakukan login otomatis adalah \textit{connection fingerprint}, username, password, dan langkah-langkah login seperti menekan tombol. \textit{Connection fingerprint} dibentuk dari SSID WiFi, url halaman login \textit{captive portal}, dan potongan unik dokumen html halaman tersebut (bisa menggunakan konten tag head). Ketiga hal tersebut diperlukan untuk mengidentifikasi halaman \textit{captive portal} karena halaman yang sama pada WiFi yang berbeda memiliki kredensial yang berbeda, dan halaman yang berbeda pada WiFi yang sama juga memiliki kredensial yang berbeda. Oleh karena itu, metode penyimpanan menggunakan credential locker dan file teks perlu dianalisis untuk dapat ditentukan metode mana yang paling cocok untuk digunakan dalam penelitian ini.
 
 PasswordVault dapat menyimpan informasi yang berisi \textit{resource} (biasanya berupa nama aplikasi atau string unik lainnya), username, dan password. Informasi yang perlu disimpan selain username dan password adalah \textit{connection fingerprint} dan langkah-langkah login. \textit{Connection fingerprint} dapat disimpan pada resource karena sifatnya yang unik. Sementara itu, langkah-langkah login dapat disimpan pada username atau password karena langkah-langkah login dapat disimpan dalam bentuk String. Akan tetapi, langkah-langkah login sebaiknya disimpan pada password, dipisahkan dengan karakter pemisah tertentu, agar username dapat digunakan sebagai \textit{identifier} unik. PasswordVault memiliki batasan 10 kredensial yang dapat disimpan per aplikasi. Jika aplikasi mencoba menyimpan lebih dari 10 kredensial maka akan terjadi exception. Oleh karena hal ini, PasswordVault menjadi pilihan yang kurang baik untuk kebutuhan perangkat lunak pada penelitian ini.
 
@@ -112,6 +59,18 @@ Diagram kelas untuk perangkat lunak yang dibangun dapat dilihat pada gambar \ref
 
 \begin{itemize}
     \item{CaptivePortalDetector\\Kelas ini digunakan untuk mendeteksi keberadaan \textit{captive portal}. Jika captive portal terdeteksi, maka informasi login yang tersimpan dalam Storage digunakan. Jika tidak terdapat informasi login dalam Storage, maka direkam informasi login baru.}
+    {
+        \\Atribut:
+        \begin{itemize}
+            \item{fileName}
+            \item{loginInformations}
+            \item{encryptionPassword}
+        \end{itemize}
+        Metode:
+        \begin{itemize}
+            \item{test}
+        \end{itemize}
+    }
     \item{Storage\\Kelas ini digunakan untuk menyimpan seluruh informasi login dalam bentuk file teks yang sudah terenkripsi.}
     \item{LoginInformation\\Kelas ini digunakan untuk menyimpan informasi login dalam bentuk key atau fingerprint, serta ActionSequence}
     \item{ActionSequence\\Kelas ini digunakan untuk menyimpan langkah-langkah login dalam bentuk urutan aksi dan nilai-nilai yang berkaitan dengan aksi tersebut.}
@@ -188,3 +147,54 @@ Skenario:
     \item{Sistem mengirimkan informasi login kepada \textit{captive portal}.}
     \item{Sistem mendeteksi koneksi dengan internet dan klien sudah terotentikasi pada \textit{captive portal} tersebut.}
 \end{enumerate}
+
+
+
+\section{Analisis Perangkat Lunak Sejenis}
+\label{sec:perangkat_lunak_sejenis}
+
+Perangkat lunak sejenis pada Windows belum dapat ditemukan pada saat penelitian ini dilakukan. Oleh karena itu, perangkat lunak atau aplikasi sejenis yang dianalisis adalah aplikasi yang diciptakan untuk sistem operasi Android. Aplikasi tersebut bernama \textit{WiFi Web Login}\footnote{https://play.google.com/store/apps/details?id=co.uk.syslynx.wifiwebloginapp}.
+
+\subsubsection{Tampilan \textit{WiFi Web Login}}
+\label{subsubsec:tampilan_wifi_web_login}
+
+Pada gambar \ref{fig:screenshot_wifiweblogin} diperlihatkan langkah-langkah login \textit{captive portal} Unpar sebagai berikut:
+
+\begin{enumerate}
+    \item{Menunggu koneksi WiFi.}
+    \item{Mendeteksi koneksi WiFi UNPAR9.}
+    \item{Menampilkan halaman \textit{captive portal} setelah pengguna menekan tombol \textit{Automate Login}.}
+    \item{Pengguna memasukkan username dan password lalu menekan tombol login.}
+    \item{Sambungan ke internet terdeteksi dan dilakukan pemeriksaan sambungan berkala.}
+\end{enumerate}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.085]{Gambar/screenshot_wifiweblogin.png}
+    \caption[Tampilan aplikasi \textit{WiFi Web Login}.]{Tampilan aplikasi \textit{WiFi Web Login}.} 
+    \label{fig:screenshot_wifiweblogin}
+\end{figure}
+
+\subsubsection{Diagram Alir \textit{WiFi Web Login}}
+\label{subsubsec:diagram_alir_wifi_web_login}
+
+Langkah-langkah yang perlu ditempuh oleh aplikasi \textit{WiFi Web Login} dapat digambarkan oleh diagram alir.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.85]{Gambar/WifiWebLogin.png}
+    \caption[Diagram alir proses yang perlu dilalui oleh aplikasi \textit{WiFi Web Login}.]{Diagram alir proses yang perlu dilalui oleh aplikasi \textit{WiFi Web Login}.} 
+    \label{fig:wifiweblogin}
+\end{figure}
+
+Berdasarkan gambar \ref{fig:wifiweblogin}, langkah-langkah yang harus ditempuh untuk melakukan \textit{login} wifi berbasis web pada aplikasi ini adalah:
+
+\begin{enumerate}
+    \item{Deteksi sambungan dengan wifi yang bersangkutan.}
+    \item{Deteksi hubungan dengan internet.}
+    \item{Jika tidak terjadi hubungan dengan internet, deteksi apakah tersimpan informasi login untuk wifi yang bersangkutan.}
+    \item{Jika terdapat informasi login untuk wifi yang bersangkutan maka lakukan login otomatis.}
+    \item{Jika tidak terdapat informasi login untuk wifi yang bersangkutan maka rekam informasi login dan lakukan login.}
+\end{enumerate}
+
+Setelah pengguna sudah pernah melakukan login pertama kali menggunakan aplikasi tersebut, maka aplikasi akan melakukan login otomatis setiap kali terhubung dengan wifi yang bersangkutan.

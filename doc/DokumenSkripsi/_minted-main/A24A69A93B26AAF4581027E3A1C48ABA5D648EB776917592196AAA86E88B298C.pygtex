@@ -1,6 +1,7 @@
 \begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8}]
 \PYG{k}{using} \PYG{n+nn}{System}\PYG{p}{;}
 \PYG{k}{using} \PYG{n+nn}{System.Collections.Generic}\PYG{p}{;}
+\PYG{k}{using} \PYG{n+nn}{System.Diagnostics}\PYG{p}{;}
 \PYG{k}{using} \PYG{n+nn}{System.IO}\PYG{p}{;}
 \PYG{k}{using} \PYG{n+nn}{System.Linq}\PYG{p}{;}
 \PYG{k}{using} \PYG{n+nn}{System.Runtime.InteropServices.WindowsRuntime}\PYG{p}{;}
@@ -53,12 +54,22 @@
                 \PYG{p}{\PYGZcb{}}
             \PYG{p}{\PYGZcb{}}
 
+            \PYG{n}{taskName} \PYG{p}{=} \PYG{l+s}{\PYGZdq{}NetChangeDetectorBackgroundTask\PYGZdq{}}\PYG{p}{;}
+
+            \PYG{k}{foreach} \PYG{p}{(}\PYG{k+kt}{var} \PYG{n}{task} \PYG{k}{in} \PYG{n}{BackgroundTaskRegistration}\PYG{p}{.}\PYG{n}{AllTasks}\PYG{p}{)} \PYG{p}{\PYGZob{}}
+                \PYG{k}{if} \PYG{p}{(}\PYG{n}{task}\PYG{p}{.}\PYG{n}{Value}\PYG{p}{.}\PYG{n}{Name} \PYG{p}{==} \PYG{n}{taskName}\PYG{p}{)} \PYG{p}{\PYGZob{}}
+                    \PYG{n}{task}\PYG{p}{.}\PYG{n}{Value}\PYG{p}{.}\PYG{n}{Unregister}\PYG{p}{(}\PYG{k}{true}\PYG{p}{);}
+                \PYG{p}{\PYGZcb{}}
+            \PYG{p}{\PYGZcb{}}
+
             \PYG{k}{if} \PYG{p}{(!}\PYG{n}{taskRegistered}\PYG{p}{)} \PYG{p}{\PYGZob{}}
+                \PYG{n}{Debug}\PYG{p}{.}\PYG{n}{WriteLine}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}Register Task\PYGZdq{}}\PYG{p}{);}
+
                 \PYG{c+c1}{// Register task}
                 \PYG{k+kt}{var} \PYG{n}{builder} \PYG{p}{=} \PYG{k}{new} \PYG{n}{BackgroundTaskBuilder}\PYG{p}{();}
 
                 \PYG{n}{builder}\PYG{p}{.}\PYG{n}{Name} \PYG{p}{=} \PYG{n}{taskName}\PYG{p}{;}
-                \PYG{n}{builder}\PYG{p}{.}\PYG{n}{TaskEntryPoint} \PYG{p}{=} \PYG{l+s}{\PYGZdq{}WiFiWebAutoLogin.RuntimeComponents.CustomBackgroundTask\PYGZdq{}}\PYG{p}{;}
+                \PYG{n}{builder}\PYG{p}{.}\PYG{n}{TaskEntryPoint} \PYG{p}{=} \PYG{l+s}{\PYGZdq{}WiFiWebAutoLogin.RuntimeComponents.NetChangeDetectorBackgroundTask\PYGZdq{}}\PYG{p}{;}
                 \PYG{n}{builder}\PYG{p}{.}\PYG{n}{SetTrigger}\PYG{p}{(}\PYG{k}{new} \PYG{n}{SystemTrigger}\PYG{p}{(}\PYG{n}{SystemTriggerType}\PYG{p}{.}\PYG{n}{NetworkStateChange}\PYG{p}{,} \PYG{k}{false}\PYG{p}{));}
                 \PYG{n}{builder}\PYG{p}{.}\PYG{n}{AddCondition}\PYG{p}{(}\PYG{k}{new} \PYG{n}{SystemCondition}\PYG{p}{(}\PYG{n}{SystemConditionType}\PYG{p}{.}\PYG{n}{UserPresent}\PYG{p}{));}
                 \PYG{n}{BackgroundTaskRegistration} \PYG{n}{task} \PYG{p}{=} \PYG{n}{builder}\PYG{p}{.}\PYG{n}{Register}\PYG{p}{();}

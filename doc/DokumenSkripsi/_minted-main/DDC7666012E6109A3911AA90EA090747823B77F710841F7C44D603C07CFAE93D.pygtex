@@ -1,7 +1,7 @@
 \begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8}]
 \PYG{c+cp}{\PYGZlt{}?xml version=\PYGZdq{}1.0\PYGZdq{} encoding=\PYGZdq{}utf\PYGZhy{}8\PYGZdq{}?\PYGZgt{}}
 \PYG{n+nt}{\PYGZlt{}Package} \PYG{n+na}{xmlns=}\PYG{l+s}{\PYGZdq{}http://schemas.microsoft.com/appx/manifest/foundation/windows10\PYGZdq{}} \PYG{n+na}{xmlns:mp=}\PYG{l+s}{\PYGZdq{}http://schemas.microsoft.com/appx/2014/phone/manifest\PYGZdq{}} \PYG{n+na}{xmlns:uap=}\PYG{l+s}{\PYGZdq{}http://schemas.microsoft.com/appx/manifest/uap/windows10\PYGZdq{}} \PYG{n+na}{IgnorableNamespaces=}\PYG{l+s}{\PYGZdq{}uap mp\PYGZdq{}}\PYG{n+nt}{\PYGZgt{}}
-  \PYG{n+nt}{\PYGZlt{}Identity} \PYG{n+na}{Name=}\PYG{l+s}{\PYGZdq{}24a4f351\PYGZhy{}3e45\PYGZhy{}4b12\PYGZhy{}946e\PYGZhy{}bfc3593444b4\PYGZdq{}} \PYG{n+na}{Publisher=}\PYG{l+s}{\PYGZdq{}CN=Yohanes Mario\PYGZdq{}} \PYG{n+na}{Version=}\PYG{l+s}{\PYGZdq{}1.0.0.0\PYGZdq{}} \PYG{n+nt}{/\PYGZgt{}}
+  \PYG{n+nt}{\PYGZlt{}Identity} \PYG{n+na}{Name=}\PYG{l+s}{\PYGZdq{}com.yohanesmario.WiFiWebAutoLogin\PYGZdq{}} \PYG{n+na}{Publisher=}\PYG{l+s}{\PYGZdq{}CN=Yohanes Mario\PYGZdq{}} \PYG{n+na}{Version=}\PYG{l+s}{\PYGZdq{}1.0.1.0\PYGZdq{}} \PYG{n+nt}{/\PYGZgt{}}
   \PYG{n+nt}{\PYGZlt{}mp:PhoneIdentity} \PYG{n+na}{PhoneProductId=}\PYG{l+s}{\PYGZdq{}24a4f351\PYGZhy{}3e45\PYGZhy{}4b12\PYGZhy{}946e\PYGZhy{}bfc3593444b4\PYGZdq{}} \PYG{n+na}{PhonePublisherId=}\PYG{l+s}{\PYGZdq{}00000000\PYGZhy{}0000\PYGZhy{}0000\PYGZhy{}0000\PYGZhy{}000000000000\PYGZdq{}} \PYG{n+nt}{/\PYGZgt{}}
   \PYG{n+nt}{\PYGZlt{}Properties\PYGZgt{}}
     \PYG{n+nt}{\PYGZlt{}DisplayName\PYGZgt{}}WiFiWebAutoLogin\PYG{n+nt}{\PYGZlt{}/DisplayName\PYGZgt{}}
@@ -22,7 +22,7 @@
         \PYG{n+nt}{\PYGZlt{}uap:SplashScreen} \PYG{n+na}{Image=}\PYG{l+s}{\PYGZdq{}Assets\PYGZbs{}SplashScreen.png\PYGZdq{}} \PYG{n+nt}{/\PYGZgt{}}
       \PYG{n+nt}{\PYGZlt{}/uap:VisualElements\PYGZgt{}}
       \PYG{n+nt}{\PYGZlt{}Extensions\PYGZgt{}}
-        \PYG{n+nt}{\PYGZlt{}Extension} \PYG{n+na}{Category=}\PYG{l+s}{\PYGZdq{}windows.backgroundTasks\PYGZdq{}} \PYG{n+na}{EntryPoint=}\PYG{l+s}{\PYGZdq{}WiFiWebAutoLogin.RuntimeComponents.CustomBackgroundTask\PYGZdq{}}\PYG{n+nt}{\PYGZgt{}}
+        \PYG{n+nt}{\PYGZlt{}Extension} \PYG{n+na}{Category=}\PYG{l+s}{\PYGZdq{}windows.backgroundTasks\PYGZdq{}} \PYG{n+na}{EntryPoint=}\PYG{l+s}{\PYGZdq{}WiFiWebAutoLogin.RuntimeComponents.NetChangeDetectorBackgroundTask\PYGZdq{}}\PYG{n+nt}{\PYGZgt{}}
           \PYG{n+nt}{\PYGZlt{}BackgroundTasks\PYGZgt{}}
             \PYG{n+nt}{\PYGZlt{}Task} \PYG{n+na}{Type=}\PYG{l+s}{\PYGZdq{}systemEvent\PYGZdq{}} \PYG{n+nt}{/\PYGZgt{}}
           \PYG{n+nt}{\PYGZlt{}/BackgroundTasks\PYGZgt{}}
