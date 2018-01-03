@@ -55,6 +55,13 @@ Bagian ini menjelaskan mengenai diagram \textit{use case} dan diagram kelas pera
 \subsection{Analisis Kelas}
 \label{sec:analisis_kelas}
 
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.85]{Gambar/classdiagram.png}
+    \caption[Diagram kelas untuk perangkat lunak yang dibangun.]{Diagram kelas untuk perangkat lunak yang dibangun.}
+    \label{fig:diagramkelas}
+\end{figure}
+
 Diagram kelas untuk perangkat lunak yang dibangun dapat dilihat pada gambar \ref{fig:diagramkelas}. Seperti pada gambar \ref{fig:diagramkelas}, kelas-kelas yang dibutuhkan pada perangkat lunak ini adalah:
 
 \begin{itemize}
@@ -62,26 +69,56 @@ Diagram kelas untuk perangkat lunak yang dibangun dapat dilihat pada gambar \ref
     {
         \\Atribut:
         \begin{itemize}
-            \item{fileName}
-            \item{loginInformations}
-            \item{encryptionPassword}
+            \item{storage: Kelas yang menangani penyimpanan informasi login.}
+            \item{webView: Kelas bawaan UWP yang berfungsi sebagai pengganti \textit{web browser}.}
         \end{itemize}
         Metode:
         \begin{itemize}
-            \item{test}
+            \item{probeConnection(): Metode untuk mendeteksi \textit{captive portal}.}
         \end{itemize}
     }
     \item{Storage\\Kelas ini digunakan untuk menyimpan seluruh informasi login dalam bentuk file teks yang sudah terenkripsi.}
+    {
+        \\Atribut:
+        \begin{itemize}
+            \item{fileName: Nama file yang digunakan untuk menyimpan informasi login.}
+            \item{loginInformations: Representasi kelas dari informasi login yang ingin disimpan.}
+            \item{encryptionPassword: \textit{Password} yang digunakan untuk melakukan enkripsi terhadap file yang digunakan untuk menyimpan informasi login.}
+        \end{itemize}
+        Metode:
+        \begin{itemize}
+            \item{getInformationLogin(key:String): Metode untuk mengambil informasi login berdasarkan suatu \textit{unique key}.}
+            \item{addInformationLogin(info:LoginInformation): Metode untuk menambahkan informasi login baru.}
+            \item{removeInformationLogin(key:String): Metode untuk menghapus informasi login yang sudah disimpan berdasarkan suatu \textit{unique key}.}
+        \end{itemize}
+    }
     \item{LoginInformation\\Kelas ini digunakan untuk menyimpan informasi login dalam bentuk key atau fingerprint, serta ActionSequence}
+    {
+        \\Atribut:
+        \begin{itemize}
+            \item{key: \textit{Unique key} yang digunakan untuk mengidentifikasi \textit{instance} LoginInformation ini.}
+            \item{actionSequence: Kelas yang berisi langkah-langkah login.}
+        \end{itemize}
+        Metode:
+        \begin{itemize}
+            \item{getKey(): Metode untuk mengambil key.}
+            \item{getActionSequence(): Metode untuk mengambil actionSequence.}
+        \end{itemize}
+    }
     \item{ActionSequence\\Kelas ini digunakan untuk menyimpan langkah-langkah login dalam bentuk urutan aksi dan nilai-nilai yang berkaitan dengan aksi tersebut.}
+    {
+        \\Atribut:
+        \begin{itemize}
+            \item{actions: Urutan aksi yang perlu dilakukan selama login.}
+            \item{values: Daftar nilai-nilai yang berkaitan dengan aksi-aksi tersebut.}
+        \end{itemize}
+        Metode:
+        \begin{itemize}
+            \item{getActions(): Metode untuk mengambil actions.}
+            \item{getValues(): Metode untuk mengambil values.}
+        \end{itemize}
+    }
 \end{itemize}
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[scale=0.85]{Gambar/classdiagram.png}
-    \caption[Diagram kelas untuk perangkat lunak yang dibangun.]{Diagram kelas untuk perangkat lunak yang dibangun.}
-    \label{fig:diagramkelas}
-\end{figure}
 
 \subsection{Analisis \textit{Use Case}}
 \label{sec:analisis_use_case}
@@ -90,7 +127,7 @@ Diagram \textit{use case} untuk perangkat lunak yang dibangun dapat dilihat pada
 
 \begin{figure}[h]
     \centering
-    \includegraphics[scale=0.77]{Gambar/usecase.png}
+    \includegraphics[scale=0.6]{Gambar/usecase.png}
     \caption[Diagram \textit{use case} untuk perangkat lunak yang dibangun.]{Diagram \textit{use case} untuk perangkat lunak yang dibangun.}
     \label{fig:usecase}
 \end{figure}
@@ -117,20 +154,6 @@ Skenario:
 \begin{enumerate}
     \item{Pengguna memilih untuk menghapus informasi login.}
     \item{Sistem menghapus informasi login.}
-\end{enumerate}
-
-\subsubsection{Skenario mengubah informasi login}
-Nama: Mengubah informasi login\\
-Aktor: Pengguna\\
-Kondisi awal: Perangkat lunak sudah dijalankan.\\
-Deskripsi: Pengguna mengubah informasi login.\\
-Kondisi Akhir: Informasi login diubah dari perangkat lunak.\\\\
-Skenario:
-\begin{enumerate}
-    \item{Pengguna memilih untuk mengubah informasi login.}
-    \item{Sistem menampilkan form ubah informasi login.}
-    \item{Pengguna memasukkan informasi login baru.}
-    \item{Sistem menghapus informasi login lama dan menyimpan informasi login baru.}
 \end{enumerate}
 
 \subsubsection{Skenario memicu login otomatis}
