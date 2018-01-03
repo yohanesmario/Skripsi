@@ -171,7 +171,17 @@ Skenario:
     \item{Sistem mendeteksi koneksi dengan internet dan klien sudah terotentikasi pada \textit{captive portal} tersebut.}
 \end{enumerate}
 
+\subsection{Analisis Alir}
+\label{sec:analisis_alir}
 
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.6]{Gambar/diagramalirPL.png}
+    \caption[Diagram alir untuk perangkat lunak yang dibangun.]{Diagram alir untuk perangkat lunak yang dibangun.}
+    \label{fig:diagramalir}
+\end{figure}
+
+Alir perangkat lunak yang dibangun dapat dilihat pada gambar \ref{fig:diagramalir}. Perangkat lunak akan memeriksa apakah terjadi perubahan jaringan dari tidak terhubung menjadi terhubung. Jika kondisi tersebut terpenuhi, maka perangkat lunak akan memeriksa apakah terhubung dengan internet. Jika tidak terhubung dengan internet, maka diasumsikan bahwa terdapat \textit{captive portal} dan perangkat lunak akan memeriksa apakah sudah ada informasi login terkait halaman yang termuat. Jika ada, maka perangkat lunak akan melakukan login otomatis. Akan tetapi jika tidak, perangkat lunak akan merekam terlebih dahulu informasi login, baru melakukan login otomatis.
 
 \section{Analisis Perangkat Lunak Sejenis}
 \label{sec:perangkat_lunak_sejenis}
@@ -220,4 +230,4 @@ Berdasarkan gambar \ref{fig:wifiweblogin}, langkah-langkah yang harus ditempuh u
     \item{Jika tidak terdapat informasi login untuk wifi yang bersangkutan maka rekam informasi login dan lakukan login.}
 \end{enumerate}
 
-Setelah pengguna sudah pernah melakukan login pertama kali menggunakan aplikasi tersebut, maka aplikasi akan melakukan login otomatis setiap kali terhubung dengan wifi yang bersangkutan.
+Setelah pengguna sudah pernah melakukan login pertama kali menggunakan aplikasi tersebut, maka aplikasi akan melakukan login otomatis setiap kali terhubung dengan wifi yang bersangkutan. Alir \textit{WiFi Web Login} memiliki prinsip yang sama dengan alir perangkat lunak yang dibangun sesuai dengan gambar \ref{fig:diagramalir}.
