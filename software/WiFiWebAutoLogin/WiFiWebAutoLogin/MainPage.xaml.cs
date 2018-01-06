@@ -34,15 +34,35 @@ namespace WiFiWebAutoLogin
         private ThreadPoolTimer timeoutTimer = null;
         private bool loaded = true;
 
+        private bool settings = true;
+
         public MainPage()
         {
             this.InitializeComponent();
+            settings = true;
+            this.toggleSettings();
             ApplicationView.GetForCurrentView().SetPreferredMinSize(new Size { Width = 600, Height = 150 });
             ApplicationView.PreferredLaunchViewSize = new Size(600, 150);
             ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
             MainWebView.Margin = new Thickness(0, int.MaxValue, 0, int.MinValue);
             textBlock.Text = "Initializing...";
             this.setup();
+        }
+
+        private void toggleSettings() {
+            if (settings == true) {
+                settings = false;
+                textBlock1.Opacity = 0;
+                button.Opacity = 0;
+                comboBox.Opacity = 0;
+                button1.Content = "Show Settings";
+            } else {
+                settings = true;
+                textBlock1.Opacity = 1;
+                button.Opacity = 1;
+                comboBox.Opacity = 1;
+                button1.Content = "Hide Settings";
+            }
         }
 
         private async void setup() {
@@ -117,6 +137,10 @@ namespace WiFiWebAutoLogin
 
         private void MainWebView_PermissionRequested(WebView sender, WebViewPermissionRequestedEventArgs args) {
             // DISABLED
+        }
+
+        private void button1_Click(object sender, RoutedEventArgs e) {
+            this.toggleSettings();
         }
     }
 }

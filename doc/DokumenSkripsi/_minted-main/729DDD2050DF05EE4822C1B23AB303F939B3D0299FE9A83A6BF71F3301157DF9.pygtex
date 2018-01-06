@@ -35,15 +35,35 @@
         \PYG{k}{private} \PYG{n}{ThreadPoolTimer} \PYG{n}{timeoutTimer} \PYG{p}{=} \PYG{k}{null}\PYG{p}{;}
         \PYG{k}{private} \PYG{k+kt}{bool} \PYG{n}{loaded} \PYG{p}{=} \PYG{k}{true}\PYG{p}{;}
 
+        \PYG{k}{private} \PYG{k+kt}{bool} \PYG{n}{settings} \PYG{p}{=} \PYG{k}{true}\PYG{p}{;}
+
         \PYG{k}{public} \PYG{n+nf}{MainPage}\PYG{p}{()}
         \PYG{p}{\PYGZob{}}
             \PYG{k}{this}\PYG{p}{.}\PYG{n}{InitializeComponent}\PYG{p}{();}
+            \PYG{n}{settings} \PYG{p}{=} \PYG{k}{true}\PYG{p}{;}
+            \PYG{k}{this}\PYG{p}{.}\PYG{n}{toggleSettings}\PYG{p}{();}
             \PYG{n}{ApplicationView}\PYG{p}{.}\PYG{n}{GetForCurrentView}\PYG{p}{().}\PYG{n}{SetPreferredMinSize}\PYG{p}{(}\PYG{k}{new} \PYG{n}{Size} \PYG{p}{\PYGZob{}} \PYG{n}{Width} \PYG{p}{=} \PYG{l+m}{600}\PYG{p}{,} \PYG{n}{Height} \PYG{p}{=} \PYG{l+m}{150} \PYG{p}{\PYGZcb{});}
             \PYG{n}{ApplicationView}\PYG{p}{.}\PYG{n}{PreferredLaunchViewSize} \PYG{p}{=} \PYG{k}{new} \PYG{n}{Size}\PYG{p}{(}\PYG{l+m}{600}\PYG{p}{,} \PYG{l+m}{150}\PYG{p}{);}
             \PYG{n}{ApplicationView}\PYG{p}{.}\PYG{n}{PreferredLaunchWindowingMode} \PYG{p}{=} \PYG{n}{ApplicationViewWindowingMode}\PYG{p}{.}\PYG{n}{PreferredLaunchViewSize}\PYG{p}{;}
             \PYG{n}{MainWebView}\PYG{p}{.}\PYG{n}{Margin} \PYG{p}{=} \PYG{k}{new} \PYG{n}{Thickness}\PYG{p}{(}\PYG{l+m}{0}\PYG{p}{,} \PYG{k+kt}{int}\PYG{p}{.}\PYG{n}{MaxValue}\PYG{p}{,} \PYG{l+m}{0}\PYG{p}{,} \PYG{k+kt}{int}\PYG{p}{.}\PYG{n}{MinValue}\PYG{p}{);}
             \PYG{n}{textBlock}\PYG{p}{.}\PYG{n}{Text} \PYG{p}{=} \PYG{l+s}{\PYGZdq{}Initializing...\PYGZdq{}}\PYG{p}{;}
             \PYG{k}{this}\PYG{p}{.}\PYG{n}{setup}\PYG{p}{();}
+        \PYG{p}{\PYGZcb{}}
+
+        \PYG{k}{private} \PYG{k}{void} \PYG{n+nf}{toggleSettings}\PYG{p}{()} \PYG{p}{\PYGZob{}}
+            \PYG{k}{if} \PYG{p}{(}\PYG{n}{settings} \PYG{p}{==} \PYG{k}{true}\PYG{p}{)} \PYG{p}{\PYGZob{}}
+                \PYG{n}{settings} \PYG{p}{=} \PYG{k}{false}\PYG{p}{;}
+                \PYG{n}{textBlock1}\PYG{p}{.}\PYG{n}{Opacity} \PYG{p}{=} \PYG{l+m}{0}\PYG{p}{;}
+                \PYG{n}{button}\PYG{p}{.}\PYG{n}{Opacity} \PYG{p}{=} \PYG{l+m}{0}\PYG{p}{;}
+                \PYG{n}{comboBox}\PYG{p}{.}\PYG{n}{Opacity} \PYG{p}{=} \PYG{l+m}{0}\PYG{p}{;}
+                \PYG{n}{button1}\PYG{p}{.}\PYG{n}{Content} \PYG{p}{=} \PYG{l+s}{\PYGZdq{}Show Settings\PYGZdq{}}\PYG{p}{;}
+            \PYG{p}{\PYGZcb{}} \PYG{k}{else} \PYG{p}{\PYGZob{}}
+                \PYG{n}{settings} \PYG{p}{=} \PYG{k}{true}\PYG{p}{;}
+                \PYG{n}{textBlock1}\PYG{p}{.}\PYG{n}{Opacity} \PYG{p}{=} \PYG{l+m}{1}\PYG{p}{;}
+                \PYG{n}{button}\PYG{p}{.}\PYG{n}{Opacity} \PYG{p}{=} \PYG{l+m}{1}\PYG{p}{;}
+                \PYG{n}{comboBox}\PYG{p}{.}\PYG{n}{Opacity} \PYG{p}{=} \PYG{l+m}{1}\PYG{p}{;}
+                \PYG{n}{button1}\PYG{p}{.}\PYG{n}{Content} \PYG{p}{=} \PYG{l+s}{\PYGZdq{}Hide Settings\PYGZdq{}}\PYG{p}{;}
+            \PYG{p}{\PYGZcb{}}
         \PYG{p}{\PYGZcb{}}
 
         \PYG{k}{private} \PYG{k}{async} \PYG{k}{void} \PYG{n+nf}{setup}\PYG{p}{()} \PYG{p}{\PYGZob{}}
@@ -118,6 +138,10 @@
 
         \PYG{k}{private} \PYG{k}{void} \PYG{n+nf}{MainWebView\PYGZus{}PermissionRequested}\PYG{p}{(}\PYG{n}{WebView} \PYG{n}{sender}\PYG{p}{,} \PYG{n}{WebViewPermissionRequestedEventArgs} \PYG{n}{args}\PYG{p}{)} \PYG{p}{\PYGZob{}}
             \PYG{c+c1}{// DISABLED}
+        \PYG{p}{\PYGZcb{}}
+
+        \PYG{k}{private} \PYG{k}{void} \PYG{n+nf}{button1\PYGZus{}Click}\PYG{p}{(}\PYG{k+kt}{object} \PYG{n}{sender}\PYG{p}{,} \PYG{n}{RoutedEventArgs} \PYG{n}{e}\PYG{p}{)} \PYG{p}{\PYGZob{}}
+            \PYG{k}{this}\PYG{p}{.}\PYG{n}{toggleSettings}\PYG{p}{();}
         \PYG{p}{\PYGZcb{}}
     \PYG{p}{\PYGZcb{}}
 \PYG{p}{\PYGZcb{}}

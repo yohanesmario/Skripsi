@@ -16,6 +16,7 @@
             <Button x:Name="button" Content="Delete" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Click="button_Click" RequestedTheme="Dark"/>
             <ComboBox x:Name="comboBox" HorizontalAlignment="Right" Margin="0,0,78,10" VerticalAlignment="Bottom" Width="200" RequestedTheme="Dark"/>
             <TextBlock x:Name="textBlock1" HorizontalAlignment="Right" Margin="0,0,283,16" TextWrapping="Wrap" Text="Recorded WiFi :" VerticalAlignment="Bottom" RequestedTheme="Dark"/>
+            <Button x:Name="button1" Content="Show Settings" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Click="button1_Click"/>
         </Grid>
     </Grid>
 </Page>

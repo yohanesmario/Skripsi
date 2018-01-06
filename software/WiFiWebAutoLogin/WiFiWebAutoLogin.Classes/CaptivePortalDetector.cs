@@ -99,7 +99,9 @@ namespace WiFiWebAutoLogin.Classes {
                     this.refreshList();
                 }
 
-                if (!body.Trim().Equals("connected")) {
+                Debug.WriteLine(body);
+
+                if (!body.Trim().Equals("<pre>Microsoft NCSI</pre>")) {
                     // Not Connected
 
                     if (hasActionSequence) {

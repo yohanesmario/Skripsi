@@ -7,7 +7,7 @@
 
 \PYG{k}{namespace} \PYG{n+nn}{WiFiWebAutoLogin.Classes} \PYG{p}{\PYGZob{}}
     \PYG{k}{class} \PYG{n+nc}{Conf} \PYG{p}{\PYGZob{}}
-        \PYG{k}{public} \PYG{k}{static} \PYG{k}{readonly} \PYG{k+kt}{string} \PYG{n}{uri} \PYG{p}{=} \PYG{l+s}{\PYGZdq{}http://107.172.253.111/network\PYGZus{}status.html\PYGZdq{}}\PYG{p}{;}
+        \PYG{k}{public} \PYG{k}{static} \PYG{k}{readonly} \PYG{k+kt}{string} \PYG{n}{uri} \PYG{p}{=} \PYG{l+s}{\PYGZdq{}http://www.msftncsi.com/ncsi.txt\PYGZdq{}}\PYG{p}{;}
         \PYG{k}{public} \PYG{k}{static} \PYG{k}{readonly} \PYG{k+kt}{string} \PYG{n}{resource} \PYG{p}{=} \PYG{l+s}{\PYGZdq{}WiFiWebAutoLogin\PYGZdq{}}\PYG{p}{;}
         \PYG{k}{public} \PYG{k}{static} \PYG{k}{readonly} \PYG{k+kt}{string} \PYG{n}{username} \PYG{p}{=} \PYG{l+s}{\PYGZdq{}userWiFiWebAutoLogin\PYGZdq{}}\PYG{p}{;}
         \PYG{k}{public} \PYG{k}{static} \PYG{k}{readonly} \PYG{k+kt}{string} \PYG{n}{separator} \PYG{p}{=} \PYG{l+s}{\PYGZdq{}\PYGZlt{}::\PYGZgt{}\PYGZdq{}}\PYG{p}{;}

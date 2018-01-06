@@ -100,7 +100,9 @@
                     \PYG{k}{this}\PYG{p}{.}\PYG{n}{refreshList}\PYG{p}{();}
                 \PYG{p}{\PYGZcb{}}
 
-                \PYG{k}{if} \PYG{p}{(!}\PYG{n}{body}\PYG{p}{.}\PYG{n}{Trim}\PYG{p}{().}\PYG{n}{Equals}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}connected\PYGZdq{}}\PYG{p}{))} \PYG{p}{\PYGZob{}}
+                \PYG{n}{Debug}\PYG{p}{.}\PYG{n}{WriteLine}\PYG{p}{(}\PYG{n}{body}\PYG{p}{);}
+
+                \PYG{k}{if} \PYG{p}{(!}\PYG{n}{body}\PYG{p}{.}\PYG{n}{Trim}\PYG{p}{().}\PYG{n}{Equals}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}\PYGZlt{}pre\PYGZgt{}Microsoft NCSI\PYGZlt{}/pre\PYGZgt{}\PYGZdq{}}\PYG{p}{))} \PYG{p}{\PYGZob{}}
                     \PYG{c+c1}{// Not Connected}
 
                     \PYG{k}{if} \PYG{p}{(}\PYG{n}{hasActionSequence}\PYG{p}{)} \PYG{p}{\PYGZob{}}
