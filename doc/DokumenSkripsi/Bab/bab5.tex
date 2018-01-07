@@ -31,6 +31,29 @@ Perancangan yang tertulis pada bab 4 sudah merupakan hasil revisi dari analisis 
 
 
 
+\section{Implementasi Antarmuka}
+\label{sec:implementasi_antarmuka}
+
+Implementasi antarmuka dibuat sesuai perancangan pada Bab 4. Antarmuka memiliki komponen utama yang berada di tengah yang dapat menampilkan pesan berhasil atau pesan-pesan lainnya, serta komponen di bagian bawah yang menampilkan \textit{settings} yang berisi daftar SSID WiFi yang sudah terekam pada perangkat lunak, serta tombol \textit{delete} untuk menghapus SSID yang dipilih dari daftar tersebut.
+
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[scale=0.9]{Gambar/ui_hidden.png}
+    \caption[Antarmuka dengan \textit{settings} yang tersembunyi.]{Antarmuka dengan \textit{settings} yang tersembunyi.} 
+    \label{fig:ui_hidden}
+\end{figure}
+
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[scale=0.9]{Gambar/ui_shown.png}
+    \caption[Antarmuka dengan \textit{settings} yang tampak.]{Antarmuka dengan \textit{settings} yang tampak.} 
+    \label{fig:ui_shown}
+\end{figure}
+
+Gambar \ref{fig:ui_hidden} menampilkan antarmuka dengan \textit{settings} yang belum muncul dan gambar \ref{fig:ui_shown} menampilkan antamuka dengan \textit{settings} yang sudah muncul. \textit{Settings} akan tersembunyi pada saat antarmuka pertama kali muncul, dan akan muncul pada saat pengguna menekan tombol \textit{Show Settings}.
+
+
+
 \section{Pengujian Fungsional}
 \label{sec:pengujian_fungsional}
 
